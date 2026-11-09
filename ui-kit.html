@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAAPID UI Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --violet: #5E58E0; --green: #CEDE00; --indigo: #21154A; --white: #F6F4F4; --black: #010101;
+    --n20: #E6E6E6; --n30: #C3C3C3; --n40: #8C8C8C; --n50: #6E6E6E; --n60: #434343; --n80: #202020;
+    --font: "Geist", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font); background: var(--white); color: var(--indigo); line-height: 1.4; }
+  header { background: var(--indigo); color: var(--white); padding: 20px 40px 0; }
+  header .top { display: flex; align-items: center; gap: 16px; padding-bottom: 16px; }
+  header .top svg { height: 28px; width: auto; }
+  header .top span { font-weight: 300; font-size: 14px; opacity: .7; border-left: 1px solid rgba(246,244,244,.3); padding-left: 16px; }
+  nav { display: flex; gap: 4px; }
+  nav button { font: 400 15px var(--font); color: var(--white); background: none; border: 0; padding: 12px 22px; cursor: pointer; opacity: .65; border-bottom: 3px solid transparent; }
+  nav button:hover { opacity: 1; }
+  nav button[aria-selected="true"] { opacity: 1; border-bottom-color: var(--green); }
+  main { max-width: 1200px; margin: 0 auto; padding: 48px 40px 96px; }
+  section[hidden] { display: none; }
+  h1 { font-weight: 300; font-size: 48px; line-height: 1.1; margin: 0 0 8px; }
+  .lead { font-size: 18px; color: var(--n60); max-width: 64ch; margin: 0 0 40px; }
+  h2 { font-weight: 400; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--n50); margin: 48px 0 16px; }
+
+  /* Colour */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+  .sw { border: 1px solid var(--n20); border-radius: 12px; overflow: hidden; background: #fff; cursor: pointer; text-align: left; padding: 0; font: inherit; color: inherit; }
+  .sw .chip { height: 96px; }
+  .sw .meta { padding: 12px 14px 14px; }
+  .sw b { display: block; font-weight: 500; font-size: 15px; }
+  .sw code { font: 400 13px var(--font); color: var(--n50); display: block; }
+  .grads { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .grads .chip { height: 140px; border-radius: 12px; }
+  .grads p { margin: 8px 0 0; font-size: 14px; color: var(--n50); }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--indigo); color: var(--white); padding: 10px 18px; border-radius: 8px; font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .toast.on { opacity: 1; }
+  .contrast { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+  .contrast div { border-radius: 10px; padding: 14px; font-size: 14px; border: 1px solid var(--n20); }
+  .contrast b { display: block; font-size: 22px; font-weight: 400; }
+  .note { font-size: 15px; color: var(--n60); max-width: 70ch; }
+
+  /* Type */
+  .spec { display: grid; grid-template-columns: 170px 1fr; gap: 8px 32px; align-items: baseline; border-top: 1px solid var(--n20); padding: 20px 0; }
+  .spec .tag { font-size: 13px; color: var(--n50); }
+  .spec .tag b { display: block; color: var(--indigo); font-weight: 500; font-size: 14px; }
+  .spec .sample { overflow-wrap: anywhere; }
+  .glyphs { font-weight: 300; font-size: 56px; letter-spacing: .02em; word-break: break-all; }
+  .fallback { font-family: Arial, sans-serif; font-size: 40px; }
+
+  /* Logo */
+  .logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+  .logo-card { border-radius: 14px; overflow: hidden; border: 1px solid var(--n20); }
+  .logo-card .stage { aspect-ratio: 16/9; display: grid; place-items: center; }
+  .logo-card .stage svg { width: 62%; height: auto; }
+  .logo-card .cap { background: #fff; color: var(--indigo); padding: 12px 14px; font-size: 14px; }
+  .logo-card .cap span { display: block; color: var(--n50); font-size: 13px; }
+  .elements { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
+  .elements svg { height: 140px; width: auto; }
+  .rules { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .rules div { background: #fff; border: 1px solid var(--n20); border-radius: 12px; padding: 16px; font-size: 15px; }
+  .rules div b { display: block; margin-bottom: 4px; font-weight: 500; }
+
+  /* CTA buttons: split label + arrow chip with slanted joint */
+  .cta{--r:16px;--slant:-14deg;display:inline-flex;align-items:stretch;gap:8px;height:52px;font:500 .875rem var(--font);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;cursor:pointer;border:0;background:none;padding:0;isolation:isolate}
+  .cta-l,.cta-a{position:relative;display:flex;align-items:center;justify-content:center}
+  .cta-l{padding:0 28px 0 26px;color:var(--lf)}
+  .cta-a{width:56px;color:var(--af)}
+  .cta-l::before,.cta-l::after,.cta-a::before,.cta-a::after{content:"";position:absolute;top:0;bottom:0;z-index:-1}
+  .cta-l::before,.cta-l::after{background:var(--l)}
+  .cta-a::before,.cta-a::after{background:var(--a)}
+  .cta-l::before{left:0;width:60%;border-radius:var(--r) 0 0 var(--r)}
+  .cta-l::after{right:0;width:60%;border-radius:0 var(--r) var(--r) 0;transform:skewX(var(--slant))}
+  .cta-a::before{left:0;width:60%;border-radius:var(--r) 0 0 var(--r);transform:skewX(var(--slant))}
+  .cta-a::after{right:0;width:60%;border-radius:0 var(--r) var(--r) 0}
+  .cta svg{width:18px;height:18px;transition:transform .15s}
+  .cta:hover svg,.cta.is-hover svg{transform:translateX(4px)}
+  .cta:hover .cta-l::before,.cta:hover .cta-l::after,.cta.is-hover .cta-l::before,.cta.is-hover .cta-l::after,.cta:hover .cta-a::before,.cta:hover .cta-a::after,.cta.is-hover .cta-a::before,.cta.is-hover .cta-a::after{filter:brightness(.9)}
+  .cta:focus-visible{outline:2px solid currentColor;outline-offset:6px;border-radius:8px}
+  .cta-t{height:auto;gap:10px;align-items:center;color:var(--tf);padding:6px 0;border-bottom:1px solid transparent}
+  .cta-t svg{color:var(--taf)}
+  .cta-t:hover,.cta-t.is-hover{border-bottom-color:currentColor}
+  .cta-p{--l:var(--p-l);--lf:var(--p-lf);--a:var(--p-a);--af:var(--p-af)}
+  .cta-s{--l:var(--s-l);--lf:var(--s-lf);--a:var(--s-a);--af:var(--s-af)}
+  .cta-t{--tf:var(--t-f);--taf:var(--t-a)}
+  .cbg{border-radius:16px;padding:32px;margin-bottom:20px}
+  .cbg>h3{margin:0 0 24px;font:500 .8125rem var(--font);letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+  .crow{display:grid;grid-template-columns:110px 1fr 1fr;gap:16px 32px;align-items:center;padding:18px 0;border-top:1px solid currentColor;border-color:color-mix(in srgb,currentColor 20%,transparent)}
+  .crow .k{font-size:.8125rem;opacity:.8}
+  .crow .states{display:contents}
+  .cbg-white{background:#F6F4F4;color:#21154A;border:1px solid var(--n20);--p-l:#21154A;--p-lf:#F6F4F4;--p-a:#5E58E0;--p-af:#F6F4F4;--s-l:#E6E6E6;--s-lf:#21154A;--s-a:#C3C3C3;--s-af:#21154A;--t-f:#21154A;--t-a:#5E58E0}
+  .cbg-indigo{background:#21154A;color:#F6F4F4;--p-l:#5E58E0;--p-lf:#F6F4F4;--p-a:#CEDE00;--p-af:#21154A;--s-l:#F6F4F4;--s-lf:#21154A;--s-a:#5E58E0;--s-af:#F6F4F4;--t-f:#F6F4F4;--t-a:#CEDE00}
+  .cbg-black{background:#010101;color:#F6F4F4;--p-l:#5E58E0;--p-lf:#F6F4F4;--p-a:#CEDE00;--p-af:#010101;--s-l:#434343;--s-lf:#F6F4F4;--s-a:#F6F4F4;--s-af:#010101;--t-f:#F6F4F4;--t-a:#CEDE00}
+  .cbg-violet{background:#5E58E0;color:#F6F4F4;--p-l:#21154A;--p-lf:#F6F4F4;--p-a:#CEDE00;--p-af:#21154A;--s-l:#F6F4F4;--s-lf:#21154A;--s-a:#21154A;--s-af:#F6F4F4;--t-f:#F6F4F4;--t-a:#F6F4F4}
+  @media (max-width: 640px){.crow{grid-template-columns:1fr}.cbg{padding:24px 20px}}
+
+  /* Simple buttons */
+  .bs{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 24px;border-radius:999px;font:500 .9375rem var(--font);letter-spacing:.01em;text-decoration:none;white-space:nowrap;cursor:pointer;border:1.5px solid transparent;transition:background .15s,color .15s,border-color .15s}
+  .bs svg{width:16px;height:16px;transition:transform .15s}
+  .bs:hover svg,.bs.is-hover svg{transform:translateX(3px)}
+  .bs:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+  .bs-p{background:var(--bp);color:var(--bpf)}
+  .bs-p:hover,.bs-p.is-hover{background:var(--bph);color:var(--bphf,var(--bpf))}
+  .bs-s{background:transparent;color:var(--bsf);border-color:var(--bsb)}
+  .bs-s:hover,.bs-s.is-hover{background:var(--bsh);color:var(--bshf);border-color:var(--bsh)}
+  .bs-t{height:auto;padding:6px 0;border-radius:0;color:var(--btf);border-bottom:1.5px solid transparent}
+  .bs-t svg{color:var(--bta)}
+  .bs-t:hover,.bs-t.is-hover{border-bottom-color:currentColor}
+  .cbg-white{--bp:#21154A;--bpf:#F6F4F4;--bph:#5E58E0;--bsf:#21154A;--bsb:#21154A;--bsh:#21154A;--bshf:#F6F4F4;--btf:#21154A;--bta:#5E58E0}
+  .cbg-indigo{--bp:#5E58E0;--bpf:#F6F4F4;--bph:#F6F4F4;--bphf:#21154A;--bsf:#F6F4F4;--bsb:#F6F4F4;--bsh:#F6F4F4;--bshf:#21154A;--btf:#F6F4F4;--bta:#CEDE00}
+  .cbg-black{--bp:#5E58E0;--bpf:#F6F4F4;--bph:#F6F4F4;--bphf:#010101;--bsf:#F6F4F4;--bsb:#F6F4F4;--bsh:#F6F4F4;--bshf:#010101;--btf:#F6F4F4;--bta:#CEDE00}
+  .cbg-violet{--bp:#21154A;--bpf:#F6F4F4;--bph:#010101;--bsf:#F6F4F4;--bsb:#F6F4F4;--bsh:#F6F4F4;--bshf:#5E58E0;--btf:#F6F4F4;--bta:#F6F4F4}
+  @media (max-width: 640px) { main { padding: 32px 20px 72px; } header { padding: 16px 20px 0; } .spec { grid-template-columns: 1fr; } h1 { font-size: 36px; } nav button { padding: 12px 14px; } }
+</style>
+</head>
+<body>
+
+<!-- Logo symbol: fills driven by --mk (mark), --src (source of truth), --wm (wordmark) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo" viewBox="0 0 1135 283">
+      <g style="fill:var(--mk)">
+        <path d="M118.96 146.61L0 155.68C1.82 174.61 7.36 192.46 15.9 208.48L134.85 170C138.66 168.83 141.01 170.89 142.08 172.23C143.19 173.6 144.63 176.33 142.61 179.76L60.96 258.92C76.96 269.93 95.33 277.77 115.15 281.51L162.38 201.19C170.25 187.81 169.07 171.25 159.4 159.11C149.72 146.94 135.24 145.19 118.96 146.62V146.61Z"/>
+        <path d="M197.12 181.88C198.41 181.13 201 180.18 203.74 182.36L253.34 230.42C259.04 223.29 264.07 215.61 268.32 207.46L226.86 174.57C216.16 166.08 201.64 165.04 189.85 171.89C178.06 178.75 175.47 193.1 174.02 205.32L163.29 282.4C179.44 279.97 194.7 274.83 208.59 267.48L194.29 187.87C193.74 184.42 195.83 182.64 197.12 181.88Z"/>
+        <path d="M227.72 135.22L282.87 121.58C280.92 108.07 277.06 95.1802 271.58 83.1802L230.09 116.51C222.46 122.57 214 126.55 212.66 136.03C212.62 136.26 212.59 136.5 212.56 136.74C211.46 146.56 216.4 155.89 225.14 160.52L276.76 187.82C279.87 178.73 282.07 169.23 283.28 159.42L226.85 143.09C224.61 141.9 224.47 139.91 224.6 138.83C224.72 137.73 225.29 135.85 227.73 135.21L227.72 135.22Z"/>
+        <path d="M245.98 45.0899L205.45 103.4C203.51 105.04 201.61 104.41 200.66 103.9C199.69 103.38 198.15 102.15 198.47 99.6399L210.13 17.3499C193.55 8.30988 174.96 2.45988 155.2 0.629883L182.13 89.6799C184.9 99.0199 185.42 108.35 193.72 113.15C193.92 113.27 194.14 113.39 194.34 113.51C203.04 118.2 213.54 117.11 221.1 110.73L266.19 72.6499C260.57 62.6599 253.77 53.4199 245.97 45.1099L245.98 45.0899Z"/>
+        <path d="M82.18 13.02L151.03 102.89C152.74 106.49 151.03 109.1 149.86 110.35C148.68 111.58 146.15 113.46 142.46 111.95L23.5 62.88C12.06 79.83 4.19998 99.36 0.97998 120.42L122.02 136.77C138.58 138.74 152.77 137.18 163.46 125.89C174.15 114.6 174.81 99.74 170.03 84.22L142.26 0C142.12 0 141.98 0 141.84 0C120.54 0 100.33 4.67 82.18 13.02Z"/>
+      </g>
+      <path style="fill:var(--src)" d="M177.56 122.47L162.02 139.67C160.83 140.99 160.65 142.93 161.58 144.44L174.23 165.06C175.24 166.71 177.3 167.4 179.1 166.69L201.28 157.99C202.81 157.39 203.82 155.91 203.82 154.27V131.84C203.82 130.14 202.74 128.62 201.13 128.06L181.84 121.36C180.32 120.83 178.64 121.27 177.56 122.46V122.47Z"/>
+      <g style="fill:var(--wm)">
+        <path d="M487.35 168.74C486.55 163.86 484.9 159.79 482.47 156.56C479.63 152.85 475.1 149.93 468.99 147.82L460.69 144.96L468.95 141.97C484.23 136.42 491.69 126.47 491.69 111.6C491.69 100.18 486.83 90.9801 477.25 84.3501C467.43 77.5701 453.43 74.1201 435.61 74.1201H362.84V209.87H390.15V155.18H432.83C442.32 155.18 449.15 156.96 453.64 160.62C455.7 162.29 457.37 164.57 458.54 167.3C459.71 169.92 460.3 173 460.3 176.43V209.88H487.92V176.06C487.9 173.09 487.72 170.86 487.36 168.73V168.75L487.35 168.74ZM455.46 132.26C450.28 136.25 442.97 138.26 433.76 138.26H390.16V92.0401H432.63C442.23 92.0401 449.82 93.9501 455.18 97.7001C460.71 101.65 463.53 107.3 463.53 114.54C463.53 122.19 460.82 128.15 455.49 132.25H455.47L455.46 132.26Z"/>
+        <path d="M586.77 74.1401H552.8L491.82 209.89H519.63L532.36 179.11H607.17L620.11 209.89H648.81L586.74 74.1401H586.76H586.77ZM540.25 160.39L547.6 142.59C554.19 127.7 560.61 112.5 566.65 97.4101L569.51 90.2801L572.39 97.4101C580.04 116.36 586.52 131.53 591.68 142.61L599.31 160.39H540.24H540.25Z"/>
+        <path d="M734.7 74.1401H700.73L650.22 186.61L660.86 209.89H667.58L680.3 179.11H755.15L768.09 209.89H796.81L734.72 74.1401H734.68H734.7ZM688.2 160.39L695.55 142.59C702.14 127.7 708.53 112.5 714.6 97.4101L717.46 90.2801L720.34 97.4101C728.08 116.55 734.56 131.7 739.63 142.61L747.26 160.39H688.19H688.2Z"/>
+        <path d="M912.63 85.9499C902.74 78.1199 888.74 74.1299 870.96 74.1299H800.51V209.88H827.78V161.04H870.94C888.74 161.04 902.76 157.07 912.61 149.23C922.45 141.38 927.26 131.06 927.26 117.69C927.26 104.32 922.45 93.8199 912.61 85.9499H912.63ZM891.75 135.96C886.55 140.08 879.09 142.16 869.57 142.16H827.77V93.0199H869.57C879.06 93.0199 886.52 95.1399 891.77 99.3499C897.08 103.66 899.77 109.84 899.77 117.69C899.77 125.54 897.08 131.72 891.75 135.96Z"/>
+        <path d="M973.52 74.1401H946.25V209.89H973.52V74.1401Z"/>
+        <path d="M1113.2 92.2799C1099.28 80.2299 1079.19 74.1099 1053.46 74.1099H992.48V209.86H1053.46C1079.19 209.86 1099.28 203.68 1113.2 191.52C1127.03 179.53 1134.03 162.88 1134.03 142.01C1134.03 121.14 1127.03 104.36 1113.2 92.2799ZM1091.8 178.41C1082.68 186.76 1069.63 190.98 1053 190.98H1019.77V93.0199H1053C1069.63 93.0199 1082.68 97.2499 1091.8 105.59C1100.97 113.98 1105.61 126.25 1105.61 142.01C1105.61 157.77 1100.95 170.02 1091.8 178.41Z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="top">
+    <svg viewBox="0 0 1135 283" style="--mk:#F6F4F4;--src:#5E58E0;--wm:#F6F4F4" aria-label="RAAPID"><use href="#logo"/></svg>
+    <span>UI Kit · Website</span>
+  </div>
+  <nav role="tablist" aria-label="UI kit sections">
+    <button role="tab" id="t-typography" aria-selected="true" aria-controls="typography">Typography</button>
+    <button role="tab" id="t-colour" aria-selected="false" aria-controls="colour">Colour</button>
+    <button role="tab" id="t-logo" aria-selected="false" aria-controls="logo-tab">Logo</button>
+    <button role="tab" id="t-cta" aria-selected="false" aria-controls="cta">CTAs: Split</button>
+    <button role="tab" id="t-btn" aria-selected="false" aria-controls="buttons">CTAs: Simple</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ TYPOGRAPHY ============ -->
+<section id="typography" role="tabpanel" aria-labelledby="t-typography">
+  <h1>Typography</h1>
+  <p class="lead">Geist is the RAAPID typeface: precise and intelligent, with clean geometry that turns complex information into clarity. Free on Google Fonts. Arial is the system fallback.</p>
+
+  <h2>Typeface</h2>
+  <div class="spec">
+    <div class="tag"><b>Geist</b>200 · 300 · 400 · 500</div>
+    <div class="glyphs">Aa Bb Cc 0123456789</div>
+  </div>
+  <div class="spec">
+    <div class="tag"><b>System font</b>Arial Regular</div>
+    <div class="fallback">Aa Bb Cc 0123456789</div>
+  </div>
+
+  <h2>Type scale · Major Third (1.25)</h2>
+  <p class="note">Base 16px × 1.25 per step. Each size is the previous one × 1.25, rounded to the nearest 0.5px. Sizes are in rem (1rem = 16px) so they respect user font settings. The three largest steps are fluid and scale down on small screens.</p>
+  <div id="scale" style="margin-top:16px"></div>
+
+  <h2>Readability &amp; accessibility rules</h2>
+  <div class="rules">
+    <div><b>No thin weights on small text</b>Body, captions and labels use 400 or 500. Light (300) only from 39px up; ExtraLight (200) only at Display size and on light backgrounds.</div>
+    <div><b>Line height</b>Body copy 1.5–1.6 (meets WCAG 1.4.12 text spacing). Headings tighten as they grow: 1.4 down to 1.05.</div>
+    <div><b>Line length</b>45–75 characters per line (about 60ch) for paragraphs.</div>
+    <div><b>Tracking</b>Slightly negative on large headings (down to −0.03em), slightly positive on uppercase labels (+0.06em).</div>
+    <div><b>Minimum size</b>Never below 12.8px (0.8rem). Interactive text and form inputs stay at 16px or more.</div>
+    <div><b>Emphasis</b>Use weight 500, not 200 or 300, to emphasise. Do not rely on colour alone.</div>
+    <div><b>Contrast</b>Text meets 4.5:1 (3:1 for 24px+ / 19px bold). See the Colour tab for approved pairs.</div>
+    <div><b>Dark backgrounds</b>Light text on dark appears thinner. Step the weight up one level (300 → 400) below 61px.</div>
+  </div>
+
+  <h2>Application</h2>
+  <div class="spec">
+    <div class="tag"><b>Hero</b>Heading 2 + Body Large + CTA</div>
+    <div class="sample">
+      <div style="font-weight:200;font-size:64px;line-height:72px;max-width:16ch">Where clinical evidence drives your financial outcomes.</div>
+      <p style="font-size:24px;line-height:1.4;max-width:52ch;margin:24px 0">RAAPID’s clinical intelligence establishes what the clinical record supports, helping you act with confidence.</p>
+      <a href="#" style="display:inline-block;background:var(--violet);color:var(--white);padding:14px 28px;border-radius:999px;font-size:18px;text-decoration:none">Explore offerings</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLOUR ============ -->
+<section id="colour" role="tabpanel" aria-labelledby="t-colour" hidden>
+  <h1>Colour</h1>
+  <p class="lead">Click any swatch to copy its hex value.</p>
+
+  <h2>Brand palette</h2>
+  <div class="swatches" id="brand"></div>
+
+  <h2>Gradients</h2>
+  <div class="grads">
+    <div><div class="chip" style="background:linear-gradient(180deg,#5750DC,#21154A)"></div><p>Violet → Midnight Indigo · #5750DC → #21154A</p></div>
+    <div><div class="chip" style="background:#5750DC"></div><p>Violet · #5750DC</p></div>
+    <div><div class="chip" style="background:#21154A"></div><p>Midnight Indigo · #21154A</p></div>
+    <div><div class="chip" style="background:#CEDE00"></div><p>Signal Green · #CEDE00</p></div>
+  </div>
+
+  <h2>Neutrals</h2>
+  <p class="note">In a black and white-major interface, neutrals carry the hierarchy: depth, structure and emphasis.</p>
+  <div class="swatches" id="neutrals" style="margin-top:16px"></div>
+
+  <h2>Semantic colours · product dashboard</h2>
+  <div class="swatches" id="semantic"></div>
+
+  <h2>Accessibility · WebAIM contrast</h2>
+  <p class="note">Signal Green is not accessible on a white background. Always check the contrast ratio before pairing colours.</p>
+  <div class="contrast" id="contrast" style="margin-top:16px"></div>
+  <p class="note" style="margin-top:12px">Ratios are calculated from the hex values (WCAG 2.x). AA needs 4.5:1 for body text, 3:1 for large text.</p>
+</section>
+
+<!-- ============ LOGO ============ -->
+<section id="logo-tab" role="tabpanel" aria-labelledby="t-logo" hidden>
+  <h1>Logo</h1>
+  <p class="lead">Multiple signals. One clear point of convergence. Harmonious spacing, smoother corners, one focal point, directional.</p>
+
+  <h2>Primary logo</h2>
+  <div class="logos">
+    <div class="logo-card"><div class="stage" style="background:#F6F4F4;--mk:#21154A;--src:#5E58E0;--wm:#21154A"><svg viewBox="0 0 1135 283"><use href="#logo"/></svg></div><div class="cap">Light base<span>Indigo mark + wordmark · Violet source</span></div></div>
+    <div class="logo-card"><div class="stage" style="background:#21154A;--mk:#F6F4F4;--src:#5E58E0;--wm:#F6F4F4"><svg viewBox="0 0 1135 283"><use href="#logo"/></svg></div><div class="cap">Dark base<span>Midnight Indigo background</span></div></div>
+    <div class="logo-card"><div class="stage" style="background:#010101;--mk:#F6F4F4;--src:#5E58E0;--wm:#F6F4F4"><svg viewBox="0 0 1135 283"><use href="#logo"/></svg></div><div class="cap">Black base<span>RAAPID Black background</span></div></div>
+    <div class="logo-card"><div class="stage" style="background:#CEDE00;--mk:#21154A;--src:#21154A;--wm:#21154A"><svg viewBox="0 0 1135 283"><use href="#logo"/></svg></div><div class="cap">Signal Green base<span>Single-colour Indigo</span></div></div>
+    <div class="logo-card"><div class="stage" style="background:#5E58E0;--mk:#F6F4F4;--src:#F6F4F4;--wm:#F6F4F4"><svg viewBox="0 0 1135 283"><use href="#logo"/></svg></div><div class="cap">On primary colour<span>Single-colour light on Violet</span></div></div>
+  </div>
+
+  <h2>Logo elements</h2>
+  <div class="elements">
+    <svg viewBox="0 0 290 283" style="--mk:#21154A;--src:#5E58E0" aria-label="Signal rays and source of truth"><g style="fill:var(--mk)"><use href="#logo"/></g></svg>
+  </div>
+  <p class="note">The mark is made of Signal Rays converging on the Source of Truth. The Source of Truth should always be in RAAPID Violet on a light or dark base.</p>
+
+  <h2>Usage rules</h2>
+  <div class="rules">
+    <div><b>Keep Source of Truth violet</b>#5E58E0 on both light and dark bases.</div>
+    <div><b>Mind the contrast</b>Signal Green does not meet contrast on white. Use Indigo on green.</div>
+    <div><b>Use the supplied bases</b>Light, Dark, Black, Signal Green or Violet. No other combinations.</div>
+  </div>
+</section>
+
+<!-- ============ CTAs ============ -->
+<section id="cta" role="tabpanel" aria-labelledby="t-cta" hidden>
+  <h1>CTAs: Split</h1>
+  <p class="lead">Split call-to-action: a label block and an arrow chip joined by a slanted edge. Primary is the main action, secondary supports it, tertiary is a text link. Left column is the default state, right column is hover (arrow nudges, fill darkens or the link underlines).</p>
+  <h2>On True White · #F6F4F4</h2><div class="cbg cbg-white"><h3>True White</h3><div class="crow"><div class="k">Primary</div><div><a class="cta cta-p" href="#"><span class="cta-l">Schedule a demo</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div><a class="cta cta-p is-hover" href="#"><span class="cta-l">Schedule a demo</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div><div class="crow"><div class="k">Secondary</div><div><a class="cta cta-s" href="#"><span class="cta-l">Explore the platform</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div><a class="cta cta-s is-hover" href="#"><span class="cta-l">Explore the platform</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div><div class="crow"><div class="k">Tertiary</div><div><a class="cta cta-t" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="cta cta-t is-hover" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+  <h2>On Midnight Indigo · #21154A</h2><div class="cbg cbg-indigo"><h3>Midnight Indigo</h3><div class="crow"><div class="k">Primary</div><div><a class="cta cta-p" href="#"><span class="cta-l">Schedule a demo</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div><a class="cta cta-p is-hover" href="#"><span class="cta-l">Schedule a demo</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div><div class="crow"><div class="k">Secondary</div><div><a class="cta cta-s" href="#"><span class="cta-l">Explore the platform</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div><a class="cta cta-s is-hover" href="#"><span class="cta-l">Explore the platform</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div><div class="crow"><div class="k">Tertiary</div><div><a class="cta cta-t" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="cta cta-t is-hover" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+  <h2>On RAAPID Black · #010101</h2><div class="cbg cbg-black"><h3>RAAPID Black</h3><div class="crow"><div class="k">Primary</div><div><a class="cta cta-p" href="#"><span class="cta-l">Schedule a demo</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div><a class="cta cta-p is-hover" href="#"><span class="cta-l">Schedule a demo</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div><div class="crow"><div class="k">Secondary</div><div><a class="cta cta-s" href="#"><span class="cta-l">Explore the platform</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div><a class="cta cta-s is-hover" href="#"><span class="cta-l">Explore the platform</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div><div class="crow"><div class="k">Tertiary</div><div><a class="cta cta-t" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="cta cta-t is-hover" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+  <h2>On RAAPID Violet · #5E58E0</h2><div class="cbg cbg-violet"><h3>RAAPID Violet</h3><div class="crow"><div class="k">Primary</div><div><a class="cta cta-p" href="#"><span class="cta-l">Schedule a demo</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div><a class="cta cta-p is-hover" href="#"><span class="cta-l">Schedule a demo</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div><div class="crow"><div class="k">Secondary</div><div><a class="cta cta-s" href="#"><span class="cta-l">Explore the platform</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div><div><a class="cta cta-s is-hover" href="#"><span class="cta-l">Explore the platform</span><span class="cta-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div></div><div class="crow"><div class="k">Tertiary</div><div><a class="cta cta-t" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="cta cta-t is-hover" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+</section>
+
+<!-- ============ SIMPLE BUTTONS ============ -->
+<section id="buttons" role="tabpanel" aria-labelledby="t-btn" hidden>
+  <h1>CTAs: Simple</h1>
+  <p class="lead">A plain pill button set. Primary is a solid fill, secondary is outlined, tertiary is a text link with an arrow. Left column is the default state, right column is hover.</p>
+  <h2>On True White · #F6F4F4</h2><div class="cbg cbg-white"><h3>True White</h3><div class="crow"><div class="k">Primary</div><div><a class="bs bs-p" href="#">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-p is-hover" href="#">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div><div class="crow"><div class="k">Secondary</div><div><a class="bs bs-s" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-s is-hover" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div><div class="crow"><div class="k">Tertiary</div><div><a class="bs bs-t" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-t is-hover" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+  <h2>On Midnight Indigo · #21154A</h2><div class="cbg cbg-indigo"><h3>Midnight Indigo</h3><div class="crow"><div class="k">Primary</div><div><a class="bs bs-p" href="#">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-p is-hover" href="#">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div><div class="crow"><div class="k">Secondary</div><div><a class="bs bs-s" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-s is-hover" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div><div class="crow"><div class="k">Tertiary</div><div><a class="bs bs-t" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-t is-hover" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+  <h2>On RAAPID Black · #010101</h2><div class="cbg cbg-black"><h3>RAAPID Black</h3><div class="crow"><div class="k">Primary</div><div><a class="bs bs-p" href="#">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-p is-hover" href="#">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div><div class="crow"><div class="k">Secondary</div><div><a class="bs bs-s" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-s is-hover" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div><div class="crow"><div class="k">Tertiary</div><div><a class="bs bs-t" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-t is-hover" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+  <h2>On RAAPID Violet · #5E58E0</h2><div class="cbg cbg-violet"><h3>RAAPID Violet</h3><div class="crow"><div class="k">Primary</div><div><a class="bs bs-p" href="#">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-p is-hover" href="#">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div><div class="crow"><div class="k">Secondary</div><div><a class="bs bs-s" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-s is-hover" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div><div class="crow"><div class="k">Tertiary</div><div><a class="bs bs-t" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div><div><a class="bs bs-t is-hover" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+</section>
+
+</main>
+<div class="toast" id="toast">Copied</div>
+
+<script>
+  // Tabs
+  const tabs = [...document.querySelectorAll('[role=tab]')];
+  function show(id) {
+    tabs.forEach(t => {
+      const on = t.getAttribute('aria-controls') === id;
+      t.setAttribute('aria-selected', on);
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    try { history.replaceState(null, '', '#' + id); } catch (e) {}
+  }
+  tabs.forEach(t => t.addEventListener('click', () => show(t.getAttribute('aria-controls'))));
+  const initial = location.hash.slice(1);
+  if (['typography', 'colour', 'logo-tab', 'cta', 'buttons'].includes(initial)) show(initial);
+
+  // Swatches
+  const sets = {
+    brand: [
+      ['RAAPID Violet', '#5E58E0', 'Primary · Pantone 2366 C'],
+      ['Signal Green', '#CEDE00', 'Accent · Pantone 381 C'],
+      ['True White', '#F6F4F4', 'Light base'],
+      ['Midnight Indigo', '#21154A', 'Dark base · Pantone 2765 C'],
+      ['RAAPID Black', '#010101', 'Black base'],
+    ],
+    neutrals: [
+      ['Neutral 20', '#E6E6E6'], ['Neutral 30', '#C3C3C3'], ['Neutral 40', '#8C8C8C'],
+      ['Neutral 50', '#6E6E6E'], ['Neutral 60', '#434343'], ['Neutral 80', '#202020'],
+      ['RAAPID Black', '#010101'],
+    ],
+    semantic: [
+      ['Success / Complete', '#25845A'], ['Success tint', '#E6F4EC'],
+      ['Warning / Attention', '#EF8A07'], ['Warning tint', '#FFE5C3'],
+      ['Error / Critical', '#C4444F'], ['Error tint', '#FBEAEC'],
+      ['Information', '#1F76D6'], ['Information tint', '#E9F1FC'],
+    ],
+  };
+  for (const [id, list] of Object.entries(sets)) {
+    document.getElementById(id).innerHTML = list.map(([n, hex, sub]) =>
+      `<button class="sw" data-hex="${hex}"><div class="chip" style="background:${hex}"></div><div class="meta"><b>${n}</b><code>${hex}</code>${sub ? `<code>${sub}</code>` : ''}</div></button>`).join('');
+  }
+
+  // Major Third type scale
+  const scale = [
+    ['Caption', -1, 400, 1.5, '0', 'Captions, helper text, legal'],
+    ['Body', 0, 400, 1.6, '0', 'Default paragraph, UI text'],
+    ['Body Large', 1, 400, 1.5, '0', 'Intro paragraphs, lead text'],
+    ['Heading 6', 2, 500, 1.4, '0', 'Card titles, small section heads'],
+    ['Heading 5', 3, 400, 1.3, '-0.005em', 'Sub-section headings'],
+    ['Heading 4', 4, 300, 1.25, '-0.01em', 'Section headings'],
+    ['Heading 3', 5, 300, 1.2, '-0.015em', 'Page sub-titles'],
+    ['Heading 2', 6, 300, 1.15, '-0.02em', 'Page titles, hero statements'],
+    ['Heading 1', 7, 300, 1.1, '-0.025em', 'Primary page heading'],
+    ['Display', 8, 200, 1.05, '-0.03em', 'Hero display, one per page'],
+  ];
+  const r5 = n => Math.round(16 * Math.pow(1.25, n) * 2) / 2;
+  const fluid = { 6: [40, 61], 7: [48, 76.5], 8: [56, 95.5] };
+  document.getElementById('scale').innerHTML = scale.map(([name, n, w, lh, ls, use]) => {
+    const px = r5(n), rem = px / 16;
+    const fs = fluid[n] ? `clamp(${fluid[n][0] / 16}rem, ${fluid[n][0] / 16}rem + ${((px - fluid[n][0]) / 16 / 0.6).toFixed(2)}vw, ${rem}rem)` : `${rem}rem`;
+    const sample = n <= 1 ? 'Clinical evidence drives financial outcomes, with clarity at every step.' : name === 'Display' ? 'Display' : 'Where clinical evidence drives outcomes';
+    const wname = {200:'ExtraLight',300:'Light',400:'Regular',500:'Medium'}[w];
+    return `<div class="spec"><div class="tag"><b>${name}</b>Step ${n} · ${px}px / ${rem}rem<br>${wname} ${w} · lh ${lh} · ls ${ls}<br>${use}</div><div class="sample" style="font-weight:${w};font-size:${fs};line-height:${lh};letter-spacing:${ls};max-width:${n <= 1 ? '60ch' : 'none'}">${sample}</div></div>`;
+  }).join('');
+
+  // Contrast pairs (WCAG relative luminance)
+  const lum = h => { const c = [1,3,5].map(i => parseInt(h.slice(i,i+2),16)/255).map(v => v <= .03928 ? v/12.92 : ((v+.055)/1.055)**2.4); return .2126*c[0]+.7152*c[1]+.0722*c[2]; };
+  const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + .05) / (y + .05); };
+  const pairs = [['#CEDE00','#FFFFFF','Signal Green on White'], ['#CEDE00','#21154A','Signal Green on Indigo'], ['#5E58E0','#F6F4F4','Violet on Light'], ['#F6F4F4','#5E58E0','Light on Violet'], ['#21154A','#F6F4F4','Indigo on Light'], ['#21154A','#CEDE00','Indigo on Signal Green']];
+  document.getElementById('contrast').innerHTML = pairs.map(([fg, bg, n]) => {
+    const r = ratio(fg, bg);
+    return `<div style="background:${bg};color:${fg}">${n}<b>${r.toFixed(2)}:1 · ${r >= 4.5 ? 'AA pass' : r >= 3 ? 'large text only' : 'fail'}</b></div>`;
+  }).join('');
+
+  const toast = document.getElementById('toast');
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.sw'); if (!b) return;
+    try { navigator.clipboard.writeText(b.dataset.hex); } catch (err) {}
+    toast.textContent = 'Copied ' + b.dataset.hex; toast.classList.add('on');
+    setTimeout(() => toast.classList.remove('on'), 1200);
+  });
+</script>
+</body>
+</html>

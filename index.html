@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAAPID</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--violet:#5E58E0;--green:#CEDE00;--indigo:#21154A;--white:#F6F4F4;--black:#010101;--n20:#E6E6E6;--n30:#C3C3C3;--n50:#6E6E6E;--n60:#434343;--font:"Geist",Arial,sans-serif;--hdr:117px;--wrap:1680px;--pad:clamp(20px,4.4vw,64px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);font-size:1rem;line-height:1.6;color:var(--indigo);background:#fff;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:2px}
+.eyebrow{display:flex;align-items:center;gap:10px;font-weight:500;font-size:.8125rem;letter-spacing:.08em;color:var(--n60);margin:0 0 20px;line-height:1.5}
+.eyebrow::before{content:"";flex:none;width:11px;height:10px;background:url("data:image/svg+xml,%3Csvg width=%2211%22 height=%2210%22 viewBox=%220 0 11 10%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M4.46752 0.190983C4.81801 -0.063661 5.29261 -0.063661 5.64309 0.190983L9.69833 3.13729C10.0488 3.39193 10.1955 3.8433 10.0616 4.25532L8.51264 9.02254C8.37877 9.43456 7.99481 9.71353 7.56158 9.71353H2.54903C2.11581 9.71353 1.73185 9.43456 1.59798 9.02254L0.0490117 4.25532C-0.0848626 3.8433 0.0617955 3.39193 0.412283 3.13729L4.46752 0.190983Z%22 fill=%22%235E58E0%22/%3E%3C/svg%3E") no-repeat center/contain}
+.dark .eyebrow{color:var(--n30)}
+.dark .eyebrow::before{background-image:url("data:image/svg+xml,%3Csvg width=%2211%22 height=%2210%22 viewBox=%220 0 11 10%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M4.46752 0.190983C4.81801 -0.063661 5.29261 -0.063661 5.64309 0.190983L9.69833 3.13729C10.0488 3.39193 10.1955 3.8433 10.0616 4.25532L8.51264 9.02254C8.37877 9.43456 7.99481 9.71353 7.56158 9.71353H2.54903C2.11581 9.71353 1.73185 9.43456 1.59798 9.02254L0.0490117 4.25532C-0.0848626 3.8433 0.0617955 3.39193 0.412283 3.13729L4.46752 0.190983Z%22 fill=%22%23CEDE00%22/%3E%3C/svg%3E")}
+h1,h2,h3,p{margin:0}
+h1{font-weight:300;font-size:clamp(2.5rem,1.6rem + 3.2vw,3.8rem);line-height:1.12;letter-spacing:-.02em}
+h2{font-weight:300;font-size:clamp(1.9rem,1.3rem + 1.6vw,2.44rem);line-height:1.2;letter-spacing:-.01em}
+h3{font-weight:500;font-size:1.25rem;line-height:1.4}
+.lead{font-size:1.25rem;line-height:1.5;color:var(--n60)}
+.dark .lead{color:rgba(246,244,244,.8)}
+/* Simple CTAs */
+:root{--bp:#21154A;--bpf:#F6F4F4;--bph:#5E58E0;--bsf:#21154A;--bsb:#21154A;--bsh:#21154A;--bshf:#F6F4F4;--btf:#21154A;--bta:#5E58E0}
+.dark{--bp:#5E58E0;--bpf:#F6F4F4;--bph:#F6F4F4;--bphf:#21154A;--bsf:#F6F4F4;--bsb:#F6F4F4;--bsh:#F6F4F4;--bshf:#21154A;--btf:#F6F4F4;--bta:#CEDE00}
+.bs{display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 24px;border-radius:999px;font:500 .9375rem var(--font);letter-spacing:.01em;text-decoration:none;white-space:nowrap;cursor:pointer;border:1.5px solid transparent;transition:background .15s,color .15s,border-color .15s}
+.bs svg{width:16px;height:16px;flex:none;transition:transform .15s}
+.bs:hover svg{transform:translateX(3px)}
+.bs:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+.bs-p{background:var(--bp);color:var(--bpf)}
+.bs-p:hover{background:var(--bph);color:var(--bphf,var(--bpf))}
+.bs-s{background:transparent;color:var(--bsf);border-color:var(--bsb)}
+.bs-s:hover{background:var(--bsh);color:var(--bshf);border-color:var(--bsh)}
+.bs-t{height:auto;padding:6px 0;border-radius:0;color:var(--btf);border-bottom:1.5px solid transparent}
+.bs-t svg{color:var(--bta)}
+.bs-t:hover{border-bottom-color:currentColor}
+.bs-sm{height:40px;padding:0 18px;font-size:.875rem}
+
+/* utility bar + nav */
+.util{position:relative;z-index:21;background:transparent;color:var(--white);font-size:.8125rem}
+.util .wrap{display:flex;justify-content:flex-end;align-items:center;gap:20px;height:40px}
+.util select{-webkit-appearance:none;appearance:none;background:transparent;color:inherit;border:0;border-radius:0;font:500 .8125rem var(--font);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:0;outline:0}
+.util select:focus-visible{outline:2px solid var(--green);outline-offset:4px;border-radius:2px}
+.util .caret{width:0;height:0;margin-left:10px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid currentColor;pointer-events:none}
+.util select option{color:var(--indigo)}
+.util label{display:flex;align-items:center;margin:0}.util svg{width:22px;height:22px;flex:none;margin-right:10px}
+header.site{position:sticky;top:0;z-index:20;background:transparent;color:var(--white);border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+header.site.scrolled{background:rgba(1,1,1,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom-color:rgba(246,244,244,.14)}
+header.site>.wrap{display:flex;align-items:center;gap:24px;height:76px}
+.brand svg{height:30px;width:auto;display:block;--mk:#F6F4F4;--src:#5E58E0;--wm:#F6F4F4}
+nav.main{display:flex;gap:26px;margin-left:8px;align-self:stretch}
+.mi{display:flex;align-items:center}
+.mt{font:500 .8125rem var(--font);letter-spacing:.06em;white-space:nowrap;background:none;border:0;border-bottom:2px solid transparent;color:inherit;cursor:pointer;display:flex;align-items:center;gap:7px;height:100%;padding:0}
+.mt svg{transition:transform .15s}
+.mi.open .mt,.mt:hover{border-bottom-color:var(--green);color:var(--green)}
+.mi.open .mt svg{transform:rotate(180deg)}
+.mega{display:none;position:absolute;top:100%;left:0;right:0;padding:14px var(--pad) 0;pointer-events:none}
+.mi.open .mega{display:block}
+.mp{pointer-events:auto;max-width:calc(var(--wrap) - 2 * var(--pad));margin:0 auto;display:grid;grid-template-columns:1fr 1px 1.15fr;gap:0 48px;padding:36px 44px;border-radius:22px;background:#0b0b10;border:1px solid rgba(246,244,244,.16);box-shadow:0 40px 80px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(246,244,244,.1)}
+.mf{display:flex;flex-direction:column;align-items:flex-start;gap:16px;max-width:560px}
+.mf img{display:block;width:100%;height:auto;aspect-ratio:640/300;object-fit:cover;border-radius:14px;border:1px solid rgba(246,244,244,.12)}
+.mf h4{margin:4px 0 0;font-weight:300;font-size:1.5625rem;line-height:1.3;letter-spacing:-.01em;color:var(--white)}
+.mdiv{order:2;background:rgba(246,244,244,.16)}
+.mlist{order:1;align-self:start;padding-left:8px}
+.mf{order:3}
+.mh{margin:0 0 16px;font-weight:500;font-size:.75rem;letter-spacing:.12em;color:var(--n30)}
+.mlist ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.mlist li a{display:flex;align-items:center;gap:16px;padding:12px 14px;margin:0 -14px;border-radius:12px;font-size:1.0625rem;color:var(--white);transition:background .2s}
+.mlist li a:hover,.mlist li a:focus-visible{background:rgba(246,244,244,.07)}
+.mic{flex:none;display:grid;place-items:center;width:48px;height:48px}
+.mic img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:lighten;transition:transform .25s}
+.mlist li a:hover .mic img{transform:scale(1.1) translateY(-2px)}
+.mtx{flex:1}
+.mar{color:var(--green);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s}
+.mlist li a:hover .mar{opacity:1;transform:none}
+.mi.open .mega{display:block}
+nav.main a:hover{border-bottom-color:var(--violet)}
+.tools{margin-left:auto;display:flex;align-items:center;gap:14px}
+.search{display:flex;align-items:center;gap:8px;border:1px solid rgba(246,244,244,.3);border-radius:999px;padding:0 14px;height:40px;width:150px;background:rgba(246,244,244,.06)}
+.search:focus-within{border-color:var(--green)}
+.search input::placeholder{color:rgba(246,244,244,.6)}
+.search input{border:0;outline:0;font:inherit;font-size:.875rem;width:100%;background:transparent;color:var(--white)}
+.search svg{width:16px;height:16px;flex:none;color:rgba(246,244,244,.7)}
+.menu-btn{display:none;background:none;border:1px solid rgba(246,244,244,.3);border-radius:8px;width:40px;height:40px;cursor:pointer;color:var(--white)}
+
+/* hero */
+.hero{margin-top:calc(-1 * var(--hdr));min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:var(--hdr) 0 72px}
+.hero{position:relative}
+.hero>.wrap{width:100%}
+.cue{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;color:rgba(246,244,244,.7);font-size:.6875rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase;padding-left:.26em;transition:opacity .35s,color .2s}
+.cue:hover{color:var(--white)}
+.cue:focus-visible{outline:2px solid var(--green);outline-offset:6px;border-radius:4px}
+.cue-line{position:relative;display:block;width:1px;height:60px;background:rgba(246,244,244,.2);overflow:hidden}
+.cue-line::after{content:"";position:absolute;left:0;top:-45%;width:1px;height:45%;background:linear-gradient(180deg,rgba(206,222,0,0),var(--green));animation:cue 2.2s cubic-bezier(.65,0,.3,1) infinite}
+@keyframes cue{to{top:100%}}
+.cue.is-hidden{opacity:0;pointer-events:none}
+@media(prefers-reduced-motion:reduce){.cue-line::after{animation:none;top:0;height:100%;opacity:.6}}
+.hero{isolation:isolate;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.hero-bg i{position:absolute;border-radius:50%;will-change:transform;mix-blend-mode:screen}
+.hero-bg i:nth-child(1){width:70vw;height:70vw;left:-10vw;top:-28vw;background:radial-gradient(closest-side,rgba(94,88,224,.62),rgba(94,88,224,0));animation:hbA 24s ease-in-out infinite alternate}
+.hero-bg i:nth-child(2){width:60vw;height:60vw;right:-14vw;top:-8vw;background:radial-gradient(closest-side,rgba(94,88,224,.46),rgba(94,88,224,0));animation:hbB 29s ease-in-out infinite alternate}
+.hero-bg i:nth-child(3){width:80vw;height:60vw;left:12vw;bottom:-34vw;background:radial-gradient(closest-side,var(--indigo),rgba(33,21,74,0));animation:hbC 33s ease-in-out infinite alternate}
+@keyframes hbA{0%{transform:translate(0,0) scale(1)}50%{transform:translate(22vw,10vw) scale(1.18)}100%{transform:translate(8vw,22vw) scale(.92)}}
+@keyframes hbB{0%{transform:translate(0,0) scale(1.05)}50%{transform:translate(-24vw,14vw) scale(.88)}100%{transform:translate(-8vw,-4vw) scale(1.2)}}
+@keyframes hbC{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-18vw,-12vw) scale(1.2)}100%{transform:translate(14vw,-4vw) scale(.95)}}
+@media(prefers-reduced-motion:reduce){.hero-bg i{animation:none}}
+.hero.dark{background:radial-gradient(70% 90% at 50% 0%,rgba(94,88,224,.38),rgba(94,88,224,0) 70%),var(--black)}
+.hero .grid{max-width:900px;margin:0 auto;text-align:center}
+.hero .eyebrow{justify-content:center}
+.hero p.lead b{font-weight:500;color:var(--white)}
+.hero p.lead{margin:28px auto 40px;max-width:62ch}
+.ticker{background:var(--black)}
+.tk{display:flex;gap:12px;align-items:stretch;padding-top:18px;padding-bottom:18px}
+.tk-label{flex:none;display:flex;align-items:center;gap:10px;padding:0 22px;height:56px;border:1px solid rgba(246,244,244,.18);border-radius:10px;background:linear-gradient(180deg,rgba(246,244,244,.08),rgba(246,244,244,.02));font-size:.9375rem;letter-spacing:.06em;color:var(--white)}
+.tk-view{flex:1;min-width:0;height:56px;overflow:hidden;border:1px solid rgba(246,244,244,.18);border-radius:10px;background:linear-gradient(180deg,rgba(246,244,244,.06),rgba(246,244,244,.015));-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 40px,#000 calc(100% - 56px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 40px,#000 calc(100% - 56px),transparent 100%)}
+.tk-track{display:flex;width:max-content;height:100%;animation:tk 45s linear infinite}
+.tk-view:hover .tk-track{animation-play-state:paused}
+.tk-set{display:flex;align-items:center;flex:none}
+.tk-item{display:inline-flex;align-items:center;gap:48px;padding-left:48px;white-space:nowrap;font-size:1rem;color:rgba(246,244,244,.82)}
+.tk-item::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--green);opacity:.8}
+.tk-item b{font-weight:500;color:var(--white)}
+.tk-copy{display:contents}
+.tk-item .bs-t{--btf:#CEDE00;--bta:#CEDE00;font-size:.875rem;padding:2px 0;gap:6px;border-bottom:1px solid rgba(206,222,0,.5);margin-left:-20px}
+.tk-item .bs-t svg{width:14px;height:14px}
+@keyframes tk{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.tk-track{animation:none;width:auto}.tk-view{overflow:auto}.tk-dup{display:none}}
+@media(max-width:560px){.tk{flex-direction:column}.tk-label{height:44px;justify-content:center}}
+
+/* sections */
+section.s{padding:112px 0}
+.head{max-width:820px;margin-bottom:64px}
+.head p.lead{margin-top:20px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--n30)}
+.cols>div{padding:32px 32px 8px 0}
+.cols>div+div{padding-left:32px;border-left:1px solid var(--n20)}
+.cols h3{margin-bottom:12px}
+.cols p{color:var(--n60);max-width:36ch}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:80px;padding:48px;background:var(--white);border-radius:16px}
+.metrics .n{font-weight:500;font-size:3.5rem;line-height:1;letter-spacing:-.02em;color:var(--violet);margin-bottom:12px}
+.metrics p{color:var(--n60)}
+.foot{margin-top:20px;font-size:.875rem;color:var(--n50)}
+
+.dark{background:var(--indigo);color:var(--white)}
+.dark .head p.lead{color:rgba(246,244,244,.8)}
+.group{margin-top:72px}
+.group>h3{font-weight:300;font-size:1.95rem;line-height:1.25;letter-spacing:-.005em;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid rgba(246,244,244,.25)}
+.cards{display:grid;gap:20px}
+.c4{grid-template-columns:repeat(4,1fr)}.c3{grid-template-columns:repeat(3,1fr)}
+.card{border:1px solid rgba(246,244,244,.2);border-radius:12px;padding:28px;transition:border-color .15s,background .15s}
+.card:hover{border-color:var(--green);background:rgba(246,244,244,.04)}
+.card h3{margin-bottom:10px}
+.card p{color:rgba(246,244,244,.78);font-size:1rem}
+.cta-row{margin-top:56px}
+
+/* trust */
+.stories{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.story{border:1px solid var(--n20);border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:28px}
+.story .big{font-weight:300;font-size:4rem;line-height:1;letter-spacing:-.025em;color:var(--violet)}
+.story p{font-size:1.25rem;line-height:1.5}
+.story .links{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin-top:auto}
+
+/* labs & news */
+.labs{background:var(--white)}
+.labs .split{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start}
+.labs .stick{position:sticky;top:132px}
+.news{display:grid;grid-template-columns:1fr;gap:24px}
+.news article{display:flex;flex-direction:column}
+.news img{display:block;width:100%;height:auto;aspect-ratio:645/300;object-fit:cover;border-radius:16px}
+.news .body{padding:24px 0 8px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;flex:1}
+.news h3{font-weight:300;font-size:1.5625rem;line-height:1.3}
+.news h3 b{font-weight:500}
+.news .bs-t{align-self:flex-start}
+@media(max-width:1100px){.labs .split{gap:48px}}
+.more{margin-top:40px}
+
+/* contact */
+.contact .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:start}
+.contact h2{font-size:clamp(2.2rem,1.4rem + 2.4vw,3.05rem)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+form .full{grid-column:1/-1}
+label{display:block;font-size:.875rem;font-weight:500;margin-bottom:8px}
+input,select,textarea{width:100%;font:inherit;font-size:1rem;color:var(--white);background:rgba(246,244,244,.06);border:1px solid rgba(246,244,244,.35);border-radius:8px;padding:13px 14px}
+select option{color:var(--indigo)}
+textarea{min-height:130px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--green);outline-offset:1px;border-color:transparent}
+.phone{display:grid;grid-template-columns:150px 1fr;gap:10px}
+
+footer.site{background:var(--black);color:var(--white);padding:56px 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:32px 48px;justify-content:space-between;align-items:center}
+footer svg{height:28px;width:auto;display:block;--mk:#F6F4F4;--src:#5E58E0;--wm:#F6F4F4}
+footer .wrap{align-items:flex-start}
+.fcols{display:grid;grid-template-columns:repeat(4,auto);gap:32px 64px}
+.fcols h4{margin:0 0 16px;font-weight:500;font-size:.8125rem;letter-spacing:.08em;color:var(--green)}
+.fcols ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.fcols a{font-size:.9375rem;opacity:.85}.fcols a:hover{opacity:1;text-decoration:underline}
+
+/* Closing block: contact + footer on one image */
+.dark.closing{position:relative;background:#060606 url(images/footer-image-01-low-res.jpg) right top/cover no-repeat}
+.closing .contact{background:transparent}
+.closing .contact .grid{align-items:start}
+.closing .contact form{padding:32px;border-radius:20px;background:rgba(6,6,6,.5);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(246,244,244,.16)}
+.fbottom{max-width:var(--wrap);margin:72px auto 0;padding:0 var(--pad)}
+.fbottom svg.bigword{display:block;width:100%;height:auto;fill:#F6F4F4}
+.fbottom .copy{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;margin:40px 0 0;padding-top:24px;border-top:1px solid rgba(246,244,244,.18);font-size:.8125rem;letter-spacing:.04em;color:rgba(246,244,244,.6)}
+.fbottom .copy p{margin:0}
+.fbottom .copy nav{display:flex;gap:10px;align-items:center}
+.fbottom .copy a:hover{color:var(--white);text-decoration:underline}
+.closing footer.site{background:transparent;padding:0 0 40px}
+.closing footer .wrap{position:relative;padding-top:56px}
+.closing footer .wrap::before{content:"";position:absolute;top:0;left:var(--pad);right:var(--pad);height:1px;background:rgba(246,244,244,.18)}
+@media(max-width:860px){.dark.closing{background-position:72% top}.closing .contact form{padding:24px}}
+
+/* Why trust: sticky offer cards */
+.dark.trust{background:var(--black)}
+.trust .tr{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start}
+.trust .tr .head{margin:0}
+.tr-list{border-bottom:1px solid rgba(246,244,244,.18)}
+.tr-item{display:grid;grid-template-columns:max-content 1fr;gap:12px 40px;align-items:baseline;padding:36px 0;border-top:1px solid rgba(246,244,244,.18)}
+.tr-item .big{min-width:5.2em;font-weight:300;font-size:clamp(2.5rem,1.6rem + 1.8vw,3.5rem);line-height:1;letter-spacing:-.025em;color:var(--green);white-space:nowrap}
+.tr-item p{margin:0;font-size:1.25rem;line-height:1.4;font-weight:300;color:rgba(246,244,244,.92)}
+.tr-item .bs{grid-column:2;justify-self:start;margin-top:8px}
+@media(max-width:1100px){.trust .tr{gap:48px}}
+@media(max-width:860px){.trust .tr{grid-template-columns:1fr;gap:32px}.tr-item{grid-template-columns:1fr;padding:28px 0}.tr-item .bs{grid-column:1}}
+
+/* Partner: glass panel */
+.pwrap{position:relative;overflow:clip;padding-top:72px;padding-bottom:96px}
+.pwrap::before,.pwrap::after{content:"";position:absolute;border-radius:50%;pointer-events:none;filter:blur(40px)}
+.pwrap::before{width:420px;height:420px;left:6%;top:30px;background:radial-gradient(closest-side,rgba(94,88,224,.7),rgba(94,88,224,0))}
+.pwrap::after{width:340px;height:340px;right:8%;bottom:10px;background:radial-gradient(closest-side,rgba(206,222,0,.32),rgba(206,222,0,0))}
+.pbox{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;padding:56px 64px;border-radius:28px;background:linear-gradient(135deg,rgba(246,244,244,.12),rgba(246,244,244,.03));border:1px solid rgba(246,244,244,.2);-webkit-backdrop-filter:blur(28px) saturate(140%);backdrop-filter:blur(28px) saturate(140%);box-shadow:inset 0 1px 0 rgba(246,244,244,.28),0 30px 60px -30px rgba(0,0,0,.9)}
+.pq{margin:0;font-weight:300;font-size:clamp(1.9rem,1.3rem + 1.6vw,2.44rem);line-height:1.2;letter-spacing:-.01em;color:var(--white)}
+.pr{display:flex;flex-direction:column;align-items:flex-start;gap:28px}
+.pr p{font-size:1.25rem;line-height:1.5;color:rgba(246,244,244,.82);max-width:44ch}
+@media(max-width:860px){.pbox{grid-template-columns:1fr;gap:24px;padding:32px 28px}.pwrap{padding-top:48px}}
+
+/* Dark black variants */
+.dark.black{background:var(--black)}
+.dark .cols{border-top-color:rgba(246,244,244,.2)}
+.dark .cols>div+div{border-left-color:rgba(246,244,244,.14)}
+.dark .cols p{color:rgba(246,244,244,.72)}
+.dark .metrics{background:rgba(246,244,244,.05);border:1px solid rgba(246,244,244,.14)}
+.dark .metrics .n{color:var(--green)}
+.dark .metrics p{color:rgba(246,244,244,.75)}
+.dark .foot{color:rgba(246,244,244,.6)}
+@media(max-width:860px){.dark .cols>div+div{border-top-color:rgba(246,244,244,.14)}}
+
+/* Difference: heading top-left, combos bottom-right */
+.diff{display:flex;flex-direction:column;justify-content:space-between;gap:96px;min-height:700px}
+.diff .head{margin-bottom:0;max-width:560px}
+.cwrap{align-self:flex-end;width:min(100%,820px)}
+.combos{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(246,244,244,.2)}
+.combo{display:flex;flex-direction:column;padding:32px 28px 0 0}
+.combo+.combo{padding-left:28px;border-left:1px solid rgba(246,244,244,.14)}
+.combo .pt{flex:1}
+.combo h3{margin-bottom:12px;font-weight:300;font-size:1.95rem;line-height:1.15;letter-spacing:-.015em}
+.combo .pt p{color:rgba(246,244,244,.72);font-size:.9375rem}
+.combo .stat{margin-top:32px;padding-top:28px;border-top:1px solid rgba(246,244,244,.14)}
+.combo .n{font-weight:500;font-size:2.44rem;line-height:1;letter-spacing:-.02em;color:var(--green);margin-bottom:12px}
+.combo .stat p{color:rgba(246,244,244,.78);font-size:.9375rem}
+.cwrap .foot{margin-top:28px;text-align:left;font-style:italic}
+.combos .foot{grid-column:1/-1}
+.diff h2 b{font-weight:500}
+.trust h2 b{font-weight:500}
+.labs h2 b{font-weight:500}
+.platb h2 b{font-weight:500}
+.platb .lead b{font-weight:500;color:var(--indigo)}
+.serves h2 b{font-weight:500}
+@media(max-width:860px){.diff{min-height:0;gap:48px}.cwrap{width:100%}.combos{grid-template-columns:1fr}.combo,.combo+.combo{padding:28px 0 0;border-left:0}.combo+.combo{border-top:1px solid rgba(246,244,244,.14);margin-top:28px}}
+
+/* Difference: one at a time on scroll */
+.diffsec{padding-top:72px;padding-bottom:72px}
+.prog{display:none}
+.seq{height:calc(100vh + 255vh)}
+.seq .diff-stick{position:sticky;top:77px;height:calc(100vh - 77px);display:flex}
+.seq .diff-stick>.wrap{width:100%;display:flex}
+.seq .diff{min-height:0;height:100%;width:100%;gap:24px;padding:24px 0 40px}
+.seq .cwrap{width:100%;align-self:stretch}
+.seq .prog{display:block;height:2px;margin-bottom:clamp(20px,4vh,36px);background:rgba(246,244,244,.25)}
+.seq .prog span{display:block;height:100%;background:var(--green);transform-origin:left;transform:scaleX(var(--pp,0))}
+.seq .combos{grid-template-columns:1fr;border-top:0;position:relative;min-height:clamp(250px,40vh,400px);align-items:end}
+.seq .combo,.seq .combo+.combo{grid-area:1/1;align-self:end;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:clamp(20px,4vh,44px);padding:0;border:0;opacity:0;visibility:hidden;transform:translateY(32px);transition:opacity .5s ease,transform .5s ease,visibility 0s linear .5s}
+.seq .combo.on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.seq .combo.past{transform:translateY(-32px)}
+.seq .combo .pt{display:contents}
+.seq .combo h3{grid-column:1/-1;grid-row:1;margin:0;font-weight:300;font-size:min(calc((100vw - 2 * var(--pad)) / 4.8),calc((var(--wrap) - 2 * var(--pad)) / 4.8));line-height:.84;letter-spacing:-.05em;white-space:nowrap;color:var(--white)}
+.seq .combo .pt p{grid-column:9/13;grid-row:2;margin:0;padding-top:18px;border-top:1px solid rgba(246,244,244,.3);font-size:1.125rem;line-height:1.5;color:rgba(246,244,244,.8)}
+.seq{--descH:7rem}
+.seq .combo,.seq .combo+.combo{grid-template-rows:auto var(--descH)}
+.seq .combo .pt p{align-self:start}
+.seq .combos .foot{grid-area:1/1;align-self:end;justify-self:start;height:var(--descH);width:calc((100% - 264px) / 3 + 72px);margin:0;padding-top:18px;border-top:1px solid rgba(246,244,244,.3);font-size:.8125rem;line-height:1.5;color:rgba(246,244,244,.6)}
+@media(max-width:860px){.seq{--descH:9rem}.seq .combos{grid-template-rows:1fr auto}.seq .combos .foot{grid-area:2/1;align-self:start;width:100%;height:auto;margin-top:20px}.seq .combos{min-height:340px}.seq .combo .pt p{grid-column:1/-1;font-size:1rem}.seq .combo h3{font-size:calc((100vw - 2 * var(--pad)) / 4.8)}}
+
+/* Difference: background image on the pinned panel */
+.diff-stick{background:linear-gradient(180deg,#010101 0,rgba(1,1,1,0) 14%,rgba(1,1,1,0) 86%,#010101 100%),url(images/img-raapid-difference-a1.png) center/cover no-repeat}
+
+
+/* Platform option B: intelligence layer centre stage */
+.platb{background:var(--white);padding:112px 0 40px}
+.platb .head{margin-bottom:24px}
+.platb .head p.lead{color:var(--n60)}
+.pb-head h3{font-weight:300;font-size:1.95rem;line-height:1.2;letter-spacing:-.01em;color:var(--indigo)}
+.pb{position:relative;height:min(800px,calc(100vh - 77px));min-height:660px;overflow:hidden;background:radial-gradient(60% 70% at 50% 60%,rgba(94,88,224,.14),rgba(94,88,224,0) 72%),var(--white);color:var(--indigo)}
+.pb-canvas{position:absolute;inset:34px 0 0 0}
+.pb-canvas canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
+.pb-canvas canvas:active{cursor:grabbing}
+.pb-labels{position:absolute;inset:0;pointer-events:none}
+.pbl{position:absolute;left:0;top:0;width:205px;text-align:center;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.78);border:1px solid rgba(94,88,224,.25);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 14px 30px -20px rgba(33,21,74,.4);pointer-events:auto;transition:background .2s,border-color .2s;will-change:transform}
+.pbl b{display:block;font-weight:500;font-size:1rem;color:var(--indigo)}
+.pbl span{display:block;margin-top:4px;font-size:.8125rem;line-height:1.4;color:var(--n60)}
+.pbl.hot{background:var(--violet);border-color:var(--violet)}
+.pbl.hot b,.pbl.hot span{color:var(--white)}
+.pb-head{position:absolute;left:50%;top:22px;transform:translateX(-50%);width:min(90%,760px);text-align:center;pointer-events:none}
+.pb-head .eyebrow{justify-content:center}
+.pb-btn{position:absolute;top:34%;display:inline-flex;align-items:center;gap:14px;padding:13px 14px 13px 22px;border-radius:999px;border:1px solid rgba(33,21,74,.3);background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--indigo);font:400 1rem var(--font);cursor:pointer;transition:background .2s,border-color .2s}
+.pb-btn:hover,.pb-btn.is-open{background:#fff;border-color:var(--violet)}
+.pb-btn:focus-visible{outline:2px solid var(--violet);outline-offset:4px}
+.pb-l{left:var(--pad)}.pb-r{right:var(--pad)}
+.pb-plus{position:relative;width:28px;height:28px;border-radius:50%;background:var(--violet);flex:none;transition:transform .25s}
+.pb-plus::before,.pb-plus::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;background:var(--white)}
+.pb-plus::after{transform:rotate(90deg)}
+.pb-btn.is-open .pb-plus{transform:rotate(45deg)}
+.pb-pop{position:absolute;top:calc(34% + 64px);width:min(390px,calc(100% - 2 * var(--pad)));padding:28px;border-radius:20px;background:rgba(255,255,255,.9);color:var(--indigo);border:1px solid var(--n20);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:0 30px 60px -28px rgba(33,21,74,.35);z-index:3}
+.pb-pop[hidden]{display:none}
+.pb-pl{left:var(--pad)}.pb-pr{right:var(--pad)}
+.pb-pop h3{font-weight:300;font-size:1.5625rem;line-height:1.25;margin:0 36px 14px 0}
+.pb-pop ul{list-style:none;margin:0;padding:0}
+.pb-pop li{padding:12px 0;border-top:1px solid var(--n20);display:grid;gap:2px}
+.pb-pop li b{font-weight:500;font-size:1rem}
+.pb-pop li span{font-size:.875rem;line-height:1.45;color:var(--n60)}
+.pb-x{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(33,21,74,.3);background:transparent;color:var(--indigo);font-size:1.25rem;line-height:1;cursor:pointer}
+.pb-x:hover{background:rgba(33,21,74,.08)}
+.pb.no3d{height:auto;padding:96px 0 64px}
+.pb.no3d canvas{display:none}
+.pb.no3d .pb-canvas{position:static}.pb.no3d .pb-labels{position:static;display:grid;gap:12px;padding:200px var(--pad) 0;max-width:var(--wrap);margin:0 auto;grid-template-columns:repeat(3,1fr)}
+.pb.no3d .pbl{position:static;transform:none!important;width:auto}
+.pb.no3d .pb-btn,.pb.no3d .pb-pop{display:none}
+@media(max-width:860px){.platb{padding-top:72px}.pb{height:740px}.pb-canvas{inset:50px 0 0 0}.pb-head{top:14px}.pb-btn{top:auto;bottom:24px;font-size:.875rem;padding:10px 10px 10px 16px;gap:10px}.pb-pop{top:auto;bottom:84px;left:var(--pad);right:var(--pad);width:auto}.pbl{width:170px;padding:8px 10px}.pbl span{display:none}}
+
+/* Hero stats */
+.statsec{padding:88px 0 52px}
+.hstats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 48px}
+.hs{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.hn{font-weight:200;font-size:clamp(2.8rem,1.6rem + 3vw,4.5rem);line-height:1;letter-spacing:-.03em;color:var(--green)}
+.hs p{margin:0;font-size:1rem;line-height:1.5;color:rgba(246,244,244,.72);max-width:26ch}
+@media(max-width:860px){.hstats{grid-template-columns:1fr;gap:36px}.statsec{padding:64px 0 40px}}
+/* Who RAAPID serves */
+.dark.black.serves,.dark.serves{background:var(--black);padding-bottom:96px}
+.serves .head{margin-bottom:56px}
+.svm{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:center}
+.svm-list{border-bottom:1px solid rgba(246,244,244,.18)}
+.sg{border-top:1px solid rgba(246,244,244,.18);padding:22px 0 22px 22px;position:relative}
+.sg::before{content:"";position:absolute;left:0;top:22px;width:4px;height:34px;background:var(--violet);border-radius:2px;transform:scaleY(0);transform-origin:top;transition:transform .35s}
+.sg.is-active::before{transform:scaleY(1)}
+.sg-t{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer;font-weight:300;font-size:1.95rem;line-height:1.25;letter-spacing:-.005em;color:rgba(246,244,244,.55);transition:color .25s}
+.sg.is-active .sg-t,.sg-t:hover{color:var(--white)}
+.sg-t:focus-visible{outline:2px solid var(--violet);outline-offset:4px;border-radius:4px}
+.sg-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}
+.sg.is-active .sg-body{grid-template-rows:1fr}
+.sg-in{overflow:hidden;min-height:0}
+.sg-in>p{margin:18px 0 0;font-size:1.0625rem;line-height:1.55;color:rgba(246,244,244,.8);max-width:52ch}
+.sg-in .bs{margin:0 0 6px}
+.svm-stage{position:relative;aspect-ratio:1/1;border-radius:24px;overflow:hidden;border:1px solid rgba(246,244,244,.18);background:#0a0a0a}
+.svm-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;opacity:0;transition:opacity .5s ease}
+.svm-img.is-active{opacity:1}
+.sv-links{list-style:none;margin:24px 0 28px;padding:0;border-bottom:1px solid rgba(246,244,244,.18)}
+.sv-links a{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;border-top:1px solid rgba(246,244,244,.18);font-size:1.0625rem;transition:color .2s}
+.sv-links a svg{width:18px;height:18px;flex:none;color:var(--green);transition:transform .2s}
+.sv-links a:hover{color:var(--green)}
+.sv-links a:hover svg{transform:translateX(5px)}
+.serves .pwrap{padding-top:56px;padding-bottom:0}
+@media(max-width:860px){.svm{grid-template-columns:1fr;gap:32px}.svm-stage{order:-1}.sg-t{font-size:1.5625rem}.dark.serves{padding-bottom:72px}}
+
+@media(max-width:1320px){nav.main{display:none}.menu-btn{display:grid;place-items:center}nav.main.open{display:flex;position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(246,244,244,.14);padding:8px var(--pad) 20px;margin:0;max-height:calc(100vh - 116px);overflow:auto}.mi{display:block;border-bottom:1px solid rgba(246,244,244,.14)}.mt{width:100%;justify-content:space-between;padding:16px 0;height:auto;border:0}.mega{position:static;padding:0}.mp{display:block;padding:0 0 12px;background:none;border:0;box-shadow:none;border-radius:0;max-width:none}.mf,.mdiv,.mh{display:none}.mlist li a{margin:0;padding:10px 0 10px 8px}.mar{display:none}.mic{width:38px;height:38px}.c4{grid-template-columns:1fr 1fr}.search{width:160px}}
+@media(max-width:860px){.fcols{grid-template-columns:1fr 1fr}.cols,.metrics,.stories,.news,.c3,.labs .top,.contact .grid,.labs .split{grid-template-columns:1fr}.labs .stick{position:static}.cols>div+div{padding-left:0;border-left:0;border-top:1px solid var(--n20)}.cols>div{padding:28px 0 8px}.labs .top,.contact .grid{gap:32px}.metrics{padding:28px}section.s{padding:72px 0}.hero{padding:var(--hdr) 0 56px}.tools .bs-p{display:none}}
+@media(max-width:560px){.fcols{grid-template-columns:1fr}.ticker .sep{display:none}.c4,form{grid-template-columns:1fr}.search{display:none}.phone{grid-template-columns:120px 1fr}.story,</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"}}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo" viewBox="0 0 1135 283">
+      <g style="fill:var(--mk)">
+        <path d="M118.96 146.61L0 155.68C1.82 174.61 7.36 192.46 15.9 208.48L134.85 170C138.66 168.83 141.01 170.89 142.08 172.23C143.19 173.6 144.63 176.33 142.61 179.76L60.96 258.92C76.96 269.93 95.33 277.77 115.15 281.51L162.38 201.19C170.25 187.81 169.07 171.25 159.4 159.11C149.72 146.94 135.24 145.19 118.96 146.62V146.61Z"/>
+        <path d="M197.12 181.88C198.41 181.13 201 180.18 203.74 182.36L253.34 230.42C259.04 223.29 264.07 215.61 268.32 207.46L226.86 174.57C216.16 166.08 201.64 165.04 189.85 171.89C178.06 178.75 175.47 193.1 174.02 205.32L163.29 282.4C179.44 279.97 194.7 274.83 208.59 267.48L194.29 187.87C193.74 184.42 195.83 182.64 197.12 181.88Z"/>
+        <path d="M227.72 135.22L282.87 121.58C280.92 108.07 277.06 95.1802 271.58 83.1802L230.09 116.51C222.46 122.57 214 126.55 212.66 136.03C212.62 136.26 212.59 136.5 212.56 136.74C211.46 146.56 216.4 155.89 225.14 160.52L276.76 187.82C279.87 178.73 282.07 169.23 283.28 159.42L226.85 143.09C224.61 141.9 224.47 139.91 224.6 138.83C224.72 137.73 225.29 135.85 227.73 135.21L227.72 135.22Z"/>
+        <path d="M245.98 45.0899L205.45 103.4C203.51 105.04 201.61 104.41 200.66 103.9C199.69 103.38 198.15 102.15 198.47 99.6399L210.13 17.3499C193.55 8.30988 174.96 2.45988 155.2 0.629883L182.13 89.6799C184.9 99.0199 185.42 108.35 193.72 113.15C193.92 113.27 194.14 113.39 194.34 113.51C203.04 118.2 213.54 117.11 221.1 110.73L266.19 72.6499C260.57 62.6599 253.77 53.4199 245.97 45.1099L245.98 45.0899Z"/>
+        <path d="M82.18 13.02L151.03 102.89C152.74 106.49 151.03 109.1 149.86 110.35C148.68 111.58 146.15 113.46 142.46 111.95L23.5 62.88C12.06 79.83 4.19998 99.36 0.97998 120.42L122.02 136.77C138.58 138.74 152.77 137.18 163.46 125.89C174.15 114.6 174.81 99.74 170.03 84.22L142.26 0C142.12 0 141.98 0 141.84 0C120.54 0 100.33 4.67 82.18 13.02Z"/>
+      </g>
+      <path style="fill:var(--src)" d="M177.56 122.47L162.02 139.67C160.83 140.99 160.65 142.93 161.58 144.44L174.23 165.06C175.24 166.71 177.3 167.4 179.1 166.69L201.28 157.99C202.81 157.39 203.82 155.91 203.82 154.27V131.84C203.82 130.14 202.74 128.62 201.13 128.06L181.84 121.36C180.32 120.83 178.64 121.27 177.56 122.46V122.47Z"/>
+      <g style="fill:var(--wm)">
+        <path d="M487.35 168.74C486.55 163.86 484.9 159.79 482.47 156.56C479.63 152.85 475.1 149.93 468.99 147.82L460.69 144.96L468.95 141.97C484.23 136.42 491.69 126.47 491.69 111.6C491.69 100.18 486.83 90.9801 477.25 84.3501C467.43 77.5701 453.43 74.1201 435.61 74.1201H362.84V209.87H390.15V155.18H432.83C442.32 155.18 449.15 156.96 453.64 160.62C455.7 162.29 457.37 164.57 458.54 167.3C459.71 169.92 460.3 173 460.3 176.43V209.88H487.92V176.06C487.9 173.09 487.72 170.86 487.36 168.73V168.75L487.35 168.74ZM455.46 132.26C450.28 136.25 442.97 138.26 433.76 138.26H390.16V92.0401H432.63C442.23 92.0401 449.82 93.9501 455.18 97.7001C460.71 101.65 463.53 107.3 463.53 114.54C463.53 122.19 460.82 128.15 455.49 132.25H455.47L455.46 132.26Z"/>
+        <path d="M586.77 74.1401H552.8L491.82 209.89H519.63L532.36 179.11H607.17L620.11 209.89H648.81L586.74 74.1401H586.76H586.77ZM540.25 160.39L547.6 142.59C554.19 127.7 560.61 112.5 566.65 97.4101L569.51 90.2801L572.39 97.4101C580.04 116.36 586.52 131.53 591.68 142.61L599.31 160.39H540.24H540.25Z"/>
+        <path d="M734.7 74.1401H700.73L650.22 186.61L660.86 209.89H667.58L680.3 179.11H755.15L768.09 209.89H796.81L734.72 74.1401H734.68H734.7ZM688.2 160.39L695.55 142.59C702.14 127.7 708.53 112.5 714.6 97.4101L717.46 90.2801L720.34 97.4101C728.08 116.55 734.56 131.7 739.63 142.61L747.26 160.39H688.19H688.2Z"/>
+        <path d="M912.63 85.9499C902.74 78.1199 888.74 74.1299 870.96 74.1299H800.51V209.88H827.78V161.04H870.94C888.74 161.04 902.76 157.07 912.61 149.23C922.45 141.38 927.26 131.06 927.26 117.69C927.26 104.32 922.45 93.8199 912.61 85.9499H912.63ZM891.75 135.96C886.55 140.08 879.09 142.16 869.57 142.16H827.77V93.0199H869.57C879.06 93.0199 886.52 95.1399 891.77 99.3499C897.08 103.66 899.77 109.84 899.77 117.69C899.77 125.54 897.08 131.72 891.75 135.96Z"/>
+        <path d="M973.52 74.1401H946.25V209.89H973.52V74.1401Z"/>
+        <path d="M1113.2 92.2799C1099.28 80.2299 1079.19 74.1099 1053.46 74.1099H992.48V209.86H1053.46C1079.19 209.86 1099.28 203.68 1113.2 191.52C1127.03 179.53 1134.03 162.88 1134.03 142.01C1134.03 121.14 1127.03 104.36 1113.2 92.2799ZM1091.8 178.41C1082.68 186.76 1069.63 190.98 1053 190.98H1019.77V93.0199H1053C1069.63 93.0199 1082.68 97.2499 1091.8 105.59C1100.97 113.98 1105.61 126.25 1105.61 142.01C1105.61 157.77 1100.95 170.02 1091.8 178.41Z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="util">
+  <div class="wrap">
+    <label style="margin:0;font-weight:400">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
+      <span class="sr" style="position:absolute;left:-9999px">Language</span>
+      <select id="lang" aria-label="Language"><option value="en" selected>Global | English</option></select><span class="caret" aria-hidden="true"></span>
+    </label>
+  </div>
+</div>
+
+<header class="site dark">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="RAAPID"><svg viewBox="0 0 1135 283"><use href="#logo"/></svg></a>
+    <nav class="main" id="nav" aria-label="Primary">
+      <div class="mi">
+        <button class="mt" aria-expanded="false" aria-controls="mega0">HEALTH PLANS<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
+        <div class="mega" id="mega0"><div class="mp">
+          <div class="mf"><img src="images/health-plan-offering.png" alt="" width="640" height="300" loading="lazy"></h4><a class="bs bs-t" href="#">Health Plan offerings<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="mdiv" aria-hidden="true"></div>
+          <div class="mlist"><p class="mh">HEALTH PLANS</p><ul><li><a href="#"><span class="mic"><img src="images/icons/icon-calculator.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Risk Adjustment</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="images/icons/icon-wallet.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Payment Integrity</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="images/icons/icon-pen.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Coding Services</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+        </div></div>
+      </div>
+      <div class="mi">
+        <button class="mt" aria-expanded="false" aria-controls="mega1">PROVIDERS &amp; HEALTH SYSTEMS<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
+        <div class="mega" id="mega1"><div class="mp">
+          <div class="mf"><img src="images/provider-health-systems.png" alt="" width="640" height="300" loading="lazy"></h4><a class="bs bs-t" href="#">Provider &amp; Health System offerings<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="mdiv" aria-hidden="true"></div>
+          <div class="mlist"><p class="mh">PROVIDERS &amp; HEALTH SYSTEMS</p><ul><li><a href="#"><span class="mic"><img src="images/icons/icon-calculator.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Risk Adjustment</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="images/icons/icon-clock.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Mid Revenue Cycle</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="images/icons/icon-pen.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Coding Services</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+        </div></div>
+      </div>
+      <div class="mi">
+        <button class="mt" aria-expanded="false" aria-controls="mega2">PLATFORM<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
+        <div class="mega" id="mega2"><div class="mp">
+          <div class="mf"><img src="images/img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>One intelligence platform, purpose-built for multiple workflows.</h4><a class="bs bs-t" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="mdiv" aria-hidden="true"></div>
+          <div class="mlist"><p class="mh">PLATFORM</p><ul><li><a href="#"><span class="mic"><img src="images/icons/icon-avatar.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">RAAPID AIDE</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="images/icons/icon-layers.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Build on RAAPID</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+        </div></div>
+      </div>
+      <div class="mi">
+        <button class="mt" aria-expanded="false" aria-controls="mega3">ABOUT US<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
+        <div class="mega" id="mega3"><div class="mp">
+          <div class="mf"><img src="images/insight-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Building the next in healthcare.</h4><a class="bs bs-t" href="#">Enter RAAPID Labs<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="mdiv" aria-hidden="true"></div>
+          <div class="mlist"><p class="mh">ABOUT US</p><ul><li><a href="#"><span class="mic"><img src="images/icons/icon-magnifier.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Insights</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#labs"><span class="mic"><img src="images/icons/icon-windows.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">RAAPID Labs</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="images/icons/icon-map.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Our Story</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+        </div></div>
+      </div>
+    </nav>
+    <div class="tools">
+      <form class="search" role="search" onsubmit="return false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" placeholder="Search" aria-label="Search">
+      </form>
+      <a class="bs bs-p bs-sm" href="#platform-b">EXPLORE PLATFORM<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <button class="menu-btn" id="menu" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero dark"><div class="hero-bg" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap"><div class="grid">
+      <p class="eyebrow">CLINICAL AI FOR HEALTHCARE REVENUE INTEGRITY</p>
+      <h1>Clinical intelligence that makes your financial outcomes certain.</h1>
+      <p class="lead">Realize the revenue you expect: <b>measured</b> to agreed goals, <b>guaranteed</b> in performance and <b>defensible</b> with recommendations. <b>RAAPID</b> helps with accurate, compliant, evidence-backed decisions across risk adjustment, coding and payment.</p>
+      <a class="bs bs-p" href="#contact">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+      <a class="cue" href="#stats" aria-label="Scroll down"><span>Scroll</span><i class="cue-line" aria-hidden="true"></i></a>
+    </div>
+  </section>
+    <section class="statsec dark black" id="stats" aria-label="RAAPID in numbers">
+    <div class="wrap">
+      <div class="hstats" role="list">
+        <div class="hs" role="listitem"><div class="hn">XY+</div><p>Health Plans and Provider organizations enabled successfully</p></div>
+        <div class="hs" role="listitem"><div class="hn">XY+</div><p>Years of expertise in Healthcare AI</p></div>
+        <div class="hs" role="listitem"><div class="hn">XY+</div><p>Healthcare data points analysed to inform clinical decisions</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-label="Spotlight"><div class="wrap tk">
+    <div class="tk-label"><svg class="pent" width="11" height="10" viewBox="0 0 11 10" aria-hidden="true"><path d="M4.46752 0.190983C4.81801 -0.063661 5.29261 -0.063661 5.64309 0.190983L9.69833 3.13729C10.0488 3.39193 10.1955 3.8433 10.0616 4.25532L8.51264 9.02254C8.37877 9.43456 7.99481 9.71353 7.56158 9.71353H2.54903C2.11581 9.71353 1.73185 9.43456 1.59798 9.02254L0.0490117 4.25532C-0.0848626 3.8433 0.0617955 3.39193 0.412283 3.13729L4.46752 0.190983Z" fill="#CEDE00"/></svg><span>SPOTLIGHT</span></div>
+    <div class="tk-view"><div class="tk-track"><div class="tk-set"><span class="tk-item">Featured in the <b>2026 KLAS Emerging Company Spotlight</b><a class="bs bs-t" href="#">Know more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span><span class="tk-item">Backed by <b>Microsoft M12, UPMC Enterprises, Healthworx (CareFirst)</b><a class="bs bs-t" href="#">Know more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span><span aria-hidden="true" class="tk-copy"><span class="tk-item">Featured in the <b>2026 KLAS Emerging Company Spotlight</b><a class="bs bs-t" tabindex="-1" href="#">Know more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span><span class="tk-item">Backed by <b>Microsoft M12, UPMC Enterprises, Healthworx (CareFirst)</b><a class="bs bs-t" tabindex="-1" href="#">Know more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span></span></div><div class="tk-set tk-dup" aria-hidden="true"><span class="tk-item">Featured in the <b>2026 KLAS Emerging Company Spotlight</b><a class="bs bs-t" tabindex="-1" href="#">Know more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span><span class="tk-item">Backed by <b>Microsoft M12, UPMC Enterprises, Healthworx (CareFirst)</b><a class="bs bs-t" tabindex="-1" href="#">Know more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span><span class="tk-item">Featured in the <b>2026 KLAS Emerging Company Spotlight</b><a class="bs bs-t" tabindex="-1" href="#">Know more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span><span class="tk-item">Backed by <b>Microsoft M12, UPMC Enterprises, Healthworx (CareFirst)</b><a class="bs bs-t" tabindex="-1" href="#">Know more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></span></div></div></div>
+  </div></div>
+
+  <section class="s dark black diffsec">
+    <div class="diff-scroll"><div class="diff-stick"><div class="wrap">
+      <div class="diff">
+        <div class="head"><p class="eyebrow">THE RAAPID DIFFERENCE</p><h2>Beyond just operational delivery, <b>accountable for business results</b>.</h2></div>
+        <div class="cwrap">
+          <div class="prog" aria-hidden="true"><span></span></div>
+          <div class="combos">
+          <div class="combo"><div class="pt"><h3>Measured</h3><p>We establish the baseline using your data and workflow, then agree on the outcomes, measures and evaluation period.</p></div></div>
+          <div class="combo"><div class="pt"><h3>Guaranteed</h3><p>We tie our fees to the agreed outcomes. If we fall short, you pay less.</p></div></div>
+          <div class="combo"><div class="pt"><h3>Defensible</h3><p>Every recommendation is linked to its supporting clinical evidence and rationale, giving your team and auditors a clear basis for verification.</p></div></div>
+          <p class="foot">*Every commitment is set against measures we agree with you.</p>
+          </div>
+        </div>
+      </div>
+    </div></div></div>
+  </section>
+
+    <section class="platb" id="platform-b" aria-labelledby="pbs-title">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">HOW RAAPID DELIVERS</p><h2 id="pbs-title"><b>One intelligence platform</b>, purpose-built for multiple workflows.</h2><p class="lead"><b>Actualize your revenue and reimbursement priorities.</b> RAAPID’s AI-native decision intelligence platform brings together clinical evidence, healthcare workflows, and enterprise capabilities you need.</p></div>
+    </div>
+    <div class="pb" data-pb>
+      <div class="pb-canvas"><canvas aria-hidden="true"></canvas>
+        <div class="pb-labels"><div class="pbl"><b>Workflow automation</b><span>Turns intelligence into action inside your workflows</span></div><div class="pbl"><b>Neuro-Symbolic AI</b><span>Validates clinical decisions against supporting evidence and makes the reasoning traceable</span></div><div class="pbl"><b>Document AI</b><span>Extracts and structures clinical evidence from every record</span></div></div>
+      </div>
+      <div class="pb-head"><h3 id="pb-title">One clinical intelligence layer</h3></div>
+      <button class="pb-btn pb-l" type="button" data-open="left" aria-expanded="false" aria-controls="pop-left">Where your teams use it<span class="pb-plus" aria-hidden="true"></span></button>
+      <button class="pb-btn pb-r" type="button" data-open="right" aria-expanded="false" aria-controls="pop-right">Built for scale and scrutiny<span class="pb-plus" aria-hidden="true"></span></button>
+      <div class="pb-pop pb-pl" id="pop-left" data-pop="left" role="dialog" aria-labelledby="pb-lt" hidden><button class="pb-x" type="button" aria-label="Close">&times;</button><h3 id="pb-lt">Where your teams use it</h3><ul><li><b>Risk adjustment</b><span>Retrospective. Prospective. RADV</span></li><li><b>Medical coding</b><span>Inpatient. Outpatient</span></li><li><b>Clinical documentation improvement</b><span>Accuracy and completeness</span></li><li><b>Payment integrity</b><span>Pre-payment validation</span></li></ul></div>
+      <div class="pb-pop pb-pr" id="pop-right" data-pop="right" role="dialog" aria-labelledby="pb-rt" hidden><button class="pb-x" type="button" aria-label="Close">&times;</button><h3 id="pb-rt">Built for scale and scrutiny</h3><ul><li><b>Security and compliance</b><span>HITRUST r2 • SOC 2 • HIPAA</span></li><li><b>Integration</b><span>EHR embedding • APIs • cloud-native</span></li><li><b>Analytics and reporting</b><span>Program and enterprise performance</span></li><li><b>Enterprise ready</b><span>Single-tenant • No training on your data</span></li></ul></div>
+    </div>
+  </section>
+
+  <section class="s dark black serves" id="serves">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">WHO RAAPID SERVES</p><h2>Solve for your healthcare priorities, <b>we tailor to them.</b></h2></div>
+      <div class="svm" data-svm>
+        <div class="svm-list">
+          <div class="sg is-active"><button class="sg-t" type="button" aria-expanded="true">Protect appropriate reimbursement</button><div class="sg-body"><div class="sg-in"><p>Capture risk accurately, prepare for RADV audits, and protect payment integrity with coding decisions backed by clinical evidence.</p>
+          <ul class="sv-links"><li><a href="#"><span>Retrospective Risk Adjustment</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>RADV &amp; Audit Readiness</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Pre-Payment Validation</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding Services</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul>
+          <a class="bs bs-p" href="#">Explore Health Plans<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+          <div class="sg"><button class="sg-t" type="button" aria-expanded="false">Maximize revenue realization</button><div class="sg-body"><div class="sg-in"><p>Close care gaps, improve clinical documentation and coding accuracy, and ensure the complexity of care delivered is fully represented to support appropriate reimbursement.</p>
+          <ul class="sv-links"><li><a href="#"><span>Prospective Risk Adjustment</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Clinical Documentation Improvement</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding Services</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul>
+          <a class="bs bs-p" href="#">Explore Providers &amp; Health Systems<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
+        </div>
+        <div class="svm-stage">
+          <img class="svm-img is-active" src="images/health-plan-offering.png" alt="" width="1312" height="630" loading="lazy">
+          <img class="svm-img" src="images/provider-health-systems.png" alt="" width="1312" height="630" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="wrap pwrap">
+      <div class="pbox">
+        <h3 class="pq">A healthcare technology partner?</h3>
+        <div class="pr">
+          <p>Simply embed our clinical intelligence into your products through APIs and custom integrations.</p>
+          <a class="bs bs-s" href="#">Explore AI-as-a-Service<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s dark trust">
+    <div class="wrap"><div class="tr">
+      <div class="head"><p class="eyebrow">WHY TRUST RAAPID</p><h2>Advancing healthcare revenue integrity, <b>proven in practice</b>.</h2></div>
+      <div class="tr-list">
+        <div class="tr-item"><div class="big">$3 million</div><p>in additional revenue generated, with audit-ready compliance for a Multi-State Health Plan</p><a class="bs bs-s" href="#">Explore success story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        <div class="tr-item"><div class="big">86%</div><p>coding accuracy, 21 percentage points above benchmark for a Fortune 500 Integrated Health System</p><a class="bs bs-s" href="#">Explore success story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="s labs" id="labs">
+    <div class="wrap">
+      <div class="split">
+      <div class="stick"><h2>Building the next in <b>healthcare</b>.</h2></div>
+      <div class="right">
+      <div class="news">
+        <article><img src="images/insight-a1.png" alt="" width="645" height="300" loading="lazy"><div class="body"><h3>Explore our impact center in advanced AI research, benchmark studies and specialized model development</h3><a class="bs bs-t" href="#">Enter RAAPID Labs<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
+        <article><img src="images/insight-a2.png" alt="" width="645" height="300" loading="lazy"><div class="body"><h3>RAAPID raises Series A funding with a <b>Strategic “Industry Trifecta”</b></h3><a class="bs bs-t" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
+        <article><img src="images/insight-a3.png" alt="" width="645" height="300" loading="lazy"><div class="body"><h3>RAAPID named a leader in the XYZ <b>Healthcare AI Excellence Index</b></h3><a class="bs bs-t" href="#">See analyst recognition<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
+      </div>
+      <div class="more"><a class="bs bs-s" href="#">View more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="closing dark">
+<section class="s dark contact" id="contact">
+  <div class="wrap"><div class="grid">
+    <div><h2>Bring certainty to care with us.</h2><p class="lead" style="margin-top:20px">See RAAPID in action!</p></div>
+    <form onsubmit="return false">
+      <div><label for="fn">First name</label><input id="fn" autocomplete="given-name" required></div>
+      <div><label for="ln">Last name</label><input id="ln" autocomplete="family-name" required></div>
+      <div class="full"><label for="em">Business email</label><input id="em" type="email" autocomplete="email" required></div>
+      <div class="full"><label for="org">Organization name</label><input id="org" autocomplete="organization"></div>
+      <div class="full"><label for="cc">Phone number</label>
+        <div class="phone"><select id="cc" aria-label="Country"></select><input id="ph" type="tel" autocomplete="tel-national" aria-label="Phone number"></div></div>
+      <div class="full"><label for="msg">How can we help you</label><textarea id="msg"></textarea></div>
+      <div class="full"><button class="bs bs-p" type="submit">Arrange a call back<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    </form>
+  </div></div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <a class="fb" href="#top" aria-label="RAAPID"><svg viewBox="0 0 1135 283"><use href="#logo"/></svg></a>
+    <nav class="fcols" aria-label="Footer">
+      <div><h4>HEALTH PLANS</h4><ul><li><a href="#">Risk Adjustment</a></li><li><a href="#">Payment Integrity</a></li><li><a href="#">Coding Services</a></li></ul></div>
+      <div><h4>PROVIDERS &amp; HEALTH SYSTEMS</h4><ul><li><a href="#">Risk Adjustment</a></li><li><a href="#">Mid Revenue Cycle</a></li><li><a href="#">Coding Services</a></li></ul></div>
+      <div><h4>PLATFORM</h4><ul><li><a href="#">RAAPID AIDE</a></li><li><a href="#">Build on RAAPID</a></li></ul></div>
+      <div><h4>ABOUT US</h4><ul><li><a href="#">Insights</a></li><li><a href="#labs">RAAPID Labs</a></li><li><a href="#">Our Story</a></li></ul></div>
+    </nav>
+  </div>
+
+    <div class="fbottom">
+      <svg class="bigword" viewBox="362 74 773 136" role="img" aria-label="RAAPID"><path d="M487.35 168.74C486.55 163.86 484.9 159.79 482.47 156.56C479.63 152.85 475.1 149.93 468.99 147.82L460.69 144.96L468.95 141.97C484.23 136.42 491.69 126.47 491.69 111.6C491.69 100.18 486.83 90.9801 477.25 84.3501C467.43 77.5701 453.43 74.1201 435.61 74.1201H362.84V209.87H390.15V155.18H432.83C442.32 155.18 449.15 156.96 453.64 160.62C455.7 162.29 457.37 164.57 458.54 167.3C459.71 169.92 460.3 173 460.3 176.43V209.88H487.92V176.06C487.9 173.09 487.72 170.86 487.36 168.73V168.75L487.35 168.74ZM455.46 132.26C450.28 136.25 442.97 138.26 433.76 138.26H390.16V92.0401H432.63C442.23 92.0401 449.82 93.9501 455.18 97.7001C460.71 101.65 463.53 107.3 463.53 114.54C463.53 122.19 460.82 128.15 455.49 132.25H455.47L455.46 132.26Z"/><path d="M586.77 74.1401H552.8L491.82 209.89H519.63L532.36 179.11H607.17L620.11 209.89H648.81L586.74 74.1401H586.76H586.77ZM540.25 160.39L547.6 142.59C554.19 127.7 560.61 112.5 566.65 97.4101L569.51 90.2801L572.39 97.4101C580.04 116.36 586.52 131.53 591.68 142.61L599.31 160.39H540.24H540.25Z"/><path d="M734.7 74.1401H700.73L650.22 186.61L660.86 209.89H667.58L680.3 179.11H755.15L768.09 209.89H796.81L734.72 74.1401H734.68H734.7ZM688.2 160.39L695.55 142.59C702.14 127.7 708.53 112.5 714.6 97.4101L717.46 90.2801L720.34 97.4101C728.08 116.55 734.56 131.7 739.63 142.61L747.26 160.39H688.19H688.2Z"/><path d="M912.63 85.9499C902.74 78.1199 888.74 74.1299 870.96 74.1299H800.51V209.88H827.78V161.04H870.94C888.74 161.04 902.76 157.07 912.61 149.23C922.45 141.38 927.26 131.06 927.26 117.69C927.26 104.32 922.45 93.8199 912.61 85.9499H912.63ZM891.75 135.96C886.55 140.08 879.09 142.16 869.57 142.16H827.77V93.0199H869.57C879.06 93.0199 886.52 95.1399 891.77 99.3499C897.08 103.66 899.77 109.84 899.77 117.69C899.77 125.54 897.08 131.72 891.75 135.96Z"/><path d="M973.52 74.1401H946.25V209.89H973.52V74.1401Z"/><path d="M1113.2 92.2799C1099.28 80.2299 1079.19 74.1099 1053.46 74.1099H992.48V209.86H1053.46C1079.19 209.86 1099.28 203.68 1113.2 191.52C1127.03 179.53 1134.03 162.88 1134.03 142.01C1134.03 121.14 1127.03 104.36 1113.2 92.2799ZM1091.8 178.41C1082.68 186.76 1069.63 190.98 1053 190.98H1019.77V93.0199H1053C1069.63 93.0199 1082.68 97.2499 1091.8 105.59C1100.97 113.98 1105.61 126.25 1105.61 142.01C1105.61 157.77 1100.95 170.02 1091.8 178.41Z"/></svg>
+      <div class="copy"><p>© 2026 RAAPID. ALL RIGHTS RESERVED.</p><nav aria-label="Legal"><a href="#">PRIVACY POLICY</a><span aria-hidden="true">·</span><a href="#">TERMS OF SERVICE</a></nav></div>
+    </div>
+  </footer>
+</div>
+
+<script>
+const countries=[["United States","+1"],["Canada","+1"],["United Kingdom","+44"],["India","+91"],["Australia","+61"],["Ireland","+353"],["Germany","+49"],["France","+33"],["Spain","+34"],["Italy","+39"],["Netherlands","+31"],["Switzerland","+41"],["United Arab Emirates","+971"],["Saudi Arabia","+966"],["Singapore","+65"],["Japan","+81"],["China","+86"],["Brazil","+55"],["Mexico","+52"],["South Africa","+27"]];
+document.getElementById('cc').innerHTML=countries.map(([n,c],i)=>`<option value="${c}"${i===0?' selected':''}>${n} (${c})</option>`).join('');
+const items=[...document.querySelectorAll('.mi')];
+const closeAll=()=>items.forEach(i=>{i.classList.remove('open');i.querySelector('.mt').setAttribute('aria-expanded','false')});
+const openItem=i=>{closeAll();i.classList.add('open');i.querySelector('.mt').setAttribute('aria-expanded','true')};
+const wide=()=>matchMedia('(min-width:1321px)').matches;
+items.forEach(i=>{
+  i.querySelector('.mt').addEventListener('click',()=>i.classList.contains('open')?closeAll():openItem(i));
+  i.addEventListener('mouseenter',()=>{if(wide())openItem(i)});
+});
+document.querySelector('header.site').addEventListener('mouseleave',()=>{if(wide())closeAll()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+document.addEventListener('click',e=>{if(!e.target.closest('header.site'))closeAll()});
+const m=document.getElementById('menu'),nav=document.getElementById('nav');
+m.addEventListener('click',()=>{const o=nav.classList.toggle('open');m.setAttribute('aria-expanded',o)});
+
+// header: transparent over the banner, solid once the page scrolls
+(function(){const h=document.querySelector('header.site'); if(!h)return; const cue=document.querySelector('.cue'); const on=()=>{h.classList.toggle('scrolled',scrollY>8); if(cue)cue.classList.toggle('is-hidden',scrollY>60);}; addEventListener('scroll',on,{passive:true}); on();})();
+// Difference: pinned sequence, one point at a time
+(function(){
+  const sc=document.querySelector('.diff-scroll'); if(!sc||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  sc.classList.add('seq');
+  const stick=sc.querySelector('.diff-stick'), items=[...sc.querySelectorAll('.combo')], bar=sc.querySelector('.prog');
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  let ticking=false;
+  function update(){ ticking=false;
+    const top=parseFloat(getComputedStyle(stick).top)||0;
+    const range=sc.offsetHeight-stick.offsetHeight;
+    const p=clamp((top-sc.getBoundingClientRect().top)/range,0,.9999);
+    const n=items.length, idx=Math.floor(p*n);
+    items.forEach((it,i)=>{
+      it.classList.toggle('on',i===idx); it.classList.toggle('past',i<idx);
+    });
+    sc.style.setProperty('--pp',(p).toFixed(3)); bar.style.setProperty('--pp',p.toFixed(3));
+  }
+  const req=()=>{ if(!ticking){ticking=true;requestAnimationFrame(update)} };
+  addEventListener('scroll',req,{passive:true}); addEventListener('resize',req); update();
+})();
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const VIOLET = 0x5E58E0, GREEN = 0xCEDE00, INDIGO = 0x21154A;
+
+/* ---------- materials: one set per layer (so layers can fade independently) ---------- */
+const matsFor = (dark = false) => {
+  const glass = (c, o) => { const m = new THREE.MeshPhysicalMaterial({ color: c, transparent: true, opacity: o, roughness: 0.12, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.15, envMapIntensity: 1.3, depthWrite: false }); m.userData.base = o; return m; };
+  const solid = (c, r) => { const m = new THREE.MeshStandardMaterial({ color: c, roughness: r, metalness: 0.05, transparent: true, opacity: 1 }); m.userData.base = 1; return m; };
+  const line = (c, o) => { const m = new THREE.LineBasicMaterial({ color: c, transparent: true, opacity: o }); m.userData.base = o; return m; };
+  const M = dark
+    ? { slab: glass(0x3B3480, 0.62), clear: glass(0xAEB4FF, 0.24), violet: glass(VIOLET, 0.72), green: solid(GREEN, 0.3), indigo: solid(0x120a30, 0.4), white: solid(0xE8E6FA, 0.5), edge: line(0xA9A5FF, 0.85), edgeS: line(0x8F8AF0, 0.55) }
+    : { slab: glass(0xD8D5F8, 0.72), clear: glass(0xFFFFFF, 0.4), violet: glass(VIOLET, 0.62), green: solid(GREEN, 0.3), indigo: solid(INDIGO, 0.4), white: solid(0xFFFFFF, 0.5), edge: line(VIOLET, 0.85), edgeS: line(VIOLET, 0.5) };
+  M.violet.side = THREE.DoubleSide;
+  return M;
+};
+
+/* ---------- geometry helpers ---------- */
+const RB = (w, h, d, r = 0.06) => new RoundedBoxGeometry(w, h, d, 3, Math.min(r, w / 2 - 0.001, h / 2 - 0.001, d / 2 - 0.001));
+const put = (g, geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.rotation.set(rx, ry, rz); g.add(m); return m; };
+const pent = (R, depth) => {
+  const s = new THREE.Shape();
+  for (let i = 0; i < 5; i++) { const a = Math.PI / 2 + i * 2 * Math.PI / 5; const x = Math.cos(a) * R, y = Math.sin(a) * R; i ? s.lineTo(x, y) : s.moveTo(x, y); }
+  s.closePath();
+  const g = new THREE.ExtrudeGeometry(s, { depth, bevelEnabled: true, bevelSize: 0.04, bevelThickness: 0.04, bevelSegments: 3 });
+  g.rotateX(-Math.PI / 2); g.translate(0, 0.04, 0);
+  return g;
+};
+
+/* ---------- item builders (face +Z, base y = 0, metres) ---------- */
+const B = {
+  riskAdjustment(M) { const g = new THREE.Group(); [0.55, 0.95, 1.4].forEach((h, i) => { put(g, RB(0.34, h, 0.34), M.violet, (i - 1) * 0.46, h / 2, 0); }); put(g, RB(0.34, 0.09, 0.34), M.green, 0.46, 1.445, 0); return g; },
+  medicalCoding(M) { const g = new THREE.Group(); for (let i = 0; i < 3; i++) put(g, RB(1.15, 0.09, 0.85), i % 2 ? M.clear : M.violet, 0, 0.06 + i * 0.17, 0, 0, i * 0.12, 0);
+    [-0.2, 0, 0.2].forEach((z, i) => put(g, RB(i === 1 ? 0.5 : 0.7, 0.025, 0.05, 0.01), M.indigo, 0, 0.46, z)); put(g, RB(0.18, 0.03, 0.12, 0.01), M.green, 0.3, 0.46, 0.2); return g; },
+  cdi(M) { const g = new THREE.Group(); const a = put(g, pent(0.62, 0.5), M.violet); a.rotation.y = 0.35; const b = put(g, pent(0.3, 0.14), M.green, 0, 0.18, 0); b.rotation.y = 0.35; return g; },
+  paymentIntegrity(M) { const g = new THREE.Group(); const c = new THREE.CylinderGeometry(0.5, 0.5, 0.14, 44); [M.violet, M.white, M.green].forEach((m, i) => put(g, c, m, i === 1 ? 0.06 : 0, 0.07 + i * 0.2, i === 1 ? -0.04 : 0)); return g; },
+  workflowAutomation(M) { const g = new THREE.Group(); const R = 0.68, arc = 4.5; const ring = new THREE.Group();
+    put(ring, new THREE.TorusGeometry(R, 0.11, 14, 56, arc), M.green); put(ring, new THREE.ConeGeometry(0.24, 0.42, 20), M.green, Math.cos(arc) * R, Math.sin(arc) * R, 0, 0, 0, arc);
+    ring.rotation.x = -Math.PI / 2; ring.position.y = 0.55; g.add(ring); put(g, new THREE.SphereGeometry(0.2, 24, 16), M.violet, 0, 0.55, 0); put(g, new THREE.CylinderGeometry(0.08, 0.08, 0.4, 16), M.white, 0, 0.2, 0); return g; },
+  neuroSymbolic(M) { const g = new THREE.Group(); put(g, RB(1.15, 1.15, 1.15, 0.1), M.clear, 0, 0.6, 0); put(g, new THREE.IcosahedronGeometry(0.34, 0), M.violet, 0, 0.6, 0);
+    const pts = []; const nodes = [[-0.75, 1.5, -0.55], [0.75, 1.5, -0.55], [-0.75, 1.5, 0.55], [0.75, 1.5, 0.55]];
+    nodes.forEach(n => { put(g, new THREE.SphereGeometry(0.08, 14, 10), M.green, n[0], n[1], n[2]); pts.push(new THREE.Vector3(...n), new THREE.Vector3(0, 0.6, 0)); });
+    g.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), M.edgeS)); return g; },
+  documentAI(M) { const g = new THREE.Group(); for (let i = 0; i < 3; i++) put(g, RB(0.85, 1.1, 0.05, 0.03), i === 2 ? M.clear : M.violet, (i - 1) * 0.5, 0.58, -0.26 + i * 0.26, 0, (1 - i) * 0.3, 0);
+    const fx = 0.5, fz = 0.3; [0.82, 0.62, 0.42].forEach((y, i) => put(g, RB(i === 1 ? 0.34 : 0.5, 0.06, 0.02, 0.01), i === 1 ? M.green : M.indigo, fx - 0.03, y, fz, 0, -0.3, 0)); return g; },
+  securityCompliance(M) { const g = new THREE.Group(); put(g, new THREE.SphereGeometry(0.72, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2), M.violet, 0, 0.06, 0); put(g, new THREE.CylinderGeometry(0.76, 0.76, 0.08, 44), M.white, 0, 0.04, 0);
+    put(g, RB(0.4, 0.3, 0.22, 0.04), M.green, 0, 0.25, 0); put(g, new THREE.TorusGeometry(0.12, 0.035, 10, 24, Math.PI), M.indigo, 0, 0.4, 0); return g; },
+  integration(M) { const g = new THREE.Group(); put(g, new THREE.CylinderGeometry(0.62, 0.62, 0.06, 40), M.white, 0, 0.03, 0);
+    put(g, new THREE.TorusGeometry(0.45, 0.09, 16, 48), M.violet, -0.2, 0.62, 0); put(g, new THREE.TorusGeometry(0.45, 0.09, 16, 48), M.green, 0.2, 0.62, 0, 0, Math.PI / 2, 0); return g; },
+  analyticsReporting(M) { const g = new THREE.Group(); const hs = [0.4, 0.7, 0.55, 1.0]; const pts = [];
+    hs.forEach((h, i) => { const x = -0.51 + i * 0.34; put(g, RB(0.22, h, 0.22, 0.04), M.violet, x, h / 2, 0); pts.push(new THREE.Vector3(x, h + 0.22, 0)); });
+    put(g, new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 40, 0.03, 8), M.green); put(g, new THREE.SphereGeometry(0.07, 14, 10), M.green, pts[3].x, pts[3].y, 0); return g; },
+  enterpriseReady(M) { const g = new THREE.Group(); put(g, RB(1.3, 0.06, 1.3, 0.02), M.white, 0, 0.03, 0);
+    const w = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.2, 1.2, 1.2)), M.edge); w.position.y = 0.68; g.add(w);
+    put(g, RB(0.55, 0.55, 0.55, 0.08), M.violet, 0, 0.68, 0); put(g, RB(0.2, 0.2, 0.2, 0.04), M.green, 0, 0.68, 0); return g; },
+};
+
+
+/* ===================== Option B: intelligence layer centre stage ===================== */
+(function () {
+  const root = document.querySelector('[data-pb]');
+  if (!root) return;
+  const canvas = root.querySelector('canvas');
+  const host = root.querySelector('.pb-canvas');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  try { init(); } catch (err) { console.error(err); root.classList.add('no3d'); }
+
+  function init() {
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+    renderer.setClearColor(0x000000, 0);
+
+    const scene = new THREE.Scene();
+    const pm = new THREE.PMREMGenerator(renderer);
+    scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = 0.95;
+    pm.dispose();
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xd9d6f5, 0.7));
+    const key = new THREE.DirectionalLight(0xffffff, 1.2); key.position.set(6, 10, 7); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xffffff, 0.35); rim.position.set(-8, 5, -6); scene.add(rim);
+
+    const camera = new THREE.PerspectiveCamera(22, 1, 0.5, 200);
+    const target = new THREE.Vector3(0, 1.3, 0);
+    const AZ = Math.PI / 4, POLAR = 1.0;
+    let dist = 27;
+    const place = () => camera.position.set(target.x + dist * Math.sin(POLAR) * Math.sin(AZ), target.y + dist * Math.cos(POLAR), target.z + dist * Math.sin(POLAR) * Math.cos(AZ));
+    place(); camera.lookAt(target);
+    const controls = new OrbitControls(camera, canvas);
+    controls.target.copy(target); controls.enableZoom = false; controls.enablePan = false;
+    controls.enableDamping = true; controls.dampingFactor = 0.07;
+    controls.minPolarAngle = 0.85; controls.maxPolarAngle = 1.2;
+    controls.minAzimuthAngle = AZ - 0.4; controls.maxAzimuthAngle = AZ + 0.4;
+    canvas.style.touchAction = 'pan-y'; controls.update();
+
+    function onResize() {
+      const w = Math.max(1, host.clientWidth), h = Math.max(1, host.clientHeight);
+      renderer.setSize(w, h, false); camera.aspect = w / h;
+      dist = 27 * Math.max(1, 1.5 / camera.aspect);
+      const d = camera.position.distanceTo(controls.target) || 1;
+      camera.position.sub(controls.target).multiplyScalar(dist / d).add(controls.target);
+      camera.updateProjectionMatrix(); controls.update();
+    }
+    new ResizeObserver(onResize).observe(host);
+
+    const world = new THREE.Group(); scene.add(world);
+    const RIGHT = new THREE.Vector3(Math.SQRT1_2, 0, -Math.SQRT1_2);   // screen-right at azimuth 45°
+    const at = (t) => RIGHT.clone().multiplyScalar(t);
+
+    /* centre: the intelligence layer */
+    const MC = matsFor(false);
+    const center = new THREE.Group(); world.add(center);
+    const cGeo = RB(8.6, 0.3, 5.4, 0.12);
+    const cSlab = put(center, cGeo, MC.slab); center.add(new THREE.LineSegments(new THREE.EdgesGeometry(cGeo, 25), MC.edge));
+    const keys = ['workflowAutomation', 'neuroSymbolic', 'documentAI'];
+    const spots = [-3.3, 0, 3.3];
+    const items = keys.map((k, i) => {
+      const holder = new THREE.Group(); const p = at(spots[i]); holder.position.set(p.x, 0.15, p.z);
+      const obj = B[k](MC); obj.scale.setScalar(i === 1 ? 1.6 : 1.4); holder.add(obj); holder.userData.item = i; center.add(holder);
+      return { holder, s: 1, ts: 1 };
+    });
+
+    const sides = [];   // the two other groups are pop-ups only (no illustration)
+
+    // floor glow
+    const gl = document.createElement('canvas'); gl.width = gl.height = 128; const gc = gl.getContext('2d');
+    const gg = gc.createRadialGradient(64, 64, 2, 64, 64, 62); gg.addColorStop(0, 'rgba(33,21,74,.30)'); gg.addColorStop(0.55, 'rgba(33,21,74,.10)'); gg.addColorStop(1, 'rgba(33,21,74,0)');
+    gc.fillStyle = gg; gc.fillRect(0, 0, 128, 128);
+    const glT = new THREE.CanvasTexture(gl); glT.colorSpace = THREE.SRGBColorSpace;
+    const glow = new THREE.Mesh(new THREE.PlaneGeometry(15, 10), new THREE.MeshBasicMaterial({ map: glT, transparent: true, depthWrite: false }));
+    glow.rotation.x = -Math.PI / 2; glow.position.y = -0.45; world.add(glow);
+
+    const ringMat = new THREE.MeshBasicMaterial({ color: VIOLET, transparent: true, opacity: 0, depthWrite: false });
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.7, 0.03, 8, 64), ringMat); ring.rotation.x = Math.PI / 2; ring.renderOrder = 5; world.add(ring);
+
+    /* labels (content lives in the HTML) */
+    const lblHost = root.querySelector('.pb-labels');
+    const lbls = [...root.querySelectorAll('.pbl')];
+
+    /* pop-ups */
+    const pops = { left: root.querySelector('[data-pop="left"]'), right: root.querySelector('[data-pop="right"]') };
+    const btns = { left: root.querySelector('[data-open="left"]'), right: root.querySelector('[data-open="right"]') };
+    let open = null, hover = null, interacted = false, visible = true;
+    function setOpen(id) {
+      open = (open === id) ? null : id;
+      ['left', 'right'].forEach(k => { const on = open === k; pops[k].hidden = !on; btns[k].setAttribute('aria-expanded', on); btns[k].classList.toggle('is-open', on); });
+      sides.forEach(sd => { sd.tf = open === sd.id ? 1 : 0.5; sd.ty = open === sd.id ? 0.35 : 0; });
+    }
+    ['left', 'right'].forEach(k => {
+      btns[k].addEventListener('click', e => { e.stopPropagation(); interacted = true; setOpen(k); });
+      pops[k].querySelector('.pb-x').addEventListener('click', () => { if (open === k) setOpen(k); btns[k].focus(); });
+      pops[k].addEventListener('click', e => e.stopPropagation());
+    });
+    document.addEventListener('click', () => { if (open) setOpen(open); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && open) { const k = open; setOpen(k); btns[k].focus(); } });
+    const idx = (el) => lbls.indexOf(el);
+    lbls.forEach((el, i) => { el.addEventListener('pointerenter', () => { hover = i; }); el.addEventListener('pointerleave', () => { hover = null; }); });
+
+    /* picking */
+    const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(); let press = null;
+    const itemHolders = items.map(i => i.holder);
+    function pick(cx, cy) {
+      const r = canvas.getBoundingClientRect(); ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
+      ray.setFromCamera(ndc, camera);
+      for (const h of ray.intersectObjects([...itemHolders, ...sides.map(s => s.slab)], true)) {
+        const m = h.object.material; if (m && m.transparent && m.opacity < 0.12) continue;
+        let o = h.object; while (o && o.userData.item === undefined && !o.userData.side) o = o.parent;
+        if (!o) continue;
+        return o.userData.side ? { side: o.userData.side } : { item: o.userData.item };
+      }
+      return null;
+    }
+    canvas.addEventListener('pointerdown', e => { interacted = true; press = { x: e.clientX, y: e.clientY }; });
+    canvas.addEventListener('pointermove', e => {
+      if (press && Math.hypot(e.clientX - press.x, e.clientY - press.y) > 5) return;
+      const p = pick(e.clientX, e.clientY); canvas.style.cursor = p ? 'pointer' : 'grab';
+      hover = p && p.item !== undefined ? p.item : null;
+    });
+    canvas.addEventListener('pointerleave', () => { hover = null; });
+    canvas.addEventListener('pointerup', e => {
+      const moved = press ? Math.hypot(e.clientX - press.x, e.clientY - press.y) : 99; press = null; if (moved > 5) return;
+      const p = pick(e.clientX, e.clientY); if (p && p.side) { e.stopPropagation(); setOpen(p.side); }
+    });
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0.05 }).observe(root);
+
+    /* loop */
+    const damp = THREE.MathUtils.damp, v = new THREE.Vector3();
+    let last = performance.now(), errored = false;
+    const fade = (mats, f) => mats.forEach(m => { m.opacity = m.userData.base * f; });
+    function frame(now) {
+      requestAnimationFrame(frame);
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      if (!visible) return;
+      try {
+        sides.forEach(sd => { sd.f = damp(sd.f, sd.tf, 6, dt); sd.y = damp(sd.y, sd.ty, 6, dt); sd.g.position.y = sd.y; if (Math.abs(sd.f - sd.fA) > 0.002) { sd.fA = sd.f; fade(sd.mats, sd.f); } });
+        items.forEach((it, i) => { it.ts = hover === i ? 1.09 : 1; it.s = damp(it.s, it.ts, 10, dt); it.holder.scale.setScalar(it.s); });
+        if (!reduce) world.rotation.y = Math.sin(now / 1000 * 0.35) * 0.035;
+        const h = hover !== null ? items[hover] : null;
+        if (h) { h.holder.getWorldPosition(v); ring.position.set(v.x, v.y + 0.03, v.z); }
+        ringMat.opacity = damp(ringMat.opacity, h ? 0.9 : 0, 12, dt);
+        controls.update(); renderer.render(scene, camera);
+        const w = host.clientWidth, hh = host.clientHeight;
+        lbls.forEach((el, i) => {
+          items[i].holder.getWorldPosition(v); v.y += i === 1 ? 3.3 : 2.8; v.project(camera);
+          el.style.transform = 'translate(' + ((v.x * 0.5 + 0.5) * w).toFixed(1) + 'px,' + ((-v.y * 0.5 + 0.5) * hh).toFixed(1) + 'px) translate(-50%,-100%)';
+          el.classList.toggle('hot', hover === i);
+        });
+      } catch (err) { if (!errored) console.error(err); errored = true; }
+    }
+    onResize(); requestAnimationFrame(frame);
+    root.classList.add('ready');
+  }
+})();
+
+(function(){
+  const root=document.querySelector('[data-svm]'); if(!root) return;
+  const gs=[...root.querySelectorAll('.sg')], im=[...root.querySelectorAll('.svm-img')];
+  function set(i){gs.forEach((g,k)=>{g.classList.toggle('is-active',k===i);g.querySelector('.sg-t').setAttribute('aria-expanded',k===i);im[k].classList.toggle('is-active',k===i);});}
+  gs.forEach((g,i)=>{const t=g.querySelector('.sg-t');t.addEventListener('click',()=>set(i));});
+})();
+</script>
+</body>
+</html>
