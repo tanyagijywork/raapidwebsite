@@ -125,6 +125,8 @@ nav.main .ml .mt:hover{border-bottom-color:var(--green)}
 .cue.is-hidden{opacity:0;pointer-events:none}
 @media(prefers-reduced-motion:reduce){.cue-line::after{animation:none;top:0;height:100%;opacity:.6}}
 .hero{isolation:isolate;overflow:hidden}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(1,1,1,.5) 0,rgba(1,1,1,.12) 28%,rgba(1,1,1,.12) 62%,rgba(1,1,1,.55) 100%)}
 .hero-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .hero-bg i{position:absolute;border-radius:50%;will-change:transform;mix-blend-mode:screen}
 .hero-bg i:nth-child(1){width:70vw;height:70vw;left:-10vw;top:-28vw;background:radial-gradient(closest-side,rgba(94,88,224,.62),rgba(94,88,224,0));animation:hbA 24s ease-in-out infinite alternate}
@@ -133,7 +135,7 @@ nav.main .ml .mt:hover{border-bottom-color:var(--green)}
 @keyframes hbA{0%{transform:translate(0,0) scale(1)}50%{transform:translate(22vw,10vw) scale(1.18)}100%{transform:translate(8vw,22vw) scale(.92)}}
 @keyframes hbB{0%{transform:translate(0,0) scale(1.05)}50%{transform:translate(-24vw,14vw) scale(.88)}100%{transform:translate(-8vw,-4vw) scale(1.2)}}
 @keyframes hbC{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-18vw,-12vw) scale(1.2)}100%{transform:translate(14vw,-4vw) scale(.95)}}
-@media(prefers-reduced-motion:reduce){.hero-bg i{animation:none}}
+
 .hero.dark{background:radial-gradient(70% 90% at 50% 0%,rgba(94,88,224,.38),rgba(94,88,224,0) 70%),var(--black)}
 .hero .grid{max-width:900px;margin:0 auto;text-align:center}
 .hero .eyebrow{justify-content:center}
@@ -331,19 +333,42 @@ footer .wrap{align-items:flex-start}
 .platb .head{margin-bottom:24px;width:calc((100% - 24px) / 2);max-width:none;text-align:left}
 .platb .head p.lead{color:var(--n60)}
 .pb-head h3{font-weight:300;font-size:1.95rem;line-height:1.2;letter-spacing:-.01em;color:var(--indigo)}
-.pb{position:relative;height:min(800px,calc(100vh - 77px));min-height:660px;overflow:hidden;background:radial-gradient(60% 70% at 50% 60%,rgba(94,88,224,.14),rgba(94,88,224,0) 72%),var(--white);color:var(--indigo)}
-.pb-canvas{position:absolute;inset:34px 0 0 0}
-.pb-canvas canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
-.pb-canvas canvas:active{cursor:grabbing}
-.pb-labels{position:absolute;inset:0;pointer-events:none}
-.pbl{position:absolute;left:0;top:0;width:205px;text-align:center;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.78);border:1px solid rgba(94,88,224,.25);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 14px 30px -20px rgba(33,21,74,.4);pointer-events:auto;transition:background .2s,border-color .2s;will-change:transform}
-.pbl b{display:block;font-weight:500;font-size:1rem;color:var(--indigo)}
-.pbl span{display:block;margin-top:4px;font-size:.8125rem;line-height:1.4;color:var(--n60)}
-.pbl.hot{background:var(--violet);border-color:var(--violet)}
-.pbl.hot b,.pbl.hot span{color:var(--white)}
+.pb{position:relative;height:690px;overflow:hidden;background:radial-gradient(60% 70% at 50% 60%,rgba(94,88,224,.14),rgba(94,88,224,0) 72%),var(--white);color:var(--indigo)}
+.pb-stage{--cw:clamp(200px,18vw,300px);position:absolute;left:50%;top:262px;width:min(47%,740px);transform:translateX(-50%)}
+.pb-fig{position:relative;aspect-ratio:2200/923}
+.pb-fig img{position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none;-webkit-user-drag:none}
+.pb-act{opacity:0;transition:opacity .55s ease}
+.pb-act.is-on{opacity:1}
+.pb-hot{position:absolute;border:0;background:none;padding:0;cursor:pointer;border-radius:24px}
+.pb-hot:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+.pb-call{position:absolute;display:flex;gap:16px;align-items:center;color:#C3C3C3;cursor:default;outline:0}
+.pb-call .pc-t{width:var(--cw)}
+.pb-call .pc-t h4{margin:0;font-weight:500;font-size:1.25rem;line-height:1.2;letter-spacing:-.01em;color:var(--n50);transition:color .3s}
+.pb-call .pc-t p{margin:8px 0 0;font-size:.9375rem;line-height:1.5;color:var(--n50);transition:color .3s}
+.pb-call.is-on{color:var(--violet)}
+.pb-call.is-on .pc-t h4{color:var(--indigo)}
+.pb-call.is-on .pc-t p{color:var(--n60)}
+.pb-call:focus-visible .pc-t h4{text-decoration:underline}
+.pb-c0{right:calc(100% + 22px);top:52.5%;transform:translateY(-50%);text-align:right}
+.pb-c2{left:calc(100% + 22px);top:51%;transform:translateY(-50%);text-align:left}
+.pb-c1{left:48%;bottom:calc(100% + 12px);transform:translateX(-50%);flex-direction:column;gap:12px;text-align:center}
+.pb-c1 .pc-t{order:0}
+.pb-ln{position:absolute;color:#B8B4D6;transition:color .3s;pointer-events:none}
+.pb-ln.is-on{color:var(--violet)}
+.pb-ln::before{content:"";position:absolute;background:currentColor;border-radius:2px}
+.pb-ln::after{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 0 7px color-mix(in srgb,currentColor 18%,transparent)}
+.pb-ln0{left:-14px;top:52.5%;width:calc(14px + 17.5%);height:0}
+.pb-ln0::before{left:0;right:0;top:-.75px;height:1.5px}
+.pb-ln0::after{right:-4.5px;top:-4.5px}
+.pb-ln2{left:81.5%;top:51%;width:calc(18.5% + 14px);height:0}
+.pb-ln2::before{left:0;right:0;top:-.75px;height:1.5px}
+.pb-ln2::after{left:-4.5px;top:-4.5px}
+.pb-ln1{left:48%;top:-6px;height:calc(9% + 6px);width:0}
+.pb-ln1::before{top:0;bottom:0;left:-.75px;width:1.5px}
+.pb-ln1::after{left:-4.5px;bottom:-4.5px}
 .pb-head{position:absolute;left:50%;top:22px;transform:translateX(-50%);width:min(90%,760px);text-align:center;pointer-events:none}
 .pb-head .eyebrow{justify-content:center}
-.pb-btn{position:absolute;top:34%;display:inline-flex;align-items:center;gap:14px;padding:13px 14px 13px 22px;border-radius:999px;border:1px solid rgba(33,21,74,.3);background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--indigo);font:400 1rem var(--font);cursor:pointer;transition:background .2s,border-color .2s}
+.pb-btn{position:absolute;top:104px;z-index:4;display:inline-flex;align-items:center;gap:14px;padding:13px 14px 13px 22px;border-radius:999px;border:1px solid rgba(33,21,74,.3);background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--indigo);font:400 1rem var(--font);cursor:pointer;transition:background .2s,border-color .2s}
 .pb-btn:hover,.pb-btn.is-open{background:#fff;border-color:var(--violet)}
 .pb-btn:focus-visible{outline:2px solid var(--violet);outline-offset:4px}
 .pb-l{left:var(--pad)}.pb-r{right:var(--pad)}
@@ -351,7 +376,7 @@ footer .wrap{align-items:flex-start}
 .pb-plus::before,.pb-plus::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;background:var(--white)}
 .pb-plus::after{transform:rotate(90deg)}
 .pb-btn.is-open .pb-plus{transform:rotate(45deg)}
-.pb-pop{position:absolute;top:calc(34% + 64px);width:min(390px,calc(100% - 2 * var(--pad)));padding:28px;border-radius:20px;background:rgba(255,255,255,.9);color:var(--indigo);border:1px solid var(--n20);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:0 30px 60px -28px rgba(33,21,74,.35);z-index:3}
+.pb-pop{position:absolute;top:168px;width:min(390px,calc(100% - 2 * var(--pad)));padding:28px;border-radius:20px;background:rgba(255,255,255,.9);color:var(--indigo);border:1px solid var(--n20);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:0 30px 60px -28px rgba(33,21,74,.35);z-index:3}
 .pb-pop[hidden]{display:none}
 .pb-pl{left:var(--pad)}.pb-pr{right:var(--pad)}
 .pb-pop h3{font-weight:300;font-size:1.5625rem;line-height:1.25;margin:0 36px 14px 0}
@@ -361,13 +386,7 @@ footer .wrap{align-items:flex-start}
 .pb-pop li span{font-size:.875rem;line-height:1.45;color:var(--n60)}
 .pb-x{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(33,21,74,.3);background:transparent;color:var(--indigo);font-size:1.25rem;line-height:1;cursor:pointer}
 .pb-x:hover{background:rgba(33,21,74,.08)}
-.pb.no3d{height:auto;padding:96px 0 64px}
-.pb.no3d canvas{display:none}
-.pb.no3d .pb-canvas{position:static}.pb.no3d .pb-labels{position:static;display:grid;gap:12px;padding:200px var(--pad) 0;max-width:var(--wrap);margin:0 auto;grid-template-columns:repeat(3,1fr)}
-.pb.no3d .pbl{position:static;transform:none!important;width:auto}
-.pb.no3d .pb-btn,.pb.no3d .pb-pop{display:none}
-@media(max-width:860px){.platb .head{width:100%}.platb{padding-top:72px}.pb{height:740px}.pb-canvas{inset:50px 0 0 0}.pb-head{top:14px}.pb-btn{top:auto;bottom:24px;font-size:.875rem;padding:10px 10px 10px 16px;gap:10px}.pb-pop{top:auto;bottom:84px;left:var(--pad);right:var(--pad);width:auto}.pbl{width:170px;padding:8px 10px}.pbl span{display:none}}
-
+@media(max-width:860px){.platb .head{width:100%}.platb{padding-top:72px}.pb{height:auto;padding:78px 0 110px}.pb-head{top:14px}.pb-stage{position:static;transform:none;width:92%;margin:0 auto}.pb-ln{display:none}.pb-call .pc-t{width:auto}.pb-call{position:static;transform:none;width:auto;display:block;text-align:left;margin-top:18px;padding:16px 18px;border-radius:16px;border:1px solid var(--n20);background:rgba(255,255,255,.7)}.pb-call .pc-t h4{font-size:1.1875rem}.pb-call .pc-t p{font-size:.9375rem}.pb-call.is-on{border-color:var(--violet)}.pb-btn{top:auto;bottom:24px;font-size:.875rem;padding:10px 10px 10px 16px;gap:10px}.pb-pop{top:auto;bottom:84px;left:var(--pad);right:var(--pad);width:auto}}
 /* Hero stats */
 .statsec{padding:88px 0 52px}
 .hstats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 48px}
@@ -407,7 +426,6 @@ footer .wrap{align-items:flex-start}
 @media(max-width:1320px){nav.main{display:none}.menu-btn{display:grid;place-items:center}nav.main.open{display:flex;position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(246,244,244,.14);padding:8px var(--pad) 20px;margin:0;max-height:calc(100vh - 96px);overflow:auto}.mi,.ml{display:block;border-bottom:1px solid rgba(246,244,244,.14)}.mt{width:100%;justify-content:space-between;padding:16px 0;height:auto;border:0}.mega{position:static;padding:0}.mp{display:block;padding:0 0 12px;background:none;border:0;box-shadow:none;border-radius:0;max-width:none}.mf,.mdiv,.mh,.mc-head{display:none}.mp-cols{display:block}.mcol{margin-top:6px}.mlist li a{margin:0;padding:10px 0 10px 8px}.mar{display:none}.mic{width:38px;height:38px}.c4{grid-template-columns:1fr 1fr}.search{width:160px}}
 @media(max-width:860px){.fcols{grid-template-columns:1fr 1fr}.cols,.metrics,.stories,.news,.c3,.labs .top,.contact .grid,.labs .split{grid-template-columns:1fr}.labs .stick{position:static}.cols>div+div{padding-left:0;border-left:0;border-top:1px solid var(--n20)}.cols>div{padding:28px 0 8px}.labs .top,.contact .grid{gap:32px}.metrics{padding:28px}section.s{padding:72px 0}.hero{padding:var(--hdr) 0 56px}.tools .bs-p{display:none}}
 @media(max-width:560px){.fcols{grid-template-columns:1fr}.ticker .sep{display:none}.c4,form{grid-template-columns:1fr}.phone{grid-template-columns:120px 1fr}.story,</style>
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"}}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -485,7 +503,7 @@ footer .wrap{align-items:flex-start}
 </header>
 
 <main id="top">
-  <section class="hero dark"><div class="hero-bg" aria-hidden="true"><i></i><i></i><i></i></div>
+  <section class="hero dark"><div class="hero-bg" aria-hidden="true"><video class="hero-video" src="hero-flow.mp4" poster="hero-flow-poster.jpg" autoplay muted loop playsinline preload="auto"></video></div>
     <div class="wrap"><div class="grid">
       <p class="eyebrow">CLINICAL AI FOR HEALTHCARE REVENUE INTEGRITY</p>
       <h1>Clinical intelligence that makes your financial outcomes certain.</h1>
@@ -532,12 +550,24 @@ footer .wrap{align-items:flex-start}
       <div class="head"><p class="eyebrow">HOW RAAPID DELIVERS</p><h2 id="pbs-title"><b>One intelligence platform</b>, purpose-built for multiple workflows.</h2><p class="lead"><b>Actualize your revenue and reimbursement priorities.</b> RAAPID’s AI-native decision intelligence platform brings together clinical evidence, healthcare workflows, and enterprise capabilities you need.</p></div>
     </div>
     <div class="pb" data-pb>
-      <div class="pb-canvas"><canvas aria-hidden="true"></canvas>
-        <div class="pb-labels"><div class="pbl"><b>Workflow automation</b><span>Orchestrates review workflows and supports the execution of AI-driven insights within existing processes.</span></div><div class="pbl"><b>Neuro-Symbolic AI</b><span>Combines neural pattern recognition with symbolic reasoning and clinical logic to support traceable, evidence-based decisions.</span></div><div class="pbl"><b>Document AI</b><span>Converts unstructured clinical documents into structured data while preserving clinical context and relationships.</span></div></div>
-      </div>
       <div class="pb-head"><h3 id="pb-title">One clinical intelligence layer</h3></div>
       <button class="pb-btn pb-l" type="button" data-open="left" aria-expanded="false" aria-controls="pop-left">Where your teams use it<span class="pb-plus" aria-hidden="true"></span></button>
       <button class="pb-btn pb-r" type="button" data-open="right" aria-expanded="false" aria-controls="pop-right">Built for scale and scrutiny<span class="pb-plus" aria-hidden="true"></span></button>
+      <div class="pb-stage">
+        <div class="pb-fig">
+          <img class="pb-base" src="base-inactive.webp" alt="" width="2200" height="923">
+          <img class="pb-act is-on" data-k="0" src="active-wf.webp" alt="" width="2200" height="923">
+          <img class="pb-act" data-k="1" src="active-ns.webp" alt="" width="2200" height="923">
+          <img class="pb-act" data-k="2" src="active-dc.webp" alt="" width="2200" height="923">
+          <button class="pb-hot" type="button" data-k="0" aria-pressed="false" aria-label="Workflow automation" style="left:16.12%;top:26.12%;width:25.55%;height:45.44%"></button><button class="pb-hot" type="button" data-k="1" aria-pressed="false" aria-label="Neuro-Symbolic AI" style="left:34.78%;top:5.14%;width:25.61%;height:41.82%"></button><button class="pb-hot" type="button" data-k="2" aria-pressed="false" aria-label="Document AI" style="left:56.54%;top:31.33%;width:25.77%;height:39.73%"></button>
+        </div>
+        <div class="pb-call pb-c0 is-on" data-k="0" tabindex="0"><div class="pc-t"><h4>Workflow automation</h4><p>Orchestrates review workflows and supports the execution of AI-driven insights within existing processes.</p></div></div>
+        <div class="pb-call pb-c1" data-k="1" tabindex="0"><div class="pc-t"><h4>Neuro-Symbolic AI</h4><p>Combines neural pattern recognition with symbolic reasoning and clinical logic to support traceable, evidence-based decisions.</p></div></div>
+        <div class="pb-call pb-c2" data-k="2" tabindex="0"><div class="pc-t"><h4>Document AI</h4><p>Converts unstructured clinical documents into structured data while preserving clinical context and relationships.</p></div></div>
+        <span class="pb-ln pb-ln0 is-on" data-k="0" aria-hidden="true"></span>
+        <span class="pb-ln pb-ln1" data-k="1" aria-hidden="true"></span>
+        <span class="pb-ln pb-ln2" data-k="2" aria-hidden="true"></span>
+      </div>
       <div class="pb-pop pb-pl" id="pop-left" data-pop="left" role="dialog" aria-labelledby="pb-lt" hidden><button class="pb-x" type="button" aria-label="Close">&times;</button><h3 id="pb-lt">Where your teams use it</h3><ul><li><b>Risk adjustment</b><span>Retrospective. Prospective. RADV</span></li><li><b>Medical coding</b><span>Inpatient. Outpatient</span></li><li><b>Clinical documentation improvement</b><span>Accuracy and completeness</span></li><li><b>Payment integrity</b><span>Pre-payment validation</span></li></ul></div>
       <div class="pb-pop pb-pr" id="pop-right" data-pop="right" role="dialog" aria-labelledby="pb-rt" hidden><button class="pb-x" type="button" aria-label="Close">&times;</button><h3 id="pb-rt">Built for scale and scrutiny</h3><ul><li><b>Security and compliance</b><span>HITRUST r2 • SOC 2 • HIPAA</span></li><li><b>Integration</b><span>EHR embedding • APIs • cloud-native</span></li><li><b>Analytics and reporting</b><span>Program and enterprise performance</span></li><li><b>Enterprise ready</b><span>Single-tenant • No training on your data</span></li></ul></div>
     </div>
@@ -677,226 +707,28 @@ m.addEventListener('click',()=>{const o=nav.classList.toggle('open');m.setAttrib
   const req=()=>{ if(!ticking){ticking=true;requestAnimationFrame(update)} };
   addEventListener('scroll',req,{passive:true}); addEventListener('resize',req); update();
 })();
-</script>
-<script type="module">
-import * as THREE from 'three';
-import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-const VIOLET = 0x5E58E0, GREEN = 0xCEDE00, INDIGO = 0x21154A;
-
-/* ---------- materials: one set per layer (so layers can fade independently) ---------- */
-const matsFor = (dark = false) => {
-  const glass = (c, o) => { const m = new THREE.MeshPhysicalMaterial({ color: c, transparent: true, opacity: o, roughness: 0.12, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.15, envMapIntensity: 1.3, depthWrite: false }); m.userData.base = o; return m; };
-  const solid = (c, r) => { const m = new THREE.MeshStandardMaterial({ color: c, roughness: r, metalness: 0.05, transparent: true, opacity: 1 }); m.userData.base = 1; return m; };
-  const line = (c, o) => { const m = new THREE.LineBasicMaterial({ color: c, transparent: true, opacity: o }); m.userData.base = o; return m; };
-  const M = dark
-    ? { slab: glass(0x3B3480, 0.62), clear: glass(0xAEB4FF, 0.24), violet: glass(VIOLET, 0.72), green: solid(GREEN, 0.3), indigo: solid(0x120a30, 0.4), white: solid(0xE8E6FA, 0.5), edge: line(0xA9A5FF, 0.85), edgeS: line(0x8F8AF0, 0.55) }
-    : { slab: glass(0xD8D5F8, 0.72), clear: glass(0xFFFFFF, 0.4), violet: glass(VIOLET, 0.62), green: solid(GREEN, 0.3), indigo: solid(INDIGO, 0.4), white: solid(0xFFFFFF, 0.5), edge: line(VIOLET, 0.85), edgeS: line(VIOLET, 0.5) };
-  M.violet.side = THREE.DoubleSide;
-  return M;
-};
-
-/* ---------- geometry helpers ---------- */
-const RB = (w, h, d, r = 0.06) => new RoundedBoxGeometry(w, h, d, 3, Math.min(r, w / 2 - 0.001, h / 2 - 0.001, d / 2 - 0.001));
-const put = (g, geo, mat, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.rotation.set(rx, ry, rz); g.add(m); return m; };
-const pent = (R, depth) => {
-  const s = new THREE.Shape();
-  for (let i = 0; i < 5; i++) { const a = Math.PI / 2 + i * 2 * Math.PI / 5; const x = Math.cos(a) * R, y = Math.sin(a) * R; i ? s.lineTo(x, y) : s.moveTo(x, y); }
-  s.closePath();
-  const g = new THREE.ExtrudeGeometry(s, { depth, bevelEnabled: true, bevelSize: 0.04, bevelThickness: 0.04, bevelSegments: 3 });
-  g.rotateX(-Math.PI / 2); g.translate(0, 0.04, 0);
-  return g;
-};
-
-/* ---------- item builders (face +Z, base y = 0, metres) ---------- */
-const B = {
-  riskAdjustment(M) { const g = new THREE.Group(); [0.55, 0.95, 1.4].forEach((h, i) => { put(g, RB(0.34, h, 0.34), M.violet, (i - 1) * 0.46, h / 2, 0); }); put(g, RB(0.34, 0.09, 0.34), M.green, 0.46, 1.445, 0); return g; },
-  medicalCoding(M) { const g = new THREE.Group(); for (let i = 0; i < 3; i++) put(g, RB(1.15, 0.09, 0.85), i % 2 ? M.clear : M.violet, 0, 0.06 + i * 0.17, 0, 0, i * 0.12, 0);
-    [-0.2, 0, 0.2].forEach((z, i) => put(g, RB(i === 1 ? 0.5 : 0.7, 0.025, 0.05, 0.01), M.indigo, 0, 0.46, z)); put(g, RB(0.18, 0.03, 0.12, 0.01), M.green, 0.3, 0.46, 0.2); return g; },
-  cdi(M) { const g = new THREE.Group(); const a = put(g, pent(0.62, 0.5), M.violet); a.rotation.y = 0.35; const b = put(g, pent(0.3, 0.14), M.green, 0, 0.18, 0); b.rotation.y = 0.35; return g; },
-  paymentIntegrity(M) { const g = new THREE.Group(); const c = new THREE.CylinderGeometry(0.5, 0.5, 0.14, 44); [M.violet, M.white, M.green].forEach((m, i) => put(g, c, m, i === 1 ? 0.06 : 0, 0.07 + i * 0.2, i === 1 ? -0.04 : 0)); return g; },
-  workflowAutomation(M) { const g = new THREE.Group(); const R = 0.68, arc = 4.5; const ring = new THREE.Group();
-    put(ring, new THREE.TorusGeometry(R, 0.11, 14, 56, arc), M.green); put(ring, new THREE.ConeGeometry(0.24, 0.42, 20), M.green, Math.cos(arc) * R, Math.sin(arc) * R, 0, 0, 0, arc);
-    ring.rotation.x = -Math.PI / 2; ring.position.y = 0.55; g.add(ring); put(g, new THREE.SphereGeometry(0.2, 24, 16), M.violet, 0, 0.55, 0); put(g, new THREE.CylinderGeometry(0.08, 0.08, 0.4, 16), M.white, 0, 0.2, 0); return g; },
-  neuroSymbolic(M) { const g = new THREE.Group(); put(g, RB(1.15, 1.15, 1.15, 0.1), M.clear, 0, 0.6, 0); put(g, new THREE.IcosahedronGeometry(0.34, 0), M.violet, 0, 0.6, 0);
-    const pts = []; const nodes = [[-0.75, 1.5, -0.55], [0.75, 1.5, -0.55], [-0.75, 1.5, 0.55], [0.75, 1.5, 0.55]];
-    nodes.forEach(n => { put(g, new THREE.SphereGeometry(0.08, 14, 10), M.green, n[0], n[1], n[2]); pts.push(new THREE.Vector3(...n), new THREE.Vector3(0, 0.6, 0)); });
-    g.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), M.edgeS)); return g; },
-  documentAI(M) { const g = new THREE.Group(); for (let i = 0; i < 3; i++) put(g, RB(0.85, 1.1, 0.05, 0.03), i === 2 ? M.clear : M.violet, (i - 1) * 0.5, 0.58, -0.26 + i * 0.26, 0, (1 - i) * 0.3, 0);
-    const fx = 0.5, fz = 0.3; [0.82, 0.62, 0.42].forEach((y, i) => put(g, RB(i === 1 ? 0.34 : 0.5, 0.06, 0.02, 0.01), i === 1 ? M.green : M.indigo, fx - 0.03, y, fz, 0, -0.3, 0)); return g; },
-  securityCompliance(M) { const g = new THREE.Group(); put(g, new THREE.SphereGeometry(0.72, 40, 20, 0, Math.PI * 2, 0, Math.PI / 2), M.violet, 0, 0.06, 0); put(g, new THREE.CylinderGeometry(0.76, 0.76, 0.08, 44), M.white, 0, 0.04, 0);
-    put(g, RB(0.4, 0.3, 0.22, 0.04), M.green, 0, 0.25, 0); put(g, new THREE.TorusGeometry(0.12, 0.035, 10, 24, Math.PI), M.indigo, 0, 0.4, 0); return g; },
-  integration(M) { const g = new THREE.Group(); put(g, new THREE.CylinderGeometry(0.62, 0.62, 0.06, 40), M.white, 0, 0.03, 0);
-    put(g, new THREE.TorusGeometry(0.45, 0.09, 16, 48), M.violet, -0.2, 0.62, 0); put(g, new THREE.TorusGeometry(0.45, 0.09, 16, 48), M.green, 0.2, 0.62, 0, 0, Math.PI / 2, 0); return g; },
-  analyticsReporting(M) { const g = new THREE.Group(); const hs = [0.4, 0.7, 0.55, 1.0]; const pts = [];
-    hs.forEach((h, i) => { const x = -0.51 + i * 0.34; put(g, RB(0.22, h, 0.22, 0.04), M.violet, x, h / 2, 0); pts.push(new THREE.Vector3(x, h + 0.22, 0)); });
-    put(g, new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 40, 0.03, 8), M.green); put(g, new THREE.SphereGeometry(0.07, 14, 10), M.green, pts[3].x, pts[3].y, 0); return g; },
-  enterpriseReady(M) { const g = new THREE.Group(); put(g, RB(1.3, 0.06, 1.3, 0.02), M.white, 0, 0.03, 0);
-    const w = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.2, 1.2, 1.2)), M.edge); w.position.y = 0.68; g.add(w);
-    put(g, RB(0.55, 0.55, 0.55, 0.08), M.violet, 0, 0.68, 0); put(g, RB(0.2, 0.2, 0.2, 0.04), M.green, 0, 0.68, 0); return g; },
-};
-
-
-/* ===================== Option B: intelligence layer centre stage ===================== */
-(function () {
-  const root = document.querySelector('[data-pb]');
-  if (!root) return;
-  const canvas = root.querySelector('canvas');
-  const host = root.querySelector('.pb-canvas');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  try { init(); } catch (err) { console.error(err); root.classList.add('no3d'); }
-
-  function init() {
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
-    renderer.setClearColor(0x000000, 0);
-
-    const scene = new THREE.Scene();
-    const pm = new THREE.PMREMGenerator(renderer);
-    scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
-    scene.environmentIntensity = 0.95;
-    pm.dispose();
-    scene.add(new THREE.HemisphereLight(0xffffff, 0xd9d6f5, 0.7));
-    const key = new THREE.DirectionalLight(0xffffff, 1.2); key.position.set(6, 10, 7); scene.add(key);
-    const rim = new THREE.DirectionalLight(0xffffff, 0.35); rim.position.set(-8, 5, -6); scene.add(rim);
-
-    const camera = new THREE.PerspectiveCamera(22, 1, 0.5, 200);
-    const target = new THREE.Vector3(0, 1.3, 0);
-    const AZ = Math.PI / 4, POLAR = 1.0;
-    let dist = 27;
-    const place = () => camera.position.set(target.x + dist * Math.sin(POLAR) * Math.sin(AZ), target.y + dist * Math.cos(POLAR), target.z + dist * Math.sin(POLAR) * Math.cos(AZ));
-    place(); camera.lookAt(target);
-    const controls = new OrbitControls(camera, canvas);
-    controls.target.copy(target); controls.enableZoom = false; controls.enablePan = false;
-    controls.enableDamping = true; controls.dampingFactor = 0.07;
-    controls.minPolarAngle = 0.85; controls.maxPolarAngle = 1.2;
-    controls.minAzimuthAngle = AZ - 0.4; controls.maxAzimuthAngle = AZ + 0.4;
-    canvas.style.touchAction = 'pan-y'; controls.update();
-
-    function onResize() {
-      const w = Math.max(1, host.clientWidth), h = Math.max(1, host.clientHeight);
-      renderer.setSize(w, h, false); camera.aspect = w / h;
-      dist = 27 * Math.max(1, 1.5 / camera.aspect);
-      const d = camera.position.distanceTo(controls.target) || 1;
-      camera.position.sub(controls.target).multiplyScalar(dist / d).add(controls.target);
-      camera.updateProjectionMatrix(); controls.update();
-    }
-    new ResizeObserver(onResize).observe(host);
-
-    const world = new THREE.Group(); scene.add(world);
-    const RIGHT = new THREE.Vector3(Math.SQRT1_2, 0, -Math.SQRT1_2);   // screen-right at azimuth 45°
-    const at = (t) => RIGHT.clone().multiplyScalar(t);
-
-    /* centre: the intelligence layer */
-    const MC = matsFor(false);
-    const center = new THREE.Group(); world.add(center);
-    const cGeo = RB(8.6, 0.3, 5.4, 0.12);
-    const cSlab = put(center, cGeo, MC.slab); center.add(new THREE.LineSegments(new THREE.EdgesGeometry(cGeo, 25), MC.edge));
-    const keys = ['workflowAutomation', 'neuroSymbolic', 'documentAI'];
-    const spots = [-3.3, 0, 3.3];
-    const items = keys.map((k, i) => {
-      const holder = new THREE.Group(); const p = at(spots[i]); holder.position.set(p.x, 0.15, p.z);
-      const obj = B[k](MC); obj.scale.setScalar(i === 1 ? 1.6 : 1.4); holder.add(obj); holder.userData.item = i; center.add(holder);
-      return { holder, s: 1, ts: 1 };
-    });
-
-    const sides = [];   // the two other groups are pop-ups only (no illustration)
-
-    // floor glow
-    const gl = document.createElement('canvas'); gl.width = gl.height = 128; const gc = gl.getContext('2d');
-    const gg = gc.createRadialGradient(64, 64, 2, 64, 64, 62); gg.addColorStop(0, 'rgba(33,21,74,.30)'); gg.addColorStop(0.55, 'rgba(33,21,74,.10)'); gg.addColorStop(1, 'rgba(33,21,74,0)');
-    gc.fillStyle = gg; gc.fillRect(0, 0, 128, 128);
-    const glT = new THREE.CanvasTexture(gl); glT.colorSpace = THREE.SRGBColorSpace;
-    const glow = new THREE.Mesh(new THREE.PlaneGeometry(15, 10), new THREE.MeshBasicMaterial({ map: glT, transparent: true, depthWrite: false }));
-    glow.rotation.x = -Math.PI / 2; glow.position.y = -0.45; world.add(glow);
-
-    const ringMat = new THREE.MeshBasicMaterial({ color: VIOLET, transparent: true, opacity: 0, depthWrite: false });
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.7, 0.03, 8, 64), ringMat); ring.rotation.x = Math.PI / 2; ring.renderOrder = 5; world.add(ring);
-
-    /* labels (content lives in the HTML) */
-    const lblHost = root.querySelector('.pb-labels');
-    const lbls = [...root.querySelectorAll('.pbl')];
-
-    /* pop-ups */
-    const pops = { left: root.querySelector('[data-pop="left"]'), right: root.querySelector('[data-pop="right"]') };
-    const btns = { left: root.querySelector('[data-open="left"]'), right: root.querySelector('[data-open="right"]') };
-    let open = null, hover = null, interacted = false, visible = true;
-    function setOpen(id) {
-      open = (open === id) ? null : id;
-      ['left', 'right'].forEach(k => { const on = open === k; pops[k].hidden = !on; btns[k].setAttribute('aria-expanded', on); btns[k].classList.toggle('is-open', on); });
-      sides.forEach(sd => { sd.tf = open === sd.id ? 1 : 0.5; sd.ty = open === sd.id ? 0.35 : 0; });
-    }
-    ['left', 'right'].forEach(k => {
-      btns[k].addEventListener('click', e => { e.stopPropagation(); interacted = true; setOpen(k); });
-      pops[k].querySelector('.pb-x').addEventListener('click', () => { if (open === k) setOpen(k); btns[k].focus(); });
-      pops[k].addEventListener('click', e => e.stopPropagation());
-    });
-    document.addEventListener('click', () => { if (open) setOpen(open); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && open) { const k = open; setOpen(k); btns[k].focus(); } });
-    const idx = (el) => lbls.indexOf(el);
-    lbls.forEach((el, i) => { el.addEventListener('pointerenter', () => { hover = i; }); el.addEventListener('pointerleave', () => { hover = null; }); });
-
-    /* picking */
-    const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(); let press = null;
-    const itemHolders = items.map(i => i.holder);
-    function pick(cx, cy) {
-      const r = canvas.getBoundingClientRect(); ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
-      ray.setFromCamera(ndc, camera);
-      for (const h of ray.intersectObjects([...itemHolders, ...sides.map(s => s.slab)], true)) {
-        const m = h.object.material; if (m && m.transparent && m.opacity < 0.12) continue;
-        let o = h.object; while (o && o.userData.item === undefined && !o.userData.side) o = o.parent;
-        if (!o) continue;
-        return o.userData.side ? { side: o.userData.side } : { item: o.userData.item };
-      }
-      return null;
-    }
-    canvas.addEventListener('pointerdown', e => { interacted = true; press = { x: e.clientX, y: e.clientY }; });
-    canvas.addEventListener('pointermove', e => {
-      if (press && Math.hypot(e.clientX - press.x, e.clientY - press.y) > 5) return;
-      const p = pick(e.clientX, e.clientY); canvas.style.cursor = p ? 'pointer' : 'grab';
-      hover = p && p.item !== undefined ? p.item : null;
-    });
-    canvas.addEventListener('pointerleave', () => { hover = null; });
-    canvas.addEventListener('pointerup', e => {
-      const moved = press ? Math.hypot(e.clientX - press.x, e.clientY - press.y) : 99; press = null; if (moved > 5) return;
-      const p = pick(e.clientX, e.clientY); if (p && p.side) { e.stopPropagation(); setOpen(p.side); }
-    });
-    new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0.05 }).observe(root);
-
-    /* loop */
-    const damp = THREE.MathUtils.damp, v = new THREE.Vector3();
-    let last = performance.now(), errored = false;
-    const fade = (mats, f) => mats.forEach(m => { m.opacity = m.userData.base * f; });
-    function frame(now) {
-      requestAnimationFrame(frame);
-      const dt = Math.min(0.05, (now - last) / 1000); last = now;
-      if (!visible) return;
-      try {
-        sides.forEach(sd => { sd.f = damp(sd.f, sd.tf, 6, dt); sd.y = damp(sd.y, sd.ty, 6, dt); sd.g.position.y = sd.y; if (Math.abs(sd.f - sd.fA) > 0.002) { sd.fA = sd.f; fade(sd.mats, sd.f); } });
-        items.forEach((it, i) => { it.ts = hover === i ? 1.09 : 1; it.s = damp(it.s, it.ts, 10, dt); it.holder.scale.setScalar(it.s); });
-        if (!reduce) world.rotation.y = Math.sin(now / 1000 * 0.35) * 0.035;
-        const h = hover !== null ? items[hover] : null;
-        if (h) { h.holder.getWorldPosition(v); ring.position.set(v.x, v.y + 0.03, v.z); }
-        ringMat.opacity = damp(ringMat.opacity, h ? 0.9 : 0, 12, dt);
-        controls.update(); renderer.render(scene, camera);
-        const w = host.clientWidth, hh = host.clientHeight;
-        lbls.forEach((el, i) => {
-          items[i].holder.getWorldPosition(v); v.y += i === 1 ? 3.3 : 2.8; v.project(camera);
-          el.style.transform = 'translate(' + ((v.x * 0.5 + 0.5) * w).toFixed(1) + 'px,' + ((-v.y * 0.5 + 0.5) * hh).toFixed(1) + 'px) translate(-50%,-100%)';
-          el.classList.toggle('hot', hover === i);
-        });
-      } catch (err) { if (!errored) console.error(err); errored = true; }
-    }
-    onResize(); requestAnimationFrame(frame);
-    root.classList.add('ready');
-  }
+(function(){
+  const root=document.querySelector('[data-pb]'); if(!root) return;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const acts=[...root.querySelectorAll('.pb-act')], calls=[...root.querySelectorAll('.pb-call')], hots=[...root.querySelectorAll('.pb-hot')], lns=[...root.querySelectorAll('.pb-ln')];
+  let cur=0, interacted=false, visible=true;
+  function set(i){cur=i;acts.forEach((a,k)=>a.classList.toggle('is-on',k===i));calls.forEach((c,k)=>c.classList.toggle('is-on',k===i));lns.forEach((l,k)=>l.classList.toggle('is-on',k===i));hots.forEach((h,k)=>h.setAttribute('aria-pressed',k===i));}
+  [...calls,...hots].forEach(el=>{const k=+el.dataset.k;['pointerenter','focus','click'].forEach(ev=>el.addEventListener(ev,()=>{interacted=true;set(k);}));});
+  if(!reduce){setInterval(()=>{if(!interacted&&visible)set((cur+1)%acts.length);},3800);}
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;},{threshold:.2}).observe(root);
+  const pops={left:root.querySelector('[data-pop="left"]'),right:root.querySelector('[data-pop="right"]')};
+  const btns={left:root.querySelector('[data-open="left"]'),right:root.querySelector('[data-open="right"]')};
+  let open=null;
+  function setOpen(id){open=(open===id)?null:id;['left','right'].forEach(k=>{const on=open===k;pops[k].hidden=!on;btns[k].setAttribute('aria-expanded',on);btns[k].classList.toggle('is-open',on);});}
+  ['left','right'].forEach(k=>{
+    btns[k].addEventListener('click',e=>{e.stopPropagation();setOpen(k);});
+    pops[k].querySelector('.pb-x').addEventListener('click',()=>{if(open===k)setOpen(k);btns[k].focus();});
+    pops[k].addEventListener('click',e=>e.stopPropagation());
+  });
+  document.addEventListener('click',()=>{if(open)setOpen(open);});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&open){const k=open;setOpen(k);btns[k].focus();}});
 })();
-
 (function(){
   const root=document.querySelector('[data-svm]'); if(!root) return;
   const gs=[...root.querySelectorAll('.sg')], im=[...root.querySelectorAll('.svm-img')], tabs=[...document.querySelectorAll('.svm-tab')];
@@ -912,6 +744,8 @@ const B = {
   inp.addEventListener('keydown',e=>{if(e.key==='Escape'){set(false);btn.focus();}});
   document.addEventListener('click',e=>{if(!f.contains(e.target)&&!inp.value)set(false);});
 })();
+
+(function(){const v=document.querySelector('.hero-video'); if(!v) return; if(matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.pause();}})();
 </script>
 </body>
 </html>
