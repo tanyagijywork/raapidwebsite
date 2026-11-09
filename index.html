@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--violet:#5E58E0;--green:#CEDE00;--indigo:#21154A;--white:#F6F4F4;--black:#010101;--n20:#E6E6E6;--n30:#C3C3C3;--n50:#6E6E6E;--n60:#434343;--font:"Geist",Arial,sans-serif;--hdr:117px;--wrap:1680px;--pad:clamp(20px,4.4vw,64px)}
+:root{--violet:#5E58E0;--green:#CEDE00;--indigo:#21154A;--white:#F6F4F4;--black:#010101;--n20:#E6E6E6;--n30:#C3C3C3;--n50:#6E6E6E;--n60:#434343;--font:"Geist",Arial,sans-serif;--hdr:77px;--wrap:1680px;--pad:clamp(20px,4.4vw,64px)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:var(--font);font-size:1rem;line-height:1.6;color:var(--indigo);background:#fff;-webkit-font-smoothing:antialiased}
@@ -42,13 +42,6 @@ h3{font-weight:500;font-size:1.25rem;line-height:1.4}
 .bs-sm{height:40px;padding:0 18px;font-size:.875rem}
 
 /* utility bar + nav */
-.util{position:relative;z-index:21;background:transparent;color:var(--white);font-size:.8125rem}
-.util .wrap{display:flex;justify-content:flex-end;align-items:center;gap:20px;height:40px}
-.util select{-webkit-appearance:none;appearance:none;background:transparent;color:inherit;border:0;border-radius:0;font:500 .8125rem var(--font);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:0;outline:0}
-.util select:focus-visible{outline:2px solid var(--green);outline-offset:4px;border-radius:2px}
-.util .caret{width:0;height:0;margin-left:10px;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid currentColor;pointer-events:none}
-.util select option{color:var(--indigo)}
-.util label{display:flex;align-items:center;margin:0}.util svg{width:22px;height:22px;flex:none;margin-right:10px}
 header.site{position:sticky;top:0;z-index:20;background:transparent;color:var(--white);border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
 header.site.scrolled{background:rgba(1,1,1,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom-color:rgba(246,244,244,.14)}
 header.site>.wrap{display:flex;align-items:center;gap:24px;height:76px}
@@ -63,6 +56,8 @@ nav.main{display:flex;gap:26px;margin-left:8px;align-self:stretch}
 .mi.open .mega{display:block}
 .mp{pointer-events:auto;max-width:calc(var(--wrap) - 2 * var(--pad));margin:0 auto;display:grid;grid-template-columns:1fr 1px 1.15fr;gap:0 48px;padding:36px 44px;border-radius:22px;background:#0b0b10;border:1px solid rgba(246,244,244,.16);box-shadow:0 40px 80px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(246,244,244,.1)}
 .mf{display:flex;flex-direction:column;align-items:flex-start;gap:16px;max-width:560px}
+.mf-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid rgba(246,244,244,.22);border-radius:999px;font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;line-height:1;color:var(--n30)}
+.mf-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
 .mf img{display:block;width:100%;height:auto;aspect-ratio:640/300;object-fit:cover;border-radius:14px;border:1px solid rgba(246,244,244,.12)}
 .mf h4{margin:4px 0 0;font-weight:300;font-size:1.5625rem;line-height:1.3;letter-spacing:-.01em;color:var(--white)}
 .mdiv{order:2;background:rgba(246,244,244,.16)}
@@ -231,13 +226,14 @@ footer .wrap{align-items:flex-start}
 /* Partner: glass panel */
 .pwrap{position:relative;overflow:clip;padding-top:72px;padding-bottom:96px}
 .pwrap::before,.pwrap::after{content:"";position:absolute;border-radius:50%;pointer-events:none;filter:blur(40px)}
-.pwrap::before{width:420px;height:420px;left:6%;top:30px;background:radial-gradient(closest-side,rgba(94,88,224,.7),rgba(94,88,224,0))}
-.pwrap::after{width:340px;height:340px;right:8%;bottom:10px;background:radial-gradient(closest-side,rgba(206,222,0,.32),rgba(206,222,0,0))}
-.pbox{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;padding:56px 64px;border-radius:28px;background:linear-gradient(135deg,rgba(246,244,244,.12),rgba(246,244,244,.03));border:1px solid rgba(246,244,244,.2);-webkit-backdrop-filter:blur(28px) saturate(140%);backdrop-filter:blur(28px) saturate(140%);box-shadow:inset 0 1px 0 rgba(246,244,244,.28),0 30px 60px -30px rgba(0,0,0,.9)}
-.pq{margin:0;font-weight:300;font-size:clamp(1.9rem,1.3rem + 1.6vw,2.44rem);line-height:1.2;letter-spacing:-.01em;color:var(--white)}
-.pr{display:flex;flex-direction:column;align-items:flex-start;gap:28px}
-.pr p{font-size:1.25rem;line-height:1.5;color:rgba(246,244,244,.82);max-width:44ch}
-@media(max-width:860px){.pbox{grid-template-columns:1fr;gap:24px;padding:32px 28px}.pwrap{padding-top:48px}}
+.pwrap::before{width:300px;height:240px;left:4%;top:20px;background:radial-gradient(closest-side,rgba(94,88,224,.7),rgba(94,88,224,0))}
+.pwrap::after{width:260px;height:220px;right:6%;bottom:-20px;background:radial-gradient(closest-side,rgba(206,222,0,.32),rgba(206,222,0,0))}
+.pbox{position:relative;z-index:1;display:grid;grid-template-columns:auto 1fr;gap:24px 56px;align-items:center;padding:28px 40px;border-radius:24px;background:linear-gradient(135deg,rgba(246,244,244,.12),rgba(246,244,244,.03));border:1px solid rgba(246,244,244,.2);-webkit-backdrop-filter:blur(28px) saturate(140%);backdrop-filter:blur(28px) saturate(140%);box-shadow:inset 0 1px 0 rgba(246,244,244,.28),0 30px 60px -30px rgba(0,0,0,.9)}
+.pq{margin:0;font-weight:300;font-size:clamp(1.5rem,1.2rem + .9vw,1.95rem);line-height:1.2;white-space:nowrap;letter-spacing:-.01em;color:var(--white)}
+.pr{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:24px 40px}
+.pr p{margin:0;font-size:1rem;line-height:1.5;color:rgba(246,244,244,.82);max-width:60ch}.pr .bs{flex:none}
+@media(max-width:1100px){.pbox{grid-template-columns:1fr;border-radius:28px;padding:28px 32px}.pq{white-space:normal}}
+@media(max-width:860px){.pbox{grid-template-columns:1fr;gap:20px;padding:28px 24px}.pr{flex-direction:column;align-items:flex-start}.pwrap{padding-top:48px}}
 
 /* Dark black variants */
 .dark.black{background:var(--black)}
@@ -294,6 +290,7 @@ footer .wrap{align-items:flex-start}
 .seq .combo,.seq .combo+.combo{grid-template-rows:auto var(--descH)}
 .seq .combo .pt p{align-self:start}
 .seq .combos .foot{grid-area:1/1;align-self:end;justify-self:start;height:var(--descH);width:calc((100% - 264px) / 3 + 72px);margin:0;padding-top:18px;border-top:1px solid rgba(246,244,244,.3);font-size:.8125rem;line-height:1.5;color:rgba(246,244,244,.6)}
+@media(min-width:861px){.seq .combo .pt p,.seq .combos .foot{border-top:0}.seq .combos::after{content:"";position:absolute;left:0;right:0;bottom:var(--descH);height:1px;background:rgba(246,244,244,.3);pointer-events:none}}
 @media(max-width:860px){.seq{--descH:9rem}.seq .combos{grid-template-rows:1fr auto}.seq .combos .foot{grid-area:2/1;align-self:start;width:100%;height:auto;margin-top:20px}.seq .combos{min-height:340px}.seq .combo .pt p{grid-column:1/-1;font-size:1rem}.seq .combo h3{font-size:calc((100vw - 2 * var(--pad)) / 4.8)}}
 
 /* Difference: background image on the pinned panel */
@@ -376,7 +373,7 @@ footer .wrap{align-items:flex-start}
 .serves .pwrap{padding-top:56px;padding-bottom:0}
 @media(max-width:860px){.svm{grid-template-columns:1fr;gap:32px}.svm-stage{order:-1;min-height:0;aspect-ratio:1/1}.svm-tabs{gap:24px;overflow-x:auto}.svm-tab{font-size:1rem;white-space:nowrap}.dark.serves{padding-bottom:72px}}
 
-@media(max-width:1320px){nav.main{display:none}.menu-btn{display:grid;place-items:center}nav.main.open{display:flex;position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(246,244,244,.14);padding:8px var(--pad) 20px;margin:0;max-height:calc(100vh - 116px);overflow:auto}.mi{display:block;border-bottom:1px solid rgba(246,244,244,.14)}.mt{width:100%;justify-content:space-between;padding:16px 0;height:auto;border:0}.mega{position:static;padding:0}.mp{display:block;padding:0 0 12px;background:none;border:0;box-shadow:none;border-radius:0;max-width:none}.mf,.mdiv,.mh{display:none}.mlist li a{margin:0;padding:10px 0 10px 8px}.mar{display:none}.mic{width:38px;height:38px}.c4{grid-template-columns:1fr 1fr}.search{width:160px}}
+@media(max-width:1320px){nav.main{display:none}.menu-btn{display:grid;place-items:center}nav.main.open{display:flex;position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(246,244,244,.14);padding:8px var(--pad) 20px;margin:0;max-height:calc(100vh - 96px);overflow:auto}.mi{display:block;border-bottom:1px solid rgba(246,244,244,.14)}.mt{width:100%;justify-content:space-between;padding:16px 0;height:auto;border:0}.mega{position:static;padding:0}.mp{display:block;padding:0 0 12px;background:none;border:0;box-shadow:none;border-radius:0;max-width:none}.mf,.mdiv,.mh{display:none}.mlist li a{margin:0;padding:10px 0 10px 8px}.mar{display:none}.mic{width:38px;height:38px}.c4{grid-template-columns:1fr 1fr}.search{width:160px}}
 @media(max-width:860px){.fcols{grid-template-columns:1fr 1fr}.cols,.metrics,.stories,.news,.c3,.labs .top,.contact .grid,.labs .split{grid-template-columns:1fr}.labs .stick{position:static}.cols>div+div{padding-left:0;border-left:0;border-top:1px solid var(--n20)}.cols>div{padding:28px 0 8px}.labs .top,.contact .grid{gap:32px}.metrics{padding:28px}section.s{padding:72px 0}.hero{padding:var(--hdr) 0 56px}.tools .bs-p{display:none}}
 @media(max-width:560px){.fcols{grid-template-columns:1fr}.ticker .sep{display:none}.c4,form{grid-template-columns:1fr}.search{display:none}.phone{grid-template-columns:120px 1fr}.story,</style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"}}</script>
@@ -405,16 +402,6 @@ footer .wrap{align-items:flex-start}
   </defs>
 </svg>
 
-<div class="util">
-  <div class="wrap">
-    <label style="margin:0;font-weight:400">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg>
-      <span class="sr" style="position:absolute;left:-9999px">Language</span>
-      <select id="lang" aria-label="Language"><option value="en" selected>Global | English</option></select><span class="caret" aria-hidden="true"></span>
-    </label>
-  </div>
-</div>
-
 <header class="site dark">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="RAAPID"><svg viewBox="0 0 1135 283"><use href="#logo"/></svg></a>
@@ -422,33 +409,33 @@ footer .wrap{align-items:flex-start}
       <div class="mi">
         <button class="mt" aria-expanded="false" aria-controls="mega0">HEALTH PLANS<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
         <div class="mega" id="mega0"><div class="mp">
-          <div class="mf"><img src="health-plan-offering.png" alt="" width="640" height="300" loading="lazy"></h4><a class="bs bs-t" href="#">Health Plan offerings<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="mf"><span class="mf-tag">Featured Story</span><img src="img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</h4><a class="bs bs-t" href="#">Read Success Story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           <div class="mdiv" aria-hidden="true"></div>
-          <div class="mlist"><p class="mh">HEALTH PLANS</p><ul><li><a href="#"><span class="mic"><img src="icon-calculator.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Risk Adjustment</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="icon-wallet.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Payment Integrity</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="icon-pen.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Coding Services</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+          <div class="mlist"><p class="mh">HEALTH PLANS</p><ul><li><a href="#"><span class="mic"><img src="m-hp-risk.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Risk Adjustment</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-hp-pay.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Payment Integrity</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-hp-code.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Coding Services</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
         </div></div>
       </div>
       <div class="mi">
         <button class="mt" aria-expanded="false" aria-controls="mega1">PROVIDERS &amp; HEALTH SYSTEMS<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
         <div class="mega" id="mega1"><div class="mp">
-          <div class="mf"><img src="provider-health-systems.png" alt="" width="640" height="300" loading="lazy"></h4><a class="bs bs-t" href="#">Provider &amp; Health System offerings<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="mf"><span class="mf-tag">Featured Story</span><img src="img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</h4><a class="bs bs-t" href="#">Read Success Story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           <div class="mdiv" aria-hidden="true"></div>
-          <div class="mlist"><p class="mh">PROVIDERS &amp; HEALTH SYSTEMS</p><ul><li><a href="#"><span class="mic"><img src="icon-calculator.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Risk Adjustment</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="icon-clock.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Mid Revenue Cycle</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="icon-pen.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Coding Services</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+          <div class="mlist"><p class="mh">PROVIDERS &amp; HEALTH SYSTEMS</p><ul><li><a href="#"><span class="mic"><img src="m-pr-risk.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Risk Adjustment</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-pr-mid.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Mid Revenue Cycle</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-pr-code.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Coding Services</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
         </div></div>
       </div>
       <div class="mi">
         <button class="mt" aria-expanded="false" aria-controls="mega2">PLATFORM<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
         <div class="mega" id="mega2"><div class="mp">
-          <div class="mf"><img src="img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>One intelligence platform, purpose-built for multiple workflows.</h4><a class="bs bs-t" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="mf"><span class="mf-tag">Featured Story</span><img src="img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</h4><a class="bs bs-t" href="#">Read Success Story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           <div class="mdiv" aria-hidden="true"></div>
-          <div class="mlist"><p class="mh">PLATFORM</p><ul><li><a href="#"><span class="mic"><img src="icon-avatar.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">RAAPID AIDE</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="icon-layers.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Build on RAAPID</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+          <div class="mlist"><p class="mh">PLATFORM</p><ul><li><a href="#"><span class="mic"><img src="m-pl-aide.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">RAAPID AIDE</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-pl-build.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Build on RAAPID</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
         </div></div>
       </div>
       <div class="mi">
         <button class="mt" aria-expanded="false" aria-controls="mega3">ABOUT US<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
         <div class="mega" id="mega3"><div class="mp">
-          <div class="mf"><img src="insight-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Building the next in healthcare.</h4><a class="bs bs-t" href="#">Enter RAAPID Labs<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="mf"><span class="mf-tag">Featured Story</span><img src="img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</h4><a class="bs bs-t" href="#">Read Success Story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           <div class="mdiv" aria-hidden="true"></div>
-          <div class="mlist"><p class="mh">ABOUT US</p><ul><li><a href="#"><span class="mic"><img src="icon-magnifier.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Insights</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#labs"><span class="mic"><img src="icon-windows.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">RAAPID Labs</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="icon-map.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Our Story</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+          <div class="mlist"><p class="mh">ABOUT US</p><ul><li><a href="#"><span class="mic"><img src="m-ab-ins.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Insights</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#labs"><span class="mic"><img src="m-ab-labs.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">RAAPID Labs</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-ab-story.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Our Story</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
         </div></div>
       </div>
     </nav>
@@ -457,7 +444,7 @@ footer .wrap{align-items:flex-start}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input type="search" placeholder="Search" aria-label="Search">
       </form>
-      <a class="bs bs-p bs-sm" href="#platform-b">EXPLORE PLATFORM<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="bs bs-p bs-sm" href="#platform-b">Explore Platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <button class="menu-btn" id="menu" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
