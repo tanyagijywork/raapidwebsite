@@ -191,16 +191,15 @@ section.s{padding:112px 0}
 
 /* labs & news */
 .labs{background:var(--white)}
-.labs .split{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start}
+.labs .split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
 .labs .stick{position:sticky;top:132px}
 .news{display:grid;grid-template-columns:1fr;gap:24px}
 .news article{display:flex;flex-direction:column}
 .news img{display:block;width:100%;height:auto;aspect-ratio:645/300;object-fit:cover;border-radius:16px}
-.news .body{padding:24px 0 8px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;flex:1}
+.news .body{padding:24px 0 8px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;flex:1}
 .news h3{font-weight:300;font-size:1.5625rem;line-height:1.3}
 .news h3 b{font-weight:500}
 .news .bs-t{align-self:flex-start}
-@media(max-width:1100px){.labs .split{gap:48px}}
 .more{margin-top:40px}
 
 /* contact */
@@ -243,21 +242,20 @@ footer .wrap{align-items:flex-start}
 
 /* Why trust: sticky offer cards */
 .dark.trust{background:var(--black)}
-.trust .tr{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start}
+.trust .tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
 .trust .tr .head{margin:0}
 .tr-list{border-bottom:1px solid rgba(246,244,244,.18)}
 .tr-item{display:grid;grid-template-columns:max-content 1fr;gap:12px 40px;align-items:baseline;padding:36px 0;border-top:1px solid rgba(246,244,244,.18)}
 .tr-item .big{min-width:5.2em;font-weight:300;font-size:clamp(2.5rem,1.6rem + 1.8vw,3.5rem);line-height:1;letter-spacing:-.025em;color:var(--green);white-space:nowrap}
 .tr-item p{margin:0;font-size:1.25rem;line-height:1.4;font-weight:300;color:rgba(246,244,244,.92)}
 .tr-item .bs{grid-column:2;justify-self:start;margin-top:8px}
-@media(max-width:1100px){.trust .tr{gap:48px}}
 @media(max-width:860px){.trust .tr{grid-template-columns:1fr;gap:32px}.tr-item{grid-template-columns:1fr;padding:28px 0}.tr-item .bs{grid-column:1}}
 
 /* Partner: glass panel */
 .pwrap{position:relative;overflow:clip;padding-top:72px;padding-bottom:96px}
 .pwrap::before,.pwrap::after{content:"";position:absolute;border-radius:50%;pointer-events:none;filter:blur(40px)}
-.pwrap::before{width:300px;height:240px;left:4%;top:20px;background:radial-gradient(closest-side,rgba(94,88,224,.7),rgba(94,88,224,0))}
-.pwrap::after{width:260px;height:220px;right:6%;bottom:-20px;background:radial-gradient(closest-side,rgba(206,222,0,.32),rgba(206,222,0,0))}
+.pwrap::before{width:300px;height:240px;left:4%;top:calc(56px + (100% - 56px) / 2);transform:translateY(-50%);background:radial-gradient(closest-side,rgba(94,88,224,.7),rgba(94,88,224,0))}
+.pwrap::after{width:260px;height:220px;right:6%;top:calc(56px + (100% - 56px) / 2);transform:translateY(-50%);background:radial-gradient(closest-side,rgba(206,222,0,.32),rgba(206,222,0,0))}
 .pbox{position:relative;z-index:1;display:grid;grid-template-columns:auto 1fr;gap:24px 56px;align-items:center;padding:28px 40px;border-radius:24px;background:linear-gradient(135deg,rgba(246,244,244,.12),rgba(246,244,244,.03));border:1px solid rgba(246,244,244,.2);-webkit-backdrop-filter:blur(28px) saturate(140%);backdrop-filter:blur(28px) saturate(140%);box-shadow:inset 0 1px 0 rgba(246,244,244,.28),0 30px 60px -30px rgba(0,0,0,.9)}
 .pq{margin:0;font-weight:300;font-size:clamp(1.5rem,1.2rem + .9vw,1.95rem);line-height:1.2;white-space:nowrap;letter-spacing:-.01em;color:var(--white)}
 .pr{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:24px 40px}
@@ -278,7 +276,7 @@ footer .wrap{align-items:flex-start}
 
 /* Difference: heading top-left, combos bottom-right */
 .diff{display:flex;flex-direction:column;justify-content:space-between;gap:96px;min-height:700px}
-.diff .head{margin-bottom:0;max-width:560px}
+.diff .head{margin-bottom:0;width:calc((100% - 24px) / 2);max-width:none}
 .cwrap{align-self:flex-end;width:min(100%,820px)}
 .combos{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(246,244,244,.2)}
 .combo{display:flex;flex-direction:column;padding:32px 28px 0 0}
@@ -315,12 +313,13 @@ footer .wrap{align-items:flex-start}
 .seq .combo.past{transform:translateY(-32px)}
 .seq .combo .pt{display:contents}
 .seq .combo h3{grid-column:1/-1;grid-row:1;margin:0;font-weight:300;font-size:min(calc((100vw - 2 * var(--pad)) / 4.8),calc((var(--wrap) - 2 * var(--pad)) / 4.8));line-height:.84;letter-spacing:-.05em;white-space:nowrap;color:var(--white)}
-.seq .combo .pt p{grid-column:9/13;grid-row:2;margin:0;padding-top:18px;border-top:1px solid rgba(246,244,244,.3);font-size:1.125rem;line-height:1.5;color:rgba(246,244,244,.8)}
+.seq .combo .pt p{grid-column:9/13;grid-row:2;text-align:left;margin:0;padding-top:18px;border-top:1px solid rgba(246,244,244,.3);font-size:1.125rem;line-height:1.5;color:rgba(246,244,244,.8)}
 .seq{--descH:7rem}
 .seq .combo,.seq .combo+.combo{grid-template-rows:auto var(--descH)}
 .seq .combo .pt p{align-self:start}
-.seq .combos .foot{grid-area:1/1;align-self:end;justify-self:start;height:var(--descH);width:calc((100% - 264px) / 3 + 72px);margin:0;padding-top:18px;border-top:1px solid rgba(246,244,244,.3);font-size:.8125rem;line-height:1.5;color:rgba(246,244,244,.6)}
+.seq .combos .foot{grid-area:1/1;align-self:end;justify-self:start;text-align:left;height:var(--descH);width:calc((100% - 264px) / 3 + 72px);margin:0;padding-top:18px;border-top:1px solid rgba(246,244,244,.3);font-size:.8125rem;line-height:1.5;color:rgba(246,244,244,.6)}
 @media(min-width:861px){.seq .combo .pt p,.seq .combos .foot{border-top:0}.seq .combos::after{content:"";position:absolute;left:0;right:0;bottom:var(--descH);height:1px;background:rgba(246,244,244,.3);pointer-events:none}}
+@media(max-width:860px){.diff .head{width:100%}}
 @media(max-width:860px){.seq{--descH:9rem}.seq .combos{grid-template-rows:1fr auto}.seq .combos .foot{grid-area:2/1;align-self:start;width:100%;height:auto;margin-top:20px}.seq .combos{min-height:340px}.seq .combo .pt p{grid-column:1/-1;font-size:1rem}.seq .combo h3{font-size:calc((100vw - 2 * var(--pad)) / 4.8)}}
 
 /* Difference: background image on the pinned panel */
@@ -329,7 +328,7 @@ footer .wrap{align-items:flex-start}
 
 /* Platform option B: intelligence layer centre stage */
 .platb{background:var(--white);padding:112px 0 40px}
-.platb .head{margin-bottom:24px}
+.platb .head{margin-bottom:24px;width:calc((100% - 24px) / 2);max-width:none;text-align:left}
 .platb .head p.lead{color:var(--n60)}
 .pb-head h3{font-weight:300;font-size:1.95rem;line-height:1.2;letter-spacing:-.01em;color:var(--indigo)}
 .pb{position:relative;height:min(800px,calc(100vh - 77px));min-height:660px;overflow:hidden;background:radial-gradient(60% 70% at 50% 60%,rgba(94,88,224,.14),rgba(94,88,224,0) 72%),var(--white);color:var(--indigo)}
@@ -367,7 +366,7 @@ footer .wrap{align-items:flex-start}
 .pb.no3d .pb-canvas{position:static}.pb.no3d .pb-labels{position:static;display:grid;gap:12px;padding:200px var(--pad) 0;max-width:var(--wrap);margin:0 auto;grid-template-columns:repeat(3,1fr)}
 .pb.no3d .pbl{position:static;transform:none!important;width:auto}
 .pb.no3d .pb-btn,.pb.no3d .pb-pop{display:none}
-@media(max-width:860px){.platb{padding-top:72px}.pb{height:740px}.pb-canvas{inset:50px 0 0 0}.pb-head{top:14px}.pb-btn{top:auto;bottom:24px;font-size:.875rem;padding:10px 10px 10px 16px;gap:10px}.pb-pop{top:auto;bottom:84px;left:var(--pad);right:var(--pad);width:auto}.pbl{width:170px;padding:8px 10px}.pbl span{display:none}}
+@media(max-width:860px){.platb .head{width:100%}.platb{padding-top:72px}.pb{height:740px}.pb-canvas{inset:50px 0 0 0}.pb-head{top:14px}.pb-btn{top:auto;bottom:24px;font-size:.875rem;padding:10px 10px 10px 16px;gap:10px}.pb-pop{top:auto;bottom:84px;left:var(--pad);right:var(--pad);width:auto}.pbl{width:170px;padding:8px 10px}.pbl span{display:none}}
 
 /* Hero stats */
 .statsec{padding:88px 0 52px}
@@ -378,21 +377,21 @@ footer .wrap{align-items:flex-start}
 @media(max-width:860px){.hstats{grid-template-columns:1fr;gap:36px}.statsec{padding:64px 0 40px}}
 /* Who RAAPID serves */
 .dark.black.serves,.dark.serves{background:var(--black);padding-bottom:96px}
-.serves .head{margin-bottom:56px}
-.svm{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start}
+.serves .head{margin-bottom:56px;width:calc((100% - 24px) / 2);max-width:none;text-align:left}
+.svm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
 .svm-tabs{display:flex;gap:40px;margin:0 0 40px;border-bottom:1px solid rgba(246,244,244,.18)}
 .svm-tab{all:unset;box-sizing:border-box;cursor:pointer;position:relative;padding:0 0 18px;font-weight:300;font-size:1.25rem;line-height:1.2;color:rgba(246,244,244,.55);transition:color .25s}
 .svm-tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;border-radius:2px;background:var(--violet);transform:scaleX(0);transform-origin:left;transition:transform .35s}
 .svm-tab.is-active,.svm-tab:hover{color:var(--white)}
 .svm-tab.is-active::after{transform:scaleX(1)}
 .svm-tab:focus-visible{outline:2px solid var(--violet);outline-offset:6px;border-radius:4px}
-.svm-list{display:grid}
+.svm-list{display:grid;padding-left:clamp(24px,4vw,64px)}
 .sg{grid-area:1/1;visibility:hidden;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease,visibility 0s .4s}
 .sg.is-active{visibility:visible;opacity:1;transform:none;transition:opacity .4s ease,transform .4s ease}
 .sg-t{margin:0;font-weight:300;font-size:clamp(1.95rem,1.3rem + 1.6vw,2.44rem);line-height:1.15;letter-spacing:-.015em;color:var(--white)}
 .sg-in>p{margin:20px 0 0;font-size:1.0625rem;line-height:1.55;color:rgba(246,244,244,.8);max-width:52ch}
 .sg-in .bs{margin:0 0 6px}
-.svm-stage{position:relative;align-self:stretch;min-height:420px;border-radius:24px;overflow:hidden;border:1px solid rgba(246,244,244,.18);background:#0a0a0a}
+.svm-stage{order:-1;position:relative;align-self:stretch;min-height:420px;border-radius:24px;overflow:hidden;border:1px solid rgba(246,244,244,.18);background:#0a0a0a}
 .svm-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .5s ease}
 .svm-img.is-active{opacity:1}
 .sv-links{list-style:none;margin:24px 0 28px;padding:0;border-bottom:1px solid rgba(246,244,244,.18)}
@@ -400,8 +399,10 @@ footer .wrap{align-items:flex-start}
 .sv-links a svg{width:18px;height:18px;flex:none;color:var(--green);transition:transform .2s}
 .sv-links a:hover{color:var(--green)}
 .sv-links a:hover svg{transform:translateX(5px)}
-.serves .pwrap{padding-top:56px;padding-bottom:0}
-@media(max-width:860px){.svm{grid-template-columns:1fr;gap:32px}.svm-stage{order:-1;min-height:0;aspect-ratio:1/1}.svm-tabs{gap:24px;overflow-x:auto}.svm-tab{font-size:1rem;white-space:nowrap}.dark.serves{padding-bottom:72px}}
+.serves .pwrap{padding-top:56px;padding-bottom:0;overflow:visible}
+.serves{overflow:clip}
+@media(max-width:860px){.serves .head{width:100%}}
+@media(max-width:860px){.svm-list{padding-left:0}.svm{grid-template-columns:1fr;gap:32px}.svm-stage{order:-1;min-height:0;aspect-ratio:1/1}.svm-tabs{gap:24px;overflow-x:auto}.svm-tab{font-size:1rem;white-space:nowrap}.dark.serves{padding-bottom:72px}}
 
 @media(max-width:1320px){nav.main{display:none}.menu-btn{display:grid;place-items:center}nav.main.open{display:flex;position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(246,244,244,.14);padding:8px var(--pad) 20px;margin:0;max-height:calc(100vh - 96px);overflow:auto}.mi,.ml{display:block;border-bottom:1px solid rgba(246,244,244,.14)}.mt{width:100%;justify-content:space-between;padding:16px 0;height:auto;border:0}.mega{position:static;padding:0}.mp{display:block;padding:0 0 12px;background:none;border:0;box-shadow:none;border-radius:0;max-width:none}.mf,.mdiv,.mh,.mc-head{display:none}.mp-cols{display:block}.mcol{margin-top:6px}.mlist li a{margin:0;padding:10px 0 10px 8px}.mar{display:none}.mic{width:38px;height:38px}.c4{grid-template-columns:1fr 1fr}.search{width:160px}}
 @media(max-width:860px){.fcols{grid-template-columns:1fr 1fr}.cols,.metrics,.stories,.news,.c3,.labs .top,.contact .grid,.labs .split{grid-template-columns:1fr}.labs .stick{position:static}.cols>div+div{padding-left:0;border-left:0;border-top:1px solid var(--n20)}.cols>div{padding:28px 0 8px}.labs .top,.contact .grid{gap:32px}.metrics{padding:28px}section.s{padding:72px 0}.hero{padding:var(--hdr) 0 56px}.tools .bs-p{display:none}}
@@ -468,7 +469,7 @@ footer .wrap{align-items:flex-start}
         <div class="mega" id="mega3"><div class="mp">
           <div class="mf"><span class="mf-tag">Latest News</span><img src="menu-latest-news.jpg" alt="" width="640" height="300" loading="lazy"><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</h4><a class="bs bs-t" href="#">Know More<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           <div class="mdiv" aria-hidden="true"></div>
-          <div class="mlist"><p class="mh">ABOUT US</p><ul><li><a href="#"><span class="mic"><img src="m-ab-story.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Our Story</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><span class="mic-ph" aria-hidden="true"></span></span><span class="mtx">Leadership</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><span class="mic-ph" aria-hidden="true"></span></span><span class="mtx">Our Partners and Sponsors</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#contact"><span class="mic"><span class="mic-ph" aria-hidden="true"></span></span><span class="mtx">Schedule A Demo</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+          <div class="mlist"><p class="mh">ABOUT US</p><ul><li><a href="#"><span class="mic"><img src="m-ab-story.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Our Story</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><span class="mic-ph" aria-hidden="true"></span></span><span class="mtx">Leadership</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><span class="mic-ph" aria-hidden="true"></span></span><span class="mtx">Our Partners and Sponsors</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#contact"><span class="mic"><span class="mic-ph" aria-hidden="true"></span></span><span class="mtx">Schedule a demo</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
         </div></div>
       </div>
     </nav>
@@ -477,7 +478,7 @@ footer .wrap{align-items:flex-start}
         <button class="search-btn" type="button" aria-label="Search" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
         <input type="search" placeholder="Search" aria-label="Search" tabindex="-1">
       </form>
-      <a class="bs bs-p bs-sm" href="#contact">Schedule A Demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="bs bs-p bs-sm" href="#contact">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <button class="menu-btn" id="menu" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
@@ -489,7 +490,7 @@ footer .wrap{align-items:flex-start}
       <p class="eyebrow">CLINICAL AI FOR HEALTHCARE REVENUE INTEGRITY</p>
       <h1>Clinical intelligence that makes your financial outcomes certain.</h1>
       <p class="lead">Realize the revenue you expect: <b>measured</b> to agreed goals, <b>guaranteed</b> in performance and <b>defensible</b> with recommendations. <b>RAAPID</b> helps with accurate, compliant, evidence-backed decisions across risk adjustment, coding and payment.</p>
-      <a class="bs bs-p" href="#contact">Schedule A Demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="bs bs-p" href="#contact">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
       <a class="cue" href="#stats" aria-label="Scroll down"><span>Scroll</span><i class="cue-line" aria-hidden="true"></i></a>
     </div>
@@ -532,7 +533,7 @@ footer .wrap{align-items:flex-start}
     </div>
     <div class="pb" data-pb>
       <div class="pb-canvas"><canvas aria-hidden="true"></canvas>
-        <div class="pb-labels"><div class="pbl"><b>Workflow automation</b><span>Turns intelligence into action inside your workflows</span></div><div class="pbl"><b>Neuro-Symbolic AI</b><span>Validates clinical decisions against supporting evidence and makes the reasoning traceable</span></div><div class="pbl"><b>Document AI</b><span>Extracts and structures clinical evidence from every record</span></div></div>
+        <div class="pb-labels"><div class="pbl"><b>Workflow automation</b><span>Orchestrates review workflows and supports the execution of AI-driven insights within existing processes.</span></div><div class="pbl"><b>Neuro-Symbolic AI</b><span>Combines neural pattern recognition with symbolic reasoning and clinical logic to support traceable, evidence-based decisions.</span></div><div class="pbl"><b>Document AI</b><span>Converts unstructured clinical documents into structured data while preserving clinical context and relationships.</span></div></div>
       </div>
       <div class="pb-head"><h3 id="pb-title">One clinical intelligence layer</h3></div>
       <button class="pb-btn pb-l" type="button" data-open="left" aria-expanded="false" aria-controls="pop-left">Where your teams use it<span class="pb-plus" aria-hidden="true"></span></button>
@@ -625,7 +626,7 @@ footer .wrap{align-items:flex-start}
       <div><h4>PROVIDERS &amp; HEALTH SYSTEMS</h4><ul><li><a href="#">Prospective Risk Adjustment</a></li><li><a href="#">Clinical Documentation Improvement</a></li><li><a href="#">Medical Coding</a></li><li><a href="#">Medical Coding Services</a></li></ul></div>
       <div><h4>PLATFORM</h4><ul><li><a href="#">RAAPID AIDE</a></li><li><a href="#">AI-as-a-Service</a></li></ul></div>
       <div class="fl1"><h4><a href="#">INSIGHTS</a></h4><h4><a href="#labs">RAAPID LABS</a></h4></div>
-      <div><h4>ABOUT US</h4><ul><li><a href="#">Our Story</a></li><li><a href="#">Leadership</a></li><li><a href="#">Our Partners and Sponsors</a></li><li><a href="#contact">Schedule A Demo</a></li></ul></div>
+      <div><h4>ABOUT US</h4><ul><li><a href="#">Our Story</a></li><li><a href="#">Leadership</a></li><li><a href="#">Our Partners and Sponsors</a></li><li><a href="#contact">Schedule a demo</a></li></ul></div>
     </nav>
   </div>
 
