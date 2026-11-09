@@ -352,20 +352,20 @@ footer .wrap{align-items:flex-start}
 /* Who RAAPID serves */
 .dark.black.serves,.dark.serves{background:var(--black);padding-bottom:96px}
 .serves .head{margin-bottom:56px}
-.svm{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:center}
-.svm-list{border-bottom:1px solid rgba(246,244,244,.18)}
-.sg{border-top:1px solid rgba(246,244,244,.18);padding:22px 0 22px 22px;position:relative}
-.sg::before{content:"";position:absolute;left:0;top:22px;width:4px;height:34px;background:var(--violet);border-radius:2px;transform:scaleY(0);transform-origin:top;transition:transform .35s}
-.sg.is-active::before{transform:scaleY(1)}
-.sg-t{all:unset;box-sizing:border-box;display:block;width:100%;cursor:pointer;font-weight:300;font-size:1.95rem;line-height:1.25;letter-spacing:-.005em;color:rgba(246,244,244,.55);transition:color .25s}
-.sg.is-active .sg-t,.sg-t:hover{color:var(--white)}
-.sg-t:focus-visible{outline:2px solid var(--violet);outline-offset:4px;border-radius:4px}
-.sg-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}
-.sg.is-active .sg-body{grid-template-rows:1fr}
-.sg-in{overflow:hidden;min-height:0}
-.sg-in>p{margin:18px 0 0;font-size:1.0625rem;line-height:1.55;color:rgba(246,244,244,.8);max-width:52ch}
+.svm{display:grid;grid-template-columns:5fr 7fr;gap:56px;align-items:start}
+.svm-tabs{display:flex;gap:40px;margin:0 0 40px;border-bottom:1px solid rgba(246,244,244,.18)}
+.svm-tab{all:unset;box-sizing:border-box;cursor:pointer;position:relative;padding:0 0 18px;font-weight:300;font-size:1.25rem;line-height:1.2;color:rgba(246,244,244,.55);transition:color .25s}
+.svm-tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;border-radius:2px;background:var(--violet);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.svm-tab.is-active,.svm-tab:hover{color:var(--white)}
+.svm-tab.is-active::after{transform:scaleX(1)}
+.svm-tab:focus-visible{outline:2px solid var(--violet);outline-offset:6px;border-radius:4px}
+.svm-list{display:grid}
+.sg{grid-area:1/1;visibility:hidden;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease,visibility 0s .4s}
+.sg.is-active{visibility:visible;opacity:1;transform:none;transition:opacity .4s ease,transform .4s ease}
+.sg-t{margin:0;font-weight:300;font-size:clamp(1.95rem,1.3rem + 1.6vw,2.44rem);line-height:1.15;letter-spacing:-.015em;color:var(--white)}
+.sg-in>p{margin:20px 0 0;font-size:1.0625rem;line-height:1.55;color:rgba(246,244,244,.8);max-width:52ch}
 .sg-in .bs{margin:0 0 6px}
-.svm-stage{position:relative;aspect-ratio:1/1;border-radius:24px;overflow:hidden;border:1px solid rgba(246,244,244,.18);background:#0a0a0a}
+.svm-stage{position:relative;align-self:stretch;min-height:420px;border-radius:24px;overflow:hidden;border:1px solid rgba(246,244,244,.18);background:#0a0a0a}
 .svm-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;opacity:0;transition:opacity .5s ease}
 .svm-img.is-active{opacity:1}
 .sv-links{list-style:none;margin:24px 0 28px;padding:0;border-bottom:1px solid rgba(246,244,244,.18)}
@@ -374,7 +374,7 @@ footer .wrap{align-items:flex-start}
 .sv-links a:hover{color:var(--green)}
 .sv-links a:hover svg{transform:translateX(5px)}
 .serves .pwrap{padding-top:56px;padding-bottom:0}
-@media(max-width:860px){.svm{grid-template-columns:1fr;gap:32px}.svm-stage{order:-1}.sg-t{font-size:1.5625rem}.dark.serves{padding-bottom:72px}}
+@media(max-width:860px){.svm{grid-template-columns:1fr;gap:32px}.svm-stage{order:-1;min-height:0;aspect-ratio:1/1}.svm-tabs{gap:24px;overflow-x:auto}.svm-tab{font-size:1rem;white-space:nowrap}.dark.serves{padding-bottom:72px}}
 
 @media(max-width:1320px){nav.main{display:none}.menu-btn{display:grid;place-items:center}nav.main.open{display:flex;position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(246,244,244,.14);padding:8px var(--pad) 20px;margin:0;max-height:calc(100vh - 116px);overflow:auto}.mi{display:block;border-bottom:1px solid rgba(246,244,244,.14)}.mt{width:100%;justify-content:space-between;padding:16px 0;height:auto;border:0}.mega{position:static;padding:0}.mp{display:block;padding:0 0 12px;background:none;border:0;box-shadow:none;border-radius:0;max-width:none}.mf,.mdiv,.mh{display:none}.mlist li a{margin:0;padding:10px 0 10px 8px}.mar{display:none}.mic{width:38px;height:38px}.c4{grid-template-columns:1fr 1fr}.search{width:160px}}
 @media(max-width:860px){.fcols{grid-template-columns:1fr 1fr}.cols,.metrics,.stories,.news,.c3,.labs .top,.contact .grid,.labs .split{grid-template-columns:1fr}.labs .stick{position:static}.cols>div+div{padding-left:0;border-left:0;border-top:1px solid var(--n20)}.cols>div{padding:28px 0 8px}.labs .top,.contact .grid{gap:32px}.metrics{padding:28px}section.s{padding:72px 0}.hero{padding:var(--hdr) 0 56px}.tools .bs-p{display:none}}
@@ -525,12 +525,13 @@ footer .wrap{align-items:flex-start}
   <section class="s dark black serves" id="serves">
     <div class="wrap">
       <div class="head"><p class="eyebrow">WHO RAAPID SERVES</p><h2>Solve for your healthcare priorities, <b>we tailor to them.</b></h2></div>
+      <div class="svm-tabs" role="tablist"><button class="svm-tab is-active" role="tab" type="button" aria-selected="true">Health Plans</button><button class="svm-tab" role="tab" type="button" aria-selected="false">Providers &amp; Health Systems</button></div>
       <div class="svm" data-svm>
         <div class="svm-list">
-          <div class="sg is-active"><button class="sg-t" type="button" aria-expanded="true">Protect appropriate reimbursement</button><div class="sg-body"><div class="sg-in"><p>Capture risk accurately, prepare for RADV audits, and protect payment integrity with coding decisions backed by clinical evidence.</p>
+          <div class="sg is-active"><h3 class="sg-t">Protect appropriate reimbursement</h3><div class="sg-body"><div class="sg-in"><p>Capture risk accurately, prepare for RADV audits, and protect payment integrity with coding decisions backed by clinical evidence.</p>
           <ul class="sv-links"><li><a href="#"><span>Retrospective Risk Adjustment</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>RADV &amp; Audit Readiness</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Pre-Payment Validation</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding Services</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul>
           <a class="bs bs-p" href="#">Explore Health Plans<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
-          <div class="sg"><button class="sg-t" type="button" aria-expanded="false">Maximize revenue realization</button><div class="sg-body"><div class="sg-in"><p>Close care gaps, improve clinical documentation and coding accuracy, and ensure the complexity of care delivered is fully represented to support appropriate reimbursement.</p>
+          <div class="sg"><h3 class="sg-t">Maximize revenue realization</h3><div class="sg-body"><div class="sg-in"><p>Close care gaps, improve clinical documentation and coding accuracy, and ensure the complexity of care delivered is fully represented to support appropriate reimbursement.</p>
           <ul class="sv-links"><li><a href="#"><span>Prospective Risk Adjustment</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Clinical Documentation Improvement</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding Services</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul>
           <a class="bs bs-p" href="#">Explore Providers &amp; Health Systems<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
         </div>
@@ -875,9 +876,9 @@ const B = {
 
 (function(){
   const root=document.querySelector('[data-svm]'); if(!root) return;
-  const gs=[...root.querySelectorAll('.sg')], im=[...root.querySelectorAll('.svm-img')];
-  function set(i){gs.forEach((g,k)=>{g.classList.toggle('is-active',k===i);g.querySelector('.sg-t').setAttribute('aria-expanded',k===i);im[k].classList.toggle('is-active',k===i);});}
-  gs.forEach((g,i)=>{const t=g.querySelector('.sg-t');t.addEventListener('click',()=>set(i));});
+  const gs=[...root.querySelectorAll('.sg')], im=[...root.querySelectorAll('.svm-img')], tabs=[...document.querySelectorAll('.svm-tab')];
+  function set(i){gs.forEach((g,k)=>{g.classList.toggle('is-active',k===i);im[k].classList.toggle('is-active',k===i);});tabs.forEach((t,k)=>{t.classList.toggle('is-active',k===i);t.setAttribute('aria-selected',k===i);});}
+  tabs.forEach((t,i)=>t.addEventListener('click',()=>set(i)));
 })();
 </script>
 </body>
