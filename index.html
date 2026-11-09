@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--violet:#5E58E0;--green:#CEDE00;--indigo:#21154A;--white:#F6F4F4;--black:#010101;--n20:#E6E6E6;--n30:#C3C3C3;--n50:#6E6E6E;--n60:#434343;--font:"Geist",Arial,sans-serif;--hdr:77px;--wrap:1680px;--pad:clamp(20px,4.4vw,64px)}
+:root{--violet:#5E58E0;--green:#CEDE00;--indigo:#21154A;--white:#F6F4F4;--black:#010101;--n20:#E6E6E6;--n30:#C3C3C3;--n50:#6E6E6E;--n60:#434343;--font:"Geist",Arial,sans-serif;--hdr:113px;--wrap:1680px;--pad:clamp(20px,4.4vw,64px)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:var(--font);font-size:1rem;line-height:1.6;color:var(--indigo);background:#fff;-webkit-font-smoothing:antialiased}
@@ -42,12 +42,17 @@ h3{font-weight:500;font-size:1.25rem;line-height:1.4}
 .bs-sm{height:40px;padding:0 18px;font-size:.875rem}
 
 /* utility bar + nav */
+.util{position:relative;z-index:21;color:var(--white);background:transparent}
+.util .wrap{position:relative;display:flex;justify-content:flex-end;align-items:center;gap:28px;height:36px}
+.util .wrap::after{content:"";position:absolute;left:var(--pad);right:var(--pad);bottom:0;height:1px;background:rgba(246,244,244,.16)}
+.util a{font-size:.6875rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,244,244,.65);padding:4px 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.util a:hover,.util a:focus-visible{color:var(--white);border-bottom-color:var(--green)}
 header.site{position:sticky;top:0;z-index:20;background:transparent;color:var(--white);border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
 header.site.scrolled{background:rgba(1,1,1,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom-color:rgba(246,244,244,.14)}
 header.site>.wrap{display:flex;align-items:center;gap:24px;height:76px}
 .brand svg{height:30px;width:auto;display:block;--mk:#F6F4F4;--src:#5E58E0;--wm:#F6F4F4}
 nav.main{display:flex;gap:26px;margin-left:8px;align-self:stretch}
-.mi{display:flex;align-items:center}
+.mi,.ml{display:flex;align-items:center}
 .mt{font:500 .8125rem var(--font);letter-spacing:.06em;white-space:nowrap;background:none;border:0;border-bottom:2px solid transparent;color:inherit;cursor:pointer;display:flex;align-items:center;gap:7px;height:100%;padding:0}
 .mt svg{transition:transform .15s}
 .mi.open .mt,.mt:hover{border-bottom-color:var(--green);color:var(--green)}
@@ -73,14 +78,36 @@ nav.main{display:flex;gap:26px;margin-left:8px;align-self:stretch}
 .mtx{flex:1}
 .mar{color:var(--green);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s}
 .mlist li a:hover .mar{opacity:1;transform:none}
+.mp-cols{grid-template-columns:minmax(0,.85fr) repeat(3,minmax(0,1fr));gap:0 36px;align-items:start}
+.mc-head{grid-column:1;padding-right:8px}
+.mc-head .mh{margin:0 0 20px}
+.mc-tag{margin:0;font-weight:300;font-size:clamp(1.0625rem,.9rem + .4vw,1.25rem);line-height:1.3;letter-spacing:-.01em;color:var(--n30)}
+.mcol-l{margin:0 0 8px;padding:6px 0 14px;font-size:.8125rem;font-weight:500;letter-spacing:.04em;color:var(--n30);border-bottom:1px solid rgba(246,244,244,.16)}
+.mcol ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.mcol li a{position:relative;display:flex;align-items:flex-start;gap:14px;padding:14px 38px 14px 14px;margin:0 -14px;border-radius:12px;transition:background .2s}
+.mcol li a:hover,.mcol li a:focus-visible{background:rgba(246,244,244,.07)}
+.mcol .mic{width:40px;height:40px;margin-top:2px}
+.mi-x{display:block;min-width:0}
+.mi-t{display:block;font-size:1rem;font-weight:500;color:var(--white);transition:color .2s}
+.mi-t .mar{position:absolute;right:12px;top:15px;opacity:.55;transform:none;transition:opacity .2s,transform .2s}
+.mi-d{display:block;margin-top:4px;font-size:.875rem;line-height:1.5;color:var(--n30)}
+.mcol li a:hover .mi-t{color:var(--white)}
+.mcol li a:hover .mi-t .mar{opacity:1;transform:translateX(3px)}
+.mcol li a:hover .mic img{transform:scale(1.08) translateY(-2px)}
 .mi.open .mega{display:block}
 nav.main a:hover{border-bottom-color:var(--violet)}
+nav.main .ml .mt:hover{border-bottom-color:var(--green)}
 .tools{margin-left:auto;display:flex;align-items:center;gap:14px}
-.search{display:flex;align-items:center;gap:8px;border:1px solid rgba(246,244,244,.3);border-radius:999px;padding:0 14px;height:40px;width:150px;background:rgba(246,244,244,.06)}
-.search:focus-within{border-color:var(--green)}
+.search{position:relative;display:flex;gap:0;align-items:center;height:40px;border-radius:999px;transition:box-shadow .2s,background .2s}
+.search-btn{all:unset;box-sizing:border-box;cursor:pointer;display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;color:rgba(246,244,244,.85);transition:color .2s,background .2s}
+.search-btn:hover{color:var(--white);background:rgba(246,244,244,.1)}
+.search-btn:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.search-btn svg{width:20px;height:20px}
+.search input{border:0;outline:0;font:inherit;font-size:.875rem;background:transparent;color:var(--white);width:0;min-width:0;padding:0;opacity:0;transition:width .3s ease,opacity .2s,padding .3s}
 .search input::placeholder{color:rgba(246,244,244,.6)}
-.search input{border:0;outline:0;font:inherit;font-size:.875rem;width:100%;background:transparent;color:var(--white)}
-.search svg{width:16px;height:16px;flex:none;color:rgba(246,244,244,.7)}
+.search.open{box-shadow:inset 0 0 0 1px rgba(246,244,244,.3);background:rgba(246,244,244,.06)}
+.search.open input{flex:none;width:188px;padding:0 14px 0 4px;opacity:1}
+.search.open:focus-within{box-shadow:inset 0 0 0 1px var(--green)}
 .menu-btn{display:none;background:none;border:1px solid rgba(246,244,244,.3);border-radius:8px;width:40px;height:40px;cursor:pointer;color:var(--white)}
 
 /* hero */
@@ -373,9 +400,9 @@ footer .wrap{align-items:flex-start}
 .serves .pwrap{padding-top:56px;padding-bottom:0}
 @media(max-width:860px){.svm{grid-template-columns:1fr;gap:32px}.svm-stage{order:-1;min-height:0;aspect-ratio:1/1}.svm-tabs{gap:24px;overflow-x:auto}.svm-tab{font-size:1rem;white-space:nowrap}.dark.serves{padding-bottom:72px}}
 
-@media(max-width:1320px){nav.main{display:none}.menu-btn{display:grid;place-items:center}nav.main.open{display:flex;position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(246,244,244,.14);padding:8px var(--pad) 20px;margin:0;max-height:calc(100vh - 96px);overflow:auto}.mi{display:block;border-bottom:1px solid rgba(246,244,244,.14)}.mt{width:100%;justify-content:space-between;padding:16px 0;height:auto;border:0}.mega{position:static;padding:0}.mp{display:block;padding:0 0 12px;background:none;border:0;box-shadow:none;border-radius:0;max-width:none}.mf,.mdiv,.mh{display:none}.mlist li a{margin:0;padding:10px 0 10px 8px}.mar{display:none}.mic{width:38px;height:38px}.c4{grid-template-columns:1fr 1fr}.search{width:160px}}
+@media(max-width:1320px){nav.main{display:none}.menu-btn{display:grid;place-items:center}nav.main.open{display:flex;position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:#0a0a0a;border-bottom:1px solid rgba(246,244,244,.14);padding:8px var(--pad) 20px;margin:0;max-height:calc(100vh - 96px);overflow:auto}.mi,.ml{display:block;border-bottom:1px solid rgba(246,244,244,.14)}.mt{width:100%;justify-content:space-between;padding:16px 0;height:auto;border:0}.mega{position:static;padding:0}.mp{display:block;padding:0 0 12px;background:none;border:0;box-shadow:none;border-radius:0;max-width:none}.mf,.mdiv,.mh,.mc-head{display:none}.mp-cols{display:block}.mcol{margin-top:6px}.mlist li a{margin:0;padding:10px 0 10px 8px}.mar{display:none}.mic{width:38px;height:38px}.c4{grid-template-columns:1fr 1fr}.search{width:160px}}
 @media(max-width:860px){.fcols{grid-template-columns:1fr 1fr}.cols,.metrics,.stories,.news,.c3,.labs .top,.contact .grid,.labs .split{grid-template-columns:1fr}.labs .stick{position:static}.cols>div+div{padding-left:0;border-left:0;border-top:1px solid var(--n20)}.cols>div{padding:28px 0 8px}.labs .top,.contact .grid{gap:32px}.metrics{padding:28px}section.s{padding:72px 0}.hero{padding:var(--hdr) 0 56px}.tools .bs-p{display:none}}
-@media(max-width:560px){.fcols{grid-template-columns:1fr}.ticker .sep{display:none}.c4,form{grid-template-columns:1fr}.search{display:none}.phone{grid-template-columns:120px 1fr}.story,</style>
+@media(max-width:560px){.fcols{grid-template-columns:1fr}.ticker .sep{display:none}.c4,form{grid-template-columns:1fr}.phone{grid-template-columns:120px 1fr}.story,</style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"}}</script>
 </head>
 <body>
@@ -402,49 +429,52 @@ footer .wrap{align-items:flex-start}
   </defs>
 </svg>
 
+<nav class="util" aria-label="Secondary">
+  <div class="wrap"><a href="#">Careers</a><a href="#contact">Contact Us</a></div>
+</nav>
+
 <header class="site dark">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="RAAPID"><svg viewBox="0 0 1135 283"><use href="#logo"/></svg></a>
     <nav class="main" id="nav" aria-label="Primary">
       <div class="mi">
         <button class="mt" aria-expanded="false" aria-controls="mega0">HEALTH PLANS<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
-        <div class="mega" id="mega0"><div class="mp">
-          <div class="mf"><span class="mf-tag">Featured Story</span><img src="img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</h4><a class="bs bs-t" href="#">Read Success Story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-          <div class="mdiv" aria-hidden="true"></div>
-          <div class="mlist"><p class="mh">HEALTH PLANS</p><ul><li><a href="#"><span class="mic"><img src="m-hp-risk.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Risk Adjustment</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-hp-pay.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Payment Integrity</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-hp-code.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Coding Services</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+        <div class="mega" id="mega0"><div class="mp mp-cols">
+          <div class="mc-head"><p class="mh">HEALTH PLANS</p><p class="mc-tag">Protect revenue and reimbursement with clinically defensible decisions.</p></div>
+          <div class="mcol"><p class="mcol-l">Risk Adjustment</p><ul><li><a href="#"><span class="mic"><img src="m-hp-risk.png" alt="" width="44" height="44" loading="lazy"></span><span class="mi-x"><span class="mi-t">Retrospective Risk Adjustment<span class="mar" aria-hidden="true">→</span></span><span class="mi-d">Find missed and unsupported conditions across member charts.</span></span></a></li><li><a href="#"><span class="mic"><img src="m-hp-risk.png" alt="" width="44" height="44" loading="lazy"></span><span class="mi-x"><span class="mi-t">RADV &amp; Audit Readiness<span class="mar" aria-hidden="true">→</span></span><span class="mi-d">Support submitted diagnoses with traceable clinical evidence and prepare for audit.</span></span></a></li></ul></div><div class="mcol"><p class="mcol-l">Pre-Payment Validation</p><ul><li><a href="#"><span class="mic"><img src="m-hp-pay.png" alt="" width="44" height="44" loading="lazy"></span><span class="mi-x"><span class="mi-t">Payment Integrity<span class="mar" aria-hidden="true">→</span></span><span class="mi-d">Validate claims against clinical evidence before payment.</span></span></a></li></ul></div><div class="mcol"><p class="mcol-l">Coding Services</p><ul><li><a href="#"><span class="mic"><img src="m-hp-code.png" alt="" width="44" height="44" loading="lazy"></span><span class="mi-x"><span class="mi-t">Medical Coding Services<span class="mar" aria-hidden="true">→</span></span><span class="mi-d">Expert coding services supporting risk adjustment workflows.</span></span></a></li></ul></div>
         </div></div>
       </div>
       <div class="mi">
         <button class="mt" aria-expanded="false" aria-controls="mega1">PROVIDERS &amp; HEALTH SYSTEMS<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
-        <div class="mega" id="mega1"><div class="mp">
-          <div class="mf"><span class="mf-tag">Featured Story</span><img src="img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</h4><a class="bs bs-t" href="#">Read Success Story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-          <div class="mdiv" aria-hidden="true"></div>
-          <div class="mlist"><p class="mh">PROVIDERS &amp; HEALTH SYSTEMS</p><ul><li><a href="#"><span class="mic"><img src="m-pr-risk.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Risk Adjustment</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-pr-mid.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Mid Revenue Cycle</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-pr-code.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Coding Services</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+        <div class="mega" id="mega1"><div class="mp mp-cols">
+          <div class="mc-head"><p class="mh">PROVIDERS &amp; HEALTH SYSTEMS</p><p class="mc-tag">Improve documentation, coding and reimbursement across the clinical workflow.</p></div>
+          <div class="mcol"><p class="mcol-l">Risk Adjustment</p><ul><li><a href="#"><span class="mic"><img src="m-pr-risk.png" alt="" width="44" height="44" loading="lazy"></span><span class="mi-x"><span class="mi-t">Prospective Risk Adjustment<span class="mar" aria-hidden="true">→</span></span><span class="mi-d">Surface clinically supported conditions before and around the patient encounter.</span></span></a></li></ul></div><div class="mcol"><p class="mcol-l">Mid Revenue Cycle</p><ul><li><a href="#"><span class="mic"><img src="m-pr-mid.png" alt="" width="44" height="44" loading="lazy"></span><span class="mi-x"><span class="mi-t">Clinical Documentation Improvement<span class="mar" aria-hidden="true">→</span></span><span class="mi-d">Identify and resolve documentation gaps while the patient is still in care.</span></span></a></li><li><a href="#"><span class="mic"><img src="m-pr-mid.png" alt="" width="44" height="44" loading="lazy"></span><span class="mi-x"><span class="mi-t">Medical Coding<span class="mar" aria-hidden="true">→</span></span><span class="mi-d">AI-assisted coding your coders can review and verify.</span></span></a></li></ul></div><div class="mcol"><p class="mcol-l">Coding Services</p><ul><li><a href="#"><span class="mic"><img src="m-pr-code.png" alt="" width="44" height="44" loading="lazy"></span><span class="mi-x"><span class="mi-t">Medical Coding Services<span class="mar" aria-hidden="true">→</span></span><span class="mi-d">Expert coding services supporting mid-revenue-cycle coding workflows.</span></span></a></li></ul></div>
         </div></div>
       </div>
       <div class="mi">
         <button class="mt" aria-expanded="false" aria-controls="mega2">PLATFORM<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
-        <div class="mega" id="mega2"><div class="mp">
-          <div class="mf"><span class="mf-tag">Featured Story</span><img src="img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</h4><a class="bs bs-t" href="#">Read Success Story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-          <div class="mdiv" aria-hidden="true"></div>
-          <div class="mlist"><p class="mh">PLATFORM</p><ul><li><a href="#"><span class="mic"><img src="m-pl-aide.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">RAAPID AIDE</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-pl-build.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Build on RAAPID</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+        <div class="mega" id="mega2"><div class="mp mp-cols">
+          <div class="mc-head"><p class="mh">PLATFORM</p><p class="mc-tag">One clinical intelligence platform across specialized revenue and reimbursement workflows.</p></div>
+          <div class="mcol"><p class="mcol-l">Platform</p><ul><li><a href="#"><span class="mic"><img src="m-pl-aide.png" alt="" width="44" height="44" loading="lazy"></span><span class="mi-x"><span class="mi-t">RAAPID AIDE<span class="mar" aria-hidden="true">→</span></span><span class="mi-d">The AI-native decision engine powered by Neuro-Symbolic AI.</span></span></a></li></ul></div><div class="mcol"><p class="mcol-l">Build on RAAPID</p><ul><li><a href="#"><span class="mic"><img src="m-pl-build.png" alt="" width="44" height="44" loading="lazy"></span><span class="mi-x"><span class="mi-t">AI-as-a-Service<span class="mar" aria-hidden="true">→</span></span><span class="mi-d">Embed RAAPID’s clinical intelligence into your own workflows and solutions.</span></span></a></li></ul></div>
         </div></div>
       </div>
+      <div class="ml"><a class="mt" href="#">INSIGHTS</a></div>
+      <div class="ml"><a class="mt" href="#labs">RAAPID LABS</a></div>
       <div class="mi">
         <button class="mt" aria-expanded="false" aria-controls="mega3">ABOUT US<svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m2 4 4 4 4-4"/></svg></button>
         <div class="mega" id="mega3"><div class="mp">
-          <div class="mf"><span class="mf-tag">Featured Story</span><img src="img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</h4><a class="bs bs-t" href="#">Read Success Story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="mf"><span class="mf-tag">Latest News</span><img src="img-raapid-difference-a1.png" alt="" width="640" height="300" loading="lazy"><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor.</h4><a class="bs bs-t" href="#">Know More<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
           <div class="mdiv" aria-hidden="true"></div>
-          <div class="mlist"><p class="mh">ABOUT US</p><ul><li><a href="#"><span class="mic"><img src="m-ab-ins.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Insights</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#labs"><span class="mic"><img src="m-ab-labs.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">RAAPID Labs</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="m-ab-story.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Our Story</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
+          <div class="mlist"><p class="mh">ABOUT US</p><ul><li><a href="#"><span class="mic"><img src="m-ab-story.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Our Story</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="icon-avatar.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Leadership</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#"><span class="mic"><img src="icon-layers.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Our Partners and Sponsors</span><span class="mar" aria-hidden="true">→</span></a></li><li><a href="#contact"><span class="mic"><img src="icon-map.png" alt="" width="44" height="44" loading="lazy"></span><span class="mtx">Schedule A Demo</span><span class="mar" aria-hidden="true">→</span></a></li></ul></div>
         </div></div>
       </div>
     </nav>
     <div class="tools">
       <form class="search" role="search" onsubmit="return false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input type="search" placeholder="Search" aria-label="Search">
+        <button class="search-btn" type="button" aria-label="Search" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+        <input type="search" placeholder="Search" aria-label="Search" tabindex="-1">
       </form>
-      <a class="bs bs-p bs-sm" href="#platform-b">Explore Platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="bs bs-p bs-sm" href="#contact">Schedule A Demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <button class="menu-btn" id="menu" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
@@ -456,7 +486,7 @@ footer .wrap{align-items:flex-start}
       <p class="eyebrow">CLINICAL AI FOR HEALTHCARE REVENUE INTEGRITY</p>
       <h1>Clinical intelligence that makes your financial outcomes certain.</h1>
       <p class="lead">Realize the revenue you expect: <b>measured</b> to agreed goals, <b>guaranteed</b> in performance and <b>defensible</b> with recommendations. <b>RAAPID</b> helps with accurate, compliant, evidence-backed decisions across risk adjustment, coding and payment.</p>
-      <a class="bs bs-p" href="#contact">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="bs bs-p" href="#contact">Schedule A Demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
       <a class="cue" href="#stats" aria-label="Scroll down"><span>Scroll</span><i class="cue-line" aria-hidden="true"></i></a>
     </div>
@@ -613,6 +643,7 @@ items.forEach(i=>{
   i.querySelector('.mt').addEventListener('click',()=>i.classList.contains('open')?closeAll():openItem(i));
   i.addEventListener('mouseenter',()=>{if(wide())openItem(i)});
 });
+document.querySelectorAll('.ml').forEach(l=>l.addEventListener('mouseenter',()=>{if(wide())closeAll()}));
 document.querySelector('header.site').addEventListener('mouseleave',()=>{if(wide())closeAll()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
 document.addEventListener('click',e=>{if(!e.target.closest('header.site'))closeAll()});
@@ -866,6 +897,15 @@ const B = {
   const gs=[...root.querySelectorAll('.sg')], im=[...root.querySelectorAll('.svm-img')], tabs=[...document.querySelectorAll('.svm-tab')];
   function set(i){gs.forEach((g,k)=>{g.classList.toggle('is-active',k===i);im[k].classList.toggle('is-active',k===i);});tabs.forEach((t,k)=>{t.classList.toggle('is-active',k===i);t.setAttribute('aria-selected',k===i);});}
   tabs.forEach((t,i)=>t.addEventListener('click',()=>set(i)));
+})();
+
+(function(){
+  const f=document.querySelector('.search'); if(!f) return;
+  const btn=f.querySelector('.search-btn'), inp=f.querySelector('input');
+  function set(o){f.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);inp.tabIndex=o?0:-1;if(o)inp.focus();else inp.blur();}
+  btn.addEventListener('click',()=>set(!f.classList.contains('open')));
+  inp.addEventListener('keydown',e=>{if(e.key==='Escape'){set(false);btn.focus();}});
+  document.addEventListener('click',e=>{if(!f.contains(e.target)&&!inp.value)set(false);});
 })();
 </script>
 </body>
