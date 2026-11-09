@@ -87,6 +87,7 @@ nav.main{display:flex;gap:26px;margin-left:8px;align-self:stretch}
 .mcol li a{position:relative;display:flex;align-items:flex-start;gap:14px;padding:14px 38px 14px 14px;margin:0 -14px;border-radius:12px;transition:background .2s}
 .mcol li a:hover,.mcol li a:focus-visible{background:rgba(246,244,244,.07)}
 .mic-ph{display:block;width:100%;height:100%;border:1.5px dashed rgba(246,244,244,.4);border-radius:10px;background:rgba(246,244,244,.05)}
+#mega3 .mic{width:40px;height:40px}
 .mcol .mic{width:40px;height:40px;margin-top:2px}
 .mi-x{display:block;min-width:0}
 .mi-t{display:block;font-size:1rem;font-weight:500;color:var(--white);transition:color .2s}
@@ -218,10 +219,11 @@ footer.site{background:var(--black);color:var(--white);padding:56px 0}
 footer .wrap{display:flex;flex-wrap:wrap;gap:32px 48px;justify-content:space-between;align-items:center}
 footer svg{height:28px;width:auto;display:block;--mk:#F6F4F4;--src:#5E58E0;--wm:#F6F4F4}
 footer .wrap{align-items:flex-start}
-.fcols{display:grid;grid-template-columns:repeat(4,auto);gap:32px 64px}
+.fcols{display:grid;grid-template-columns:repeat(5,auto);gap:32px 56px}
 .fcols h4{margin:0 0 16px;font-weight:500;font-size:.8125rem;letter-spacing:.08em;color:var(--green)}
 .fcols ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .fcols a{font-size:.9375rem;opacity:.85}.fcols a:hover{opacity:1;text-decoration:underline}
+.fcols .fl1 h4{margin:0 0 16px}.fcols .fl1 h4 a{font-size:inherit;opacity:1;color:var(--green)}
 
 /* Closing block: contact + footer on one image */
 .dark.closing{position:relative;background:#060606 url(footer-image-01-low-res.jpg) right top/cover no-repeat}
@@ -619,10 +621,11 @@ footer .wrap{align-items:flex-start}
   <div class="wrap">
     <a class="fb" href="#top" aria-label="RAAPID"><svg viewBox="0 0 1135 283"><use href="#logo"/></svg></a>
     <nav class="fcols" aria-label="Footer">
-      <div><h4>HEALTH PLANS</h4><ul><li><a href="#">Risk Adjustment</a></li><li><a href="#">Payment Integrity</a></li><li><a href="#">Coding Services</a></li></ul></div>
-      <div><h4>PROVIDERS &amp; HEALTH SYSTEMS</h4><ul><li><a href="#">Risk Adjustment</a></li><li><a href="#">Mid Revenue Cycle</a></li><li><a href="#">Coding Services</a></li></ul></div>
-      <div><h4>PLATFORM</h4><ul><li><a href="#">RAAPID AIDE</a></li><li><a href="#">Build on RAAPID</a></li></ul></div>
-      <div><h4>ABOUT US</h4><ul><li><a href="#">Insights</a></li><li><a href="#labs">RAAPID Labs</a></li><li><a href="#">Our Story</a></li></ul></div>
+      <div><h4>HEALTH PLANS</h4><ul><li><a href="#">Retrospective Risk Adjustment</a></li><li><a href="#">RADV &amp; Audit Readiness</a></li><li><a href="#">Payment Integrity</a></li><li><a href="#">Medical Coding Services</a></li></ul></div>
+      <div><h4>PROVIDERS &amp; HEALTH SYSTEMS</h4><ul><li><a href="#">Prospective Risk Adjustment</a></li><li><a href="#">Clinical Documentation Improvement</a></li><li><a href="#">Medical Coding</a></li><li><a href="#">Medical Coding Services</a></li></ul></div>
+      <div><h4>PLATFORM</h4><ul><li><a href="#">RAAPID AIDE</a></li><li><a href="#">AI-as-a-Service</a></li></ul></div>
+      <div class="fl1"><h4><a href="#">INSIGHTS</a></h4><h4><a href="#labs">RAAPID LABS</a></h4></div>
+      <div><h4>ABOUT US</h4><ul><li><a href="#">Our Story</a></li><li><a href="#">Leadership</a></li><li><a href="#">Our Partners and Sponsors</a></li><li><a href="#contact">Schedule A Demo</a></li></ul></div>
     </nav>
   </div>
 
