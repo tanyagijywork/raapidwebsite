@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--violet:#5E58E0;--green:#CEDE00;--indigo:#21154A;--white:#F6F4F4;--black:#010101;--n20:#E6E6E6;--n30:#C3C3C3;--n50:#6E6E6E;--n60:#434343;--font:"Geist",Arial,sans-serif;--hdr:113px;--wrap:1680px;--pad:clamp(20px,4.4vw,64px)}
+:root{--violet:#5E58E0;--green:#CEDE00;--indigo:#21154A;--white:#F6F4F4;--black:#010101;--n20:#E6E6E6;--n30:#C3C3C3;--n50:#6E6E6E;--n60:#434343;--font:"Geist",Arial,sans-serif;--hdr:115px;--wrap:1680px;--pad:clamp(20px,4.4vw,64px)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:var(--font);font-size:1rem;line-height:1.6;color:var(--indigo);background:#fff;-webkit-font-smoothing:antialiased}
@@ -44,10 +44,12 @@ h3{font-weight:500;font-size:1.25rem;line-height:1.4}
 
 /* utility bar + nav */
 .util{position:relative;z-index:21;color:var(--white);background:transparent}
-.util .wrap{position:relative;display:flex;justify-content:flex-end;align-items:center;gap:28px;height:36px}
-.util .wrap::after{content:"";position:absolute;left:var(--pad);right:var(--pad);bottom:0;height:1px;background:rgba(246,244,244,.16)}
-.util a{font-size:.6875rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,244,244,.65);padding:4px 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.util .wrap{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:28px;height:38px;padding-bottom:2px}
+.util a{font-size:.6875rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,244,244,.65);padding:0 0 3px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
 .util a:hover,.util a:focus-visible{color:var(--white);border-bottom-color:var(--green)}
+.u-links{display:flex;gap:28px;align-items:flex-end}
+
+@media(max-width:560px){.u-links a:nth-child(-n+2){display:none}.util .wrap{gap:12px}}
 header.site{position:sticky;top:0;z-index:20;background:transparent;color:var(--white);border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
 header.site.scrolled{background:rgba(1,1,1,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom-color:rgba(246,244,244,.14)}
 header.site>.wrap{display:flex;align-items:center;gap:24px;height:76px}
@@ -58,7 +60,7 @@ nav.main{display:flex;gap:26px;margin-left:8px;align-self:stretch}
 .mt svg{transition:transform .15s}
 .mi.open .mt,.mt:hover{border-bottom-color:var(--green);color:var(--green)}
 .mi.open .mt svg{transform:rotate(180deg)}
-.mega{display:none;position:absolute;top:100%;left:0;right:0;padding:14px var(--pad) 0;pointer-events:none}
+.mega{display:none;position:absolute;top:100%;left:0;right:0;padding:4px var(--pad) 0;pointer-events:none}
 .mi.open .mega{display:block}
 .mp{pointer-events:auto;max-width:calc(var(--wrap) - 2 * var(--pad));margin:0 auto;display:grid;grid-template-columns:1fr 1px 1.15fr;gap:0 48px;padding:36px 44px;border-radius:22px;background:#0b0b10;border:1px solid rgba(246,244,244,.16);box-shadow:0 40px 80px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(246,244,244,.1)}
 .mf{display:flex;flex-direction:column;align-items:flex-start;gap:16px;max-width:560px}
@@ -483,7 +485,7 @@ footer .wrap{align-items:flex-start}
 </svg>
 
 <nav class="util" aria-label="Secondary">
-  <div class="wrap"><a href="#">Careers</a><a href="#contact">Contact Us</a></div>
+  <div class="wrap"><a class="u-phi" href="#">See how we protect your PHI</a><span class="u-links"><a href="#">Press Room</a><a href="#">Offices</a><a href="#">Career</a><a href="#contact">Contact</a></span></div>
 </nav>
 
 <header class="site dark">
