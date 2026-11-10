@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--violet:#5E58E0;--green:#CEDE00;--indigo:#21154A;--white:#F6F4F4;--black:#010101;--n20:#E6E6E6;--n30:#C3C3C3;--n50:#6E6E6E;--n60:#434343;--font:"Geist",Arial,sans-serif;--hdr:115px;--wrap:1680px;--pad:clamp(20px,4.4vw,64px)}
+:root{--violet:#5E58E0;--green:#CEDE00;--indigo:#21154A;--white:#F6F4F4;--black:#010101;--n20:#E6E6E6;--n30:#C3C3C3;--n50:#6E6E6E;--n60:#434343;--font:"Geist",Arial,sans-serif;--hdr:128px;--wrap:1680px;--pad:clamp(20px,4.4vw,64px)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:var(--font);font-size:1rem;line-height:1.6;color:var(--indigo);background:#fff;-webkit-font-smoothing:antialiased}
@@ -44,10 +44,12 @@ h3{font-weight:500;font-size:1.25rem;line-height:1.4}
 
 /* utility bar + nav */
 .util{position:relative;z-index:21;color:var(--white);background:transparent}
-.util .wrap{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:28px;height:38px;padding-bottom:2px}
-.util a{font-size:.6875rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,244,244,.65);padding:0 0 3px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.util .wrap{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:28px;height:51px;padding-bottom:2px}
+.util a{font-size:.8125rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,244,244,.65);padding:0 0 3px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
 .util a:hover,.util a:focus-visible{color:var(--white);border-bottom-color:var(--green)}
 .u-links{display:flex;gap:28px;align-items:flex-end}
+.util a.u-phi{display:inline-flex;align-items:center;gap:8px}
+.u-i{flex:none;display:block;margin-top:-1px}
 
 @media(max-width:560px){.u-links a:nth-child(-n+2){display:none}.util .wrap{gap:12px}}
 header.site{position:sticky;top:0;z-index:20;background:transparent;color:var(--white);border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
@@ -488,7 +490,7 @@ footer .wrap{align-items:flex-start}
 </svg>
 
 <nav class="util" aria-label="Secondary">
-  <div class="wrap"><a class="u-phi" href="#">See how we protect your PHI</a><span class="u-links"><a href="#">Press Room</a><a href="#">Offices</a><a href="#">Career</a><a href="#contact">Contact</a></span></div>
+  <div class="wrap"><a class="u-phi" href="#"><svg class="u-i" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 10.8v5.6"/><circle cx="12" cy="7.7" r=".6" fill="currentColor"/></svg><span>See how we protect your PHI</span></a><span class="u-links"><a href="#">Press Room</a><a href="#">Offices</a><a href="#">Career</a><a href="#contact">Contact</a></span></div>
 </nav>
 
 <header class="site dark">
