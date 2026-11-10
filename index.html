@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RAAPID</title>
@@ -125,6 +126,16 @@ nav.main .ml .mt:hover{border-bottom-color:var(--green)}
 .cue.is-hidden{opacity:0;pointer-events:none}
 @media(prefers-reduced-motion:reduce){.cue-line::after{animation:none;top:0;height:100%;opacity:.6}}
 .hero{isolation:isolate;overflow:hidden}
+.js .rv{opacity:0}
+.rv.in{animation:heroIn 1.8s cubic-bezier(.25,.46,.3,1) both;animation-delay:var(--d,0s)}
+@media(prefers-reduced-motion:reduce){.js .rv{opacity:1}.rv.in{animation:none}}
+@keyframes heroIn{from{opacity:0;transform:translateY(16px);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
+.hero .eyebrow,.hero h1,.hero p.lead,.hero a.bs{animation:heroIn 1.8s cubic-bezier(.25,.46,.3,1) both}
+.hero .eyebrow{animation-delay:.15s}
+.hero h1{animation-delay:.5s}
+.hero p.lead{animation-delay:1s}
+.hero a.bs{animation-delay:1.5s}
+@media(prefers-reduced-motion:reduce){.hero .eyebrow,.hero h1,.hero p.lead,.hero a.bs{animation:none}}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(1,1,1,.5) 0,rgba(1,1,1,.12) 28%,rgba(1,1,1,.12) 62%,rgba(1,1,1,.55) 100%)}
 .hero-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
@@ -193,11 +204,26 @@ section.s{padding:112px 0}
 
 /* labs & news */
 .labs{background:var(--white)}
-.lab-call{display:flex;align-items:center;justify-content:space-between;gap:24px 48px;margin:0 0 72px;padding:36px 44px;border-radius:24px;background:var(--violet);color:var(--white)}
-.lab-call p{margin:0;max-width:62ch;font-weight:300;font-size:clamp(1.25rem,1rem + .9vw,1.75rem);line-height:1.3;letter-spacing:-.01em}
+section.s.labs{padding-top:0}
+.lab-call{position:relative;isolation:isolate;overflow:hidden;margin:0 0 104px;padding:96px 0 96px;color:var(--white);background:var(--violet)}
+.lab-call::before,.lab-call::after{content:"";position:absolute;z-index:-1;border-radius:50%;pointer-events:none;filter:blur(70px);will-change:transform}
+.lab-call::before{left:-6%;top:-22%;width:540px;height:540px;background:radial-gradient(closest-side,rgba(33,21,74,.14),rgba(33,21,74,0));animation:labDriftA 44s ease-in-out infinite alternate}
+.lab-call::after{right:-6%;bottom:-30%;width:620px;height:620px;background:radial-gradient(closest-side,rgba(33,21,74,.12),rgba(33,21,74,0));animation:labDriftB 52s ease-in-out infinite alternate}
+@keyframes labDriftA{0%{transform:translate3d(0,0,0) scale(1)}100%{transform:translate3d(58vw,18%,0) scale(1.18)}}
+@keyframes labDriftB{0%{transform:translate3d(0,0,0) scale(1.1)}100%{transform:translate3d(-52vw,-16%,0) scale(.9)}}
+@media(prefers-reduced-motion:reduce){.lab-call::before,.lab-call::after{animation:none}}
+.lab-h{margin:0;font-weight:300;font-size:clamp(2.75rem,6.6vw,7rem);line-height:1.08;letter-spacing:-.045em;color:var(--white);text-wrap:balance}
+.lab-cube{display:inline-block;height:1.22em;width:auto;margin:-.3em .04em -.22em;vertical-align:-.16em;filter:drop-shadow(0 .12em .14em rgba(33,21,74,.35));animation:labFloat 7s ease-in-out infinite;will-change:transform}
+@keyframes labFloat{0%,100%{transform:translateY(.035em) rotate(-1.2deg)}50%{transform:translateY(-.055em) rotate(1.2deg)}}
+@media(prefers-reduced-motion:reduce){.lab-cube{animation:none}}
+.lab-h b{font-weight:500;color:var(--white)}
+.lab-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start;margin-top:48px;padding-top:24px;border-top:1px solid rgba(246,244,244,.4)}
+.lab-tx{grid-column:2}
+.lab-tx .lab-btn{margin-top:26px}
+.lab-call p:not(.eyebrow){margin:0;max-width:none;font-weight:400;font-size:1rem;line-height:1.5;color:rgba(246,244,244,.9)}
 .lab-btn{flex:none;background:var(--white);color:var(--violet);border-color:var(--white)}
 .lab-btn:hover{background:var(--indigo);color:var(--white);border-color:var(--indigo)}
-@media(max-width:860px){.lab-call{flex-direction:column;align-items:flex-start;padding:28px 24px;margin-bottom:48px}}
+@media(max-width:860px){.lab-call{padding:64px 0 64px;margin-bottom:64px}section.s.labs{padding-top:0}.lab-row{grid-template-columns:1fr;gap:16px;margin-top:32px}.lab-tx{grid-column:1}}
 .labs .split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
 .labs .stick{position:sticky;top:132px}
 .news{display:grid;grid-template-columns:1fr;gap:24px}
@@ -619,13 +645,16 @@ footer .wrap{align-items:flex-start}
   </section>
 
   <section class="s labs" id="labs">
+    <div class="lab-call"><div class="wrap">
+        <h3 class="lab-h">Translating AI <img class="lab-cube" src="lab-cube.webp" alt="" width="520" height="549"> breakthroughs into <b>better healthcare decisions.</b></h3>
+        <div class="lab-row"><div class="lab-tx"><p>Explore our impact center in advanced AI research, benchmark performance studies and specialized model development, in collaboration with global Healthcare AI research institutions and communities.</p><a class="bs lab-btn" href="#">Enter RAAPID Labs<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+      </div></div>
     <div class="wrap">
-      <div class="lab-call"><p>Explore our impact center in advanced AI research, benchmark studies and specialized model development</p><a class="bs lab-btn" href="#">Enter RAAPID Labs<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       <div class="split">
       <div class="stick"><h2>Building the next in <b>healthcare</b>.</h2></div>
       <div class="right">
       <div class="news">
-        <article><img src="labs-story.jpg" alt="" width="645" height="300" loading="lazy"><div class="body"><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore.</h3><a class="bs bs-t" href="#">Know More<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
+        <article><img src="labs-story.jpg" alt="" width="645" height="300" loading="lazy"><div class="body"><h3>RAAPID recognized among the <b>leading innovators in Healthcare AI</b></h3><a class="bs bs-t" href="#">View achievement<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
         <article><img src="insight-a2.png" alt="" width="645" height="300" loading="lazy"><div class="body"><h3>RAAPID raises Series A funding with a <b>Strategic “Industry Trifecta”</b></h3><a class="bs bs-t" href="#">Read the news<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
         <article><img src="insight-a3.png" alt="" width="645" height="300" loading="lazy"><div class="body"><h3>RAAPID named a leader in the XYZ <b>Healthcare AI Excellence Index</b></h3><a class="bs bs-t" href="#">See analyst recognition<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
       </div>
@@ -752,6 +781,38 @@ m.addEventListener('click',()=>{const o=nav.classList.toggle('open');m.setAttrib
 })();
 
 (function(){const v=document.querySelector('.hero-video'); if(!v) return; v.muted=true; if(matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.pause();return;} const go=()=>{const p=v.play(); if(p&&p.catch)p.catch(()=>{});}; go(); v.addEventListener('canplay',go,{once:true}); ['pointerdown','keydown','scroll','touchstart'].forEach(e=>addEventListener(e,()=>{if(v.paused)go();},{once:true,passive:true}));})();
+
+(function(){
+  const $=(q,r=document)=>[...r.querySelectorAll(q)];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target._rv.forEach(el=>el.classList.add('in'));io.unobserve(e.target);}});},{threshold:.18,rootMargin:'0px 0px -6% 0px'});
+  // group(trigger, [[selector, delay], ...]) : every matched element fades in once the trigger scrolls into view
+  function group(trigger,items,step){
+    const t=document.querySelector(trigger); if(!t) return;
+    const els=[]; let i=0;
+    items.forEach(it=>{const sel=Array.isArray(it)?it[0]:it; const d=Array.isArray(it)?it[1]:i*(step||.2); $(sel).forEach(el=>{el.classList.add('rv'); el.style.setProperty('--d',d+'s'); els.push(el);}); i++;});
+    t._rv=els; io.observe(t);
+  }
+  // 2 numbers and their sublines
+  group('.hstats',['.hs:nth-child(1) .hn','.hs:nth-child(1) p','.hs:nth-child(2) .hn','.hs:nth-child(2) p','.hs:nth-child(3) .hn','.hs:nth-child(3) p'],.18);
+  // 4 the raapid difference: eyebrow and heading only
+  group('.diff .head',['.diff .head .eyebrow','.diff .head h2']);
+  // 5 how raapid delivers: eyebrow, heading, subline
+  group('.platb .head',['.platb .head .eyebrow','.platb .head h2','.platb .head p.lead']);
+  // 6 who raapid serves: everything
+  group('#serves .head',['#serves .head .eyebrow','#serves .head h2']);
+  group('.svm-tabs',['.svm-tabs','.svm']);
+  group('#serves .pbox',['#serves .pbox']);
+  // 7 why trust raapid: everything
+  group('.trust .tr',['.trust .head .eyebrow','.trust .head h2','.tr-item:nth-child(1)','.tr-item:nth-child(2)']);
+  // 8 raapid labs band: heading, body, button
+  group('.lab-call',['.lab-h','.lab-tx p','.lab-tx .lab-btn'],.4);
+  // 9 building the next in healthcare: heading and each story
+  group('.labs .split .stick',['.labs .split .stick h2']);
+  $('.news article').forEach((a,i)=>group('.news article:nth-child('+(i+1)+')',[ '.news article:nth-child('+(i+1)+')' ]));
+  group('.labs .more',['.labs .more']);
+  // 10 contact: heading and subheading only (not the form)
+  group('#contact .grid',['#contact .grid > div:first-child h2','#contact .grid > div:first-child p.lead']);
+})();
 </script>
 </body>
 </html>
