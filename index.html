@@ -150,10 +150,13 @@ nav.main .ml .mt:hover{border-bottom-color:var(--green)}
 @keyframes hbC{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-18vw,-12vw) scale(1.2)}100%{transform:translate(14vw,-4vw) scale(.95)}}
 
 .hero.dark{background:radial-gradient(70% 90% at 50% 0%,rgba(94,88,224,.38),rgba(94,88,224,0) 70%),var(--black)}
-.hero .grid{max-width:900px;margin:0 auto;text-align:center}
+.hero .grid{max-width:1040px;margin:0 auto;text-align:center}
 .hero .eyebrow{justify-content:center}
 .hero p.lead b{font-weight:500;color:var(--white)}
-.hero p.lead{margin:28px auto 40px;max-width:62ch}
+.hero p.lead{margin:28px auto 40px;max-width:none}
+.hero p.lead .nw{white-space:nowrap}
+.hero h1{max-width:900px;margin-left:auto;margin-right:auto}
+@media(max-width:1040px){.hero p.lead .lb{display:none}}
 .ticker{background:var(--black)}
 .tk{display:flex;gap:12px;align-items:stretch;padding-top:18px;padding-bottom:18px}
 .tk-label{flex:none;display:flex;align-items:center;gap:10px;padding:0 22px;height:56px;border:1px solid rgba(246,244,244,.18);border-radius:10px;background:linear-gradient(180deg,rgba(246,244,244,.08),rgba(246,244,244,.02));font-size:.9375rem;letter-spacing:.06em;color:var(--white)}
@@ -239,7 +242,7 @@ section.s.labs{padding-top:0}
 
 /* contact */
 .contact .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:start}
-.contact h2{font-size:clamp(2.2rem,1.4rem + 2.4vw,3.05rem)}
+.contact h2{font-size:clamp(2.75rem,1.5rem + 3.6vw,4.5rem);line-height:1.08;letter-spacing:-.03em;text-wrap:balance}
 form{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 form .full{grid-column:1/-1}
 label{display:block;font-size:.875rem;font-weight:500;margin-bottom:8px}
@@ -540,7 +543,7 @@ footer .wrap{align-items:flex-start}
     <div class="wrap"><div class="grid">
       <p class="eyebrow">CLINICAL AI FOR HEALTHCARE REVENUE INTEGRITY</p>
       <h1>Clinical intelligence that makes your financial outcomes certain.</h1>
-      <p class="lead">Realize the revenue you expect: <b>measured</b> to agreed goals, <b>guaranteed</b> in performance and <b>defensible</b> with recommendations. <b>RAAPID</b> helps with accurate, compliant, evidence-backed decisions across risk adjustment, coding and payment.</p>
+      <p class="lead">Realize the revenue you expect: <b>measured</b> to agreed goals, <b>guaranteed</b> in performance and <b>defensible</b><br class="lb"> with recommendations. <b>RAAPID</b> helps with accurate, compliant, <span class="nw">evidence-backed</span> decisions across risk adjustment, coding and payment.</p>
       <a class="bs bs-p" href="#contact">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
       <a class="cue" href="#stats" aria-label="Scroll down"><span>Scroll</span><i class="cue-line" aria-hidden="true"></i></a>
@@ -671,7 +674,7 @@ footer .wrap{align-items:flex-start}
 <div class="closing dark">
 <section class="s dark contact" id="contact">
   <div class="wrap"><div class="grid">
-    <div><h2>Bring certainty to care with us.</h2><p class="lead" style="margin-top:20px">See RAAPID in action!</p></div>
+    <div><h2>Bring certainty to care.</h2><p class="lead" style="margin-top:20px">See RAAPID in action!</p></div>
     <form onsubmit="return false">
       <div><label for="fn">First name</label><input id="fn" autocomplete="given-name" required></div>
       <div><label for="ln">Last name</label><input id="ln" autocomplete="family-name" required></div>
