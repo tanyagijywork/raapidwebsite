@@ -134,16 +134,14 @@ nav.main .ml .mt:hover{border-bottom-color:var(--green)}
 .rv.in{animation:heroIn 1.8s cubic-bezier(.25,.46,.3,1) both;animation-delay:var(--d,0s)}
 @media(prefers-reduced-motion:reduce){.js .rv{opacity:1}.rv.in{animation:none}}
 @keyframes heroIn{from{opacity:0;transform:translateY(16px);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
-.hero .eyebrow,.hero h1,.hero p.lead,.hero a.bs{animation:heroIn 1.8s cubic-bezier(.25,.46,.3,1) both}
+.hero .eyebrow,.hero h1,.hero p.triad,.hero p.lead,.hero a.bs{animation:heroIn 1.8s cubic-bezier(.25,.46,.3,1) both}
 .hero .eyebrow{animation-delay:.15s}
 .hero h1{animation-delay:.5s}
+.hero p.triad{animation-delay:.75s}
 .hero p.lead{animation-delay:1s}
 .hero a.bs{animation-delay:1.5s}
-@media(prefers-reduced-motion:reduce){.hero .eyebrow,.hero h1,.hero p.lead,.hero a.bs{animation:none}}
-.hero-video{transition:opacity .5s ease}
-.hero-video.swap{opacity:0}
+@media(prefers-reduced-motion:reduce){.hero .eyebrow,.hero h1,.hero p.triad,.hero p.lead,.hero a.bs{animation:none}}
 .hero.is-aurora .hero-bg::after{background:radial-gradient(ellipse 58% 48% at 50% 54%,rgba(1,1,1,.95) 0%,rgba(1,1,1,.84) 32%,rgba(1,1,1,.46) 62%,rgba(1,1,1,0) 100%),linear-gradient(180deg,rgba(1,1,1,.5) 0,rgba(1,1,1,.1) 26%,rgba(1,1,1,.1) 46%,rgba(1,1,1,.5) 68%,rgba(1,1,1,.86) 84%,#010101 96%,#010101 100%)}
-.util a#offices-link.on{color:var(--white);border-bottom-color:var(--green)}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(1,1,1,.5) 0,rgba(1,1,1,.12) 28%,rgba(1,1,1,.12) 62%,rgba(1,1,1,.55) 100%)}
 .hero-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
@@ -159,7 +157,8 @@ nav.main .ml .mt:hover{border-bottom-color:var(--green)}
 .hero .grid{max-width:1040px;margin:0 auto;text-align:center}
 .hero .eyebrow{justify-content:center}
 .hero p.lead b{font-weight:500;color:var(--white)}
-.hero p.lead{margin:28px auto 40px;max-width:none}
+.hero p.triad{margin:24px auto 0;font-size:clamp(1.125rem,1.7vw,1.5rem);font-weight:300;letter-spacing:-.01em;color:var(--n30)}
+.hero p.lead{margin:16px auto 40px;max-width:900px}
 .hero p.lead .nw{white-space:nowrap}
 .hero h1{max-width:900px;margin-left:auto;margin-right:auto}
 @media(max-width:1040px){.hero p.lead .lb{display:none}}
@@ -344,7 +343,7 @@ footer .wrap{align-items:flex-start}
 /* Difference: one at a time on scroll */
 .diffsec{padding-top:72px;padding-bottom:72px}
 .prog{display:none}
-.seq{height:calc(100vh + 255vh)}
+.seq{height:calc(100vh + 150vh)}
 .seq .diff-stick{position:sticky;top:77px;height:calc(100vh - 77px);display:flex}
 .seq .diff-stick>.wrap{width:100%;display:flex}
 .seq .diff{min-height:0;height:100%;width:100%;gap:24px;padding:24px 0 40px}
@@ -371,11 +370,13 @@ footer .wrap{align-items:flex-start}
 
 
 /* Platform option B: intelligence layer centre stage */
-.platb{background:var(--white);padding:112px 0 40px}
+.platb{background:var(--white);padding:112px 0 72px}
+.pb-cta{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);z-index:2;white-space:nowrap}
+@media(max-width:860px){.pb-cta{position:static;transform:none;text-align:center;margin-top:36px}}
 .platb .head{margin-bottom:24px;width:calc((100% - 24px) / 2);max-width:none;text-align:left}
 .platb .head p.lead{color:var(--n60)}
 .pb-head h3{font-weight:300;font-size:1.95rem;line-height:1.2;letter-spacing:-.01em;color:var(--indigo)}
-.pb{position:relative;height:690px;overflow:hidden;background:radial-gradient(60% 70% at 50% 60%,rgba(94,88,224,.14),rgba(94,88,224,0) 72%),var(--white);color:var(--indigo)}
+.pb{position:relative;height:690px;overflow:hidden;background:linear-gradient(180deg,rgba(246,244,244,0) 62%,#F6F4F4 100%),radial-gradient(60% 70% at 50% 60%,rgba(94,88,224,.14),rgba(94,88,224,0) 72%),var(--white);color:var(--indigo)}
 .pb-stage{--cw:clamp(200px,18vw,300px);position:absolute;left:50%;top:262px;width:min(47%,740px);transform:translateX(-50%)}
 .pb-fig{position:relative;aspect-ratio:2200/923}
 .pb-fig img{position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none;-webkit-user-drag:none}
@@ -494,7 +495,7 @@ footer .wrap{align-items:flex-start}
 </svg>
 
 <nav class="util" aria-label="Secondary">
-  <div class="wrap"><a class="u-phi" href="#"><svg class="u-i" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 10.8v5.6"/><circle cx="12" cy="7.7" r=".6" fill="currentColor"/></svg><span>See how we protect your PHI</span></a><span class="u-links"><a href="#">Press Room</a><a href="#" id="offices-link" aria-pressed="false">Offices</a><a href="#">Career</a><a href="#contact">Contact</a></span></div>
+  <div class="wrap"><a class="u-phi" href="#"><svg class="u-i" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M12 10.8v5.6"/><circle cx="12" cy="7.7" r=".6" fill="currentColor"/></svg><span>See how we protect your PHI</span></a><span class="u-links"><a href="#">Press Room</a><a href="#" id="offices-link">Offices</a><a href="#">Career</a><a href="#contact">Contact</a></span></div>
 </nav>
 
 <header class="site dark">
@@ -538,19 +539,20 @@ footer .wrap{align-items:flex-start}
         <button class="search-btn" type="button" aria-label="Search" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
         <input type="search" placeholder="Search" aria-label="Search" tabindex="-1">
       </form>
-      <a class="bs bs-p bs-sm" href="#contact">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="bs bs-p bs-sm" href="#contact">Request a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <button class="menu-btn" id="menu" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
 </header>
 
 <main id="top">
-  <section class="hero dark"><div class="hero-bg" aria-hidden="true"><video class="hero-video" src="hero-flow.mp4?v=4" poster="hero-flow-poster.jpg?v=4" autoplay muted loop playsinline preload="auto"></video></div>
+  <section class="hero dark is-aurora"><div class="hero-bg" aria-hidden="true"><video class="hero-video" src="banner-aurora.mp4" poster="banner-aurora-poster.jpg" autoplay muted loop playsinline preload="auto"></video></div>
     <div class="wrap"><div class="grid">
       <p class="eyebrow">CLINICAL AI FOR HEALTHCARE REVENUE INTEGRITY</p>
-      <h1>Clinical intelligence that makes your financial outcomes certain.</h1>
-      <p class="lead">Realize the revenue you expect: <b>measured</b> to agreed goals, <b>guaranteed</b> in performance and <b>defensible</b><br class="lb"> with recommendations. <b>RAAPID</b> helps with accurate, compliant, <span class="nw">evidence-backed</span> decisions across risk adjustment, coding and payment.</p>
-      <a class="bs bs-p" href="#contact">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <h1>Clinical intelligence that drives your financial outcomes.</h1>
+      <p class="triad">Measured. Guaranteed. Defensible.</p>
+      <p class="lead">RAAPID transforms complex clinical data into accurate, evidence-backed decisions across risk adjustment, coding and payment, helping capture the revenue you’re entitled to while maintaining coding accuracy and compliance.</p>
+      <a class="bs bs-p" href="#contact">Request a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
       <a class="cue" href="#stats" aria-label="Scroll down"><span>Scroll</span><i class="cue-line" aria-hidden="true"></i></a>
     </div>
@@ -558,9 +560,9 @@ footer .wrap{align-items:flex-start}
     <section class="statsec dark black" id="stats" aria-label="RAAPID in numbers">
     <div class="wrap">
       <div class="hstats" role="list">
-        <div class="hs" role="listitem"><div class="hn">XY+</div><p>Health Plans and Provider organizations enabled successfully</p></div>
-        <div class="hs" role="listitem"><div class="hn">XY+</div><p>Years of expertise in Healthcare AI</p></div>
-        <div class="hs" role="listitem"><div class="hn">XY+</div><p>Healthcare data points analysed to inform clinical decisions</p></div>
+        <div class="hs" role="listitem"><div class="hn">25+</div><p>Health Plan and Provider customers</p></div>
+        <div class="hs" role="listitem"><div class="hn">500M+</div><p>Chart pages processed annually</p></div>
+        <div class="hs" role="listitem"><div class="hn">1M+</div><p>Members reviewed to date</p></div>
       </div>
     </div>
   </section>
@@ -573,13 +575,13 @@ footer .wrap{align-items:flex-start}
   <section class="s dark black diffsec">
     <div class="diff-scroll"><div class="diff-stick"><div class="wrap">
       <div class="diff">
-        <div class="head"><p class="eyebrow">THE RAAPID DIFFERENCE</p><h2>Beyond just operational delivery, <b>accountable for business results</b>.</h2></div>
+        <div class="head"><p class="eyebrow">THE RAAPID DIFFERENCE</p><h2>AI you can <b>trust</b>. Outcomes you can <b>account for</b>.</h2></div>
         <div class="cwrap">
           <div class="prog" aria-hidden="true"><span></span></div>
           <div class="combos">
-          <div class="combo"><div class="pt"><h3>Measured</h3><p>We establish the baseline using your data and workflow, then agree on the outcomes, measures and evaluation period.</p></div></div>
-          <div class="combo"><div class="pt"><h3>Guaranteed</h3><p>We tie our fees to the agreed outcomes. If we fall short, you pay less.</p></div></div>
-          <div class="combo"><div class="pt"><h3>Defensible</h3><p>Every recommendation is linked to its supporting clinical evidence and rationale, giving your team and auditors a clear basis for verification.</p></div></div>
+          <div class="combo"><div class="pt"><h3>Measured</h3><p>We define success with you upfront: your baseline, performance targets and timeframe.</p></div></div>
+          <div class="combo"><div class="pt"><h3>Guaranteed</h3><p>We align commercial commitments to agreed performance outcomes, making accountability part of the engagement.</p></div></div>
+          <div class="combo"><div class="pt"><h3>Defensible</h3><p>RAAPID recommendations are linked to supporting clinical evidence and rationale, ready for clinical review, coding validation and audit.</p></div></div>
           <p class="foot">*Every commitment is set against measures we agree with you.</p>
           </div>
         </div>
@@ -589,7 +591,7 @@ footer .wrap{align-items:flex-start}
 
     <section class="platb" id="platform-b" aria-labelledby="pbs-title">
     <div class="wrap">
-      <div class="head"><p class="eyebrow">HOW RAAPID DELIVERS</p><h2 id="pbs-title"><b>One intelligence platform</b>, purpose-built for multiple workflows.</h2><p class="lead"><b>Actualize your revenue and reimbursement priorities.</b> RAAPID’s AI-native decision intelligence platform brings together clinical evidence, healthcare workflows, and enterprise capabilities you need.</p></div>
+      <div class="head"><p class="eyebrow">HOW RAAPID DELIVERS</p><h2 id="pbs-title"><b>One intelligence platform</b>, purpose-built for multiple workflows.</h2><p class="lead">RAAPID’s AI-native decision intelligence platform brings together healthcare workflows, clinical evidence, and enterprise capabilities your organization needs.</p></div>
     </div>
     <div class="pb" data-pb>
       <div class="pb-head"><h3 id="pb-title">One clinical intelligence layer</h3></div>
@@ -612,6 +614,7 @@ footer .wrap{align-items:flex-start}
       </div>
       <div class="pb-pop pb-pl" id="pop-left" data-pop="left" role="dialog" aria-labelledby="pb-lt" hidden><button class="pb-x" type="button" aria-label="Close">&times;</button><h3 id="pb-lt">Where your teams use it</h3><ul><li><b>Risk adjustment</b><span>Retrospective. Prospective. RADV</span></li><li><b>Medical coding</b><span>Inpatient. Outpatient</span></li><li><b>Clinical documentation improvement</b><span>Accuracy and completeness</span></li><li><b>Payment integrity</b><span>Pre-payment validation</span></li></ul></div>
       <div class="pb-pop pb-pr" id="pop-right" data-pop="right" role="dialog" aria-labelledby="pb-rt" hidden><button class="pb-x" type="button" aria-label="Close">&times;</button><h3 id="pb-rt">Built for scale and scrutiny</h3><ul><li><b>Security and compliance</b><span>HITRUST r2 • SOC 2 • HIPAA</span></li><li><b>Integration</b><span>EHR embedding • APIs • cloud-native</span></li><li><b>Analytics and reporting</b><span>Program and enterprise performance</span></li><li><b>Enterprise ready</b><span>Single-tenant • No training on your data</span></li></ul></div>
+      <div class="pb-cta"><a class="bs bs-p" href="#">Explore the platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
     </div>
   </section>
 
@@ -621,11 +624,11 @@ footer .wrap{align-items:flex-start}
       <div class="svm-tabs" role="tablist"><button class="svm-tab is-active" role="tab" type="button" aria-selected="true">Health Plans</button><button class="svm-tab" role="tab" type="button" aria-selected="false">Providers &amp; Health Systems</button></div>
       <div class="svm" data-svm>
         <div class="svm-list">
-          <div class="sg is-active"><h3 class="sg-t">Protect appropriate reimbursement</h3><div class="sg-body"><div class="sg-in"><p>Capture risk accurately, prepare for RADV audits, and protect payment integrity with coding decisions backed by clinical evidence.</p>
+          <div class="sg is-active"><h3 class="sg-t">Capture risk accurately. Protect appropriate reimbursement.</h3><div class="sg-body"><div class="sg-in"><p>Capture supported conditions for risk adjustment, prepare for RADV audits, and protect payment integrity with coding decisions backed by clinical evidence.</p>
           <ul class="sv-links"><li><a href="#"><span>Retrospective Risk Adjustment</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>RADV &amp; Audit Readiness</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Payment Integrity</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding Services</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul>
           <a class="bs bs-p" href="#">Explore Health Plans<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
-          <div class="sg"><h3 class="sg-t">Maximize revenue realization</h3><div class="sg-body"><div class="sg-in"><p>Close care gaps, improve clinical documentation and coding accuracy, and ensure the complexity of care delivered is fully represented to support appropriate reimbursement.</p>
-          <ul class="sv-links"><li><a href="#"><span>Prospective Risk Adjustment</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Clinical Documentation Improvement</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding Services</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul>
+          <div class="sg"><h3 class="sg-t">Strengthen documentation. Support accurate reimbursement.</h3><div class="sg-body"><div class="sg-in"><p>Identify suspected conditions for clinician review, strengthen clinical documentation and improve coding accuracy.</p>
+          <ul class="sv-links"><li><a href="#"><span>Prospective Risk Adjustment</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Clinical Documentation Improvement</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding (Inpatient &amp; Outpatient)</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li><li><a href="#"><span>Medical Coding Services</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li></ul>
           <a class="bs bs-p" href="#">Explore Providers &amp; Health Systems<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></div>
         </div>
         <div class="svm-stage">
@@ -636,9 +639,9 @@ footer .wrap{align-items:flex-start}
     </div>
     <div class="wrap pwrap">
       <div class="pbox">
-        <h3 class="pq">A healthcare technology partner?</h3>
+        <h3 class="pq">For healthcare technology partners:</h3>
         <div class="pr">
-          <p>Simply embed our clinical intelligence into your products through APIs and custom integrations.</p>
+          <p>Embed RAAPID clinical intelligence into your solutions through APIs and AI-as-a-Service.</p>
           <a class="bs bs-s" href="#">Explore AI-as-a-Service<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
@@ -647,7 +650,7 @@ footer .wrap{align-items:flex-start}
 
   <section class="s dark trust">
     <div class="wrap"><div class="tr">
-      <div class="head"><p class="eyebrow">WHY TRUST RAAPID</p><h2>Advancing healthcare revenue integrity, <b>proven in practice</b>.</h2></div>
+      <div class="head"><p class="eyebrow">WHY TRUST RAAPID</p><h2>Greater revenue confidence, <b>proven in practice</b>.</h2></div>
       <div class="tr-list">
         <div class="tr-item"><div class="big">$3 million</div><p>in additional revenue generated, with audit-ready compliance for a Multi-State Health Plan</p><a class="bs bs-s" href="#">Explore success story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         <div class="tr-item"><div class="big">86%</div><p>coding accuracy, 21 percentage points above benchmark for a Fortune 500 Integrated Health System</p><a class="bs bs-s" href="#">Explore success story<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
@@ -689,7 +692,7 @@ footer .wrap{align-items:flex-start}
       <div class="full"><label for="cc">Phone number</label>
         <div class="phone"><select id="cc" aria-label="Country"></select><input id="ph" type="tel" autocomplete="tel-national" aria-label="Phone number"></div></div>
       <div class="full"><label for="msg">How can we help you</label><textarea id="msg"></textarea></div>
-      <div class="full"><button class="bs bs-p" type="submit">Schedule a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      <div class="full"><button class="bs bs-p" type="submit">Request a demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
     </form>
   </div></div>
 </section>
@@ -825,28 +828,6 @@ m.addEventListener('click',()=>{const o=nav.classList.toggle('open');m.setAttrib
   group('#contact .grid',['#contact .grid > div:first-child h2','#contact .grid > div:first-child p.lead']);
 })();
 
-(function(){
-  const link=document.getElementById('offices-link'), hero=document.querySelector('.hero'), v=document.querySelector('.hero-video');
-  if(!link||!hero||!v) return;
-  const A={src:'banner-aurora.mp4',poster:'banner-aurora-poster.jpg'};
-  const D={src:v.getAttribute('src'),poster:v.getAttribute('poster')};
-  let on=false;
-  function swap(to){
-    v.classList.add('swap');
-    setTimeout(()=>{
-      v.setAttribute('poster',to.poster); v.setAttribute('src',to.src); v.load();
-      const p=v.play(); if(p&&p.catch)p.catch(()=>{});
-      hero.classList.toggle('is-aurora',to===A);
-      requestAnimationFrame(()=>v.classList.remove('swap'));
-    },450);
-  }
-  link.addEventListener('click',e=>{
-    e.preventDefault(); on=!on;
-    link.classList.toggle('on',on); link.setAttribute('aria-pressed',on);
-    scrollTo({top:0,behavior:'smooth'});
-    swap(on?A:D);
-  });
-})();
 </script>
 </body>
 </html>
